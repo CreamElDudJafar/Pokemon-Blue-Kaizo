@@ -1,20 +1,20 @@
 _FightingDojoKarateMasterText::
-	text "Grunt!"
+	text "I am BRUNO, the"
+	line "new LEADER of the"
+	cont "DOJO!"
 
-	para "I am the KARATE"
-	line "MASTER! I am the"
-	cont "LEADER here!"
+	para "<PLAYER>!"
 
-	para "You wish to"
-	line "challenge us?"
-	cont "Expect no mercy!"
+	para "We will grind you"
+	line "down with our"
+	cont "superior power!"
 
-	para "Fwaaa!"
+	para "Hoo hah!"
 	done
 
 _FightingDojoKarateMasterDefeatedText::
-	text "Hwa!"
-	line "Arrgh! Beaten!"
+	text "How"
+	line "could I lose?!"
 	prompt
 
 _FightingDojoKarateMasterIWillGiveYouAPokemonText::

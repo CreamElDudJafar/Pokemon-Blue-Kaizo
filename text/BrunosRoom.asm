@@ -1,28 +1,27 @@
 _BrunoBeforeBattleText::
-	text "I am BRUNO of"
-	line "the ELITE FOUR!"
+	text "Surprised to see"
+	line "me?"
 
-	para "Through rigorous"
-	line "training, people"
-	cont "and #MON can"
-	cont "become stronger!"
+	para "I was requested"
+	line "by the ElITE FOUR"
+	cont "to substitute a"
+	cont "a member who just"
+	cont "recently retired"
+	cont "from his duties."
 
-	para "I've weight"
-	line "trained with"
-	cont "my #MON!"
+	para "Well <PLAYER>..."
 
-	para "<PLAYER>!"
-
-	para "We will grind you"
-	line "down with our"
-	cont "superior power!"
-
-	para "Hoo hah!"
+	para "Care to show me"
+	line "how much YOU've"
+	cont "grown with your"
+	cont "#MON?"
 	done
 
 _BrunoEndBattleText::
-	text "Why?"
-	line "How could I lose?"
+	text "Well"
+	line "done <PLAYER>!"
+
+	para "You won!"
 	prompt
 
 _BrunoAfterBattleText::

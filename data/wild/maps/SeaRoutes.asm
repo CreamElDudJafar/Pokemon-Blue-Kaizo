@@ -2,15 +2,15 @@ SeaRoutesWildMons:
 	def_grass_wildmons 0 ; encounter rate
 	end_grass_wildmons
 
-	def_water_wildmons 5 ; encounter rate
-	db  5, TENTACOOL
-	db 10, TENTACOOL
-	db 15, TENTACOOL
-	db  5, TENTACOOL
-	db 10, TENTACOOL
-	db 15, TENTACOOL
-	db 20, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACOOL
-	db 40, TENTACOOL
+	def_water_wildmons 4 ; encounter rate
+	db 63, TENTACOOL
+	db 100, MAGIKARP
+	db 63, SEEL
+	db 63, HORSEA
+	db 63, GOLDEEN
+	db 63, POLIWHIRL
+	db 63, SEEL
+	db 63, SEEL
+	db 63, WARTORTLE
+	db 63, TENTACRUEL
 	end_water_wildmons

@@ -1,29 +1,15 @@
 SafariZoneEastWildMons:
-	def_grass_wildmons 30 ; encounter rate
-IF DEF(_RED)
-	db 24, NIDORAN_M
-	db 26, DODUO
-	db 22, PARAS
-	db 25, EXEGGCUTE
-	db 33, NIDORINO
-	db 23, EXEGGCUTE
-	db 24, NIDORAN_F
-	db 25, PARASECT
-	db 25, KANGASKHAN
-	db 28, SCYTHER
-ENDC
-IF DEF(_BLUE)
-	db 24, NIDORAN_F
-	db 26, DODUO
-	db 22, PARAS
-	db 25, EXEGGCUTE
-	db 33, NIDORINA
-	db 23, EXEGGCUTE
-	db 24, NIDORAN_M
-	db 25, PARASECT
-	db 25, KANGASKHAN
-	db 28, PINSIR
-ENDC
+	def_grass_wildmons 100 ; encounter rate
+	db 52, PORYGON
+	db 53, GOLDUCK
+	db 53, KANGASKHAN
+	db 53, NIDOQUEEN
+	db 53, NIDOKING
+	db 54, VILEPLUME
+	db 15, RHYDON
+	db 54, VICTREEBEL
+	db 55, GOLEM
+	db 15, GOLEM
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
