@@ -11,7 +11,7 @@ PokemonTower5F_Object:
 
 	def_warp_events
 	warp_event  3,  9, POKEMON_TOWER_4F, 1
-	warp_event 18,  9, POKEMON_TOWER_6F, 1
+	warp_event 18,  9, POKEMON_TOWER_2F, 2
 
 	def_bg_events
 

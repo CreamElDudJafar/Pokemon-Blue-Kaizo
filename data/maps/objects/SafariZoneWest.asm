@@ -5,7 +5,7 @@
 	const_export SAFARIZONEWEST_GOLD_TEETH
 
 SafariZoneWest_Object:
-	db $0 ; border block
+	db $02 ; border block
 
 	def_warp_events
 	warp_event 20,  0, SAFARI_ZONE_NORTH, 1

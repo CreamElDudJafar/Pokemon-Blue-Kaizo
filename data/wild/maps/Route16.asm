@@ -1,15 +1,15 @@
 Route16WildMons:
-	def_grass_wildmons 25 ; encounter rate
-	db 20, SPEAROW
-	db 22, SPEAROW
-	db 18, RATTATA
-	db 20, DODUO
-	db 20, RATTATA
-	db 18, DODUO
-	db 22, DODUO
-	db 22, RATTATA
-	db 23, RATICATE
-	db 25, RATICATE
+	def_grass_wildmons 255 ; encounter rate
+	db 56, DODUO
+	db 56, PONYTA
+	db 56, RHYHORN
+	db 56, NIDORINA
+	db 56, NIDORINO
+	db 56, SANDSLASH
+	db 56, GLOOM
+	db 56, WEEPINBELL
+	db 56, RATICATE
+	db 56, WIGGLYTUFF
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
