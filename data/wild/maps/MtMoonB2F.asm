@@ -1,15 +1,15 @@
 MtMoonB2FWildMons:
-	def_grass_wildmons 10 ; encounter rate
-	db  9, ZUBAT
-	db  9, GEODUDE
-	db 10, ZUBAT
-	db 10, GEODUDE
-	db 11, ZUBAT
-	db 10, PARAS
-	db 12, PARAS
-	db 10, CLEFAIRY
-	db 12, ZUBAT
-	db 12, CLEFAIRY
+	def_grass_wildmons 25 ; encounter rate
+	db 17, KOFFING
+	db 17, VOLTORB
+	db 17, CLEFAIRY
+	db 17, RHYHORN
+	db 17, DIGLETT
+	db 17, GRIMER
+	db 17, SANDSHREW
+	db 17, MACHOP
+	db 17, PARAS
+	db 17, PARAS
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

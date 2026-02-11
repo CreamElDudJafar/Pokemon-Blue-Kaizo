@@ -1,5 +1,5 @@
 DiglettsCaveWildMons:
-	def_grass_wildmons 20 ; encounter rate
+	def_grass_wildmons 31 ; encounter rate
 	db 18, DIGLETT
 	db 19, DIGLETT
 	db 17, DIGLETT
@@ -8,8 +8,8 @@ DiglettsCaveWildMons:
 	db 15, DIGLETT
 	db 21, DIGLETT
 	db 22, DIGLETT
-	db 29, DUGTRIO
-	db 31, DUGTRIO
+	db 27, DIGLETT
+	db 27, DIGLETT
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

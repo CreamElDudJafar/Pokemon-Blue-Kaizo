@@ -4,51 +4,51 @@ TrainerAIPointers:
 	; first byte, number of times (per Pokémon) it can occur
 	; next two bytes, pointer to AI subroutine for trainer class
 	; subroutines are defined in engine/battle/trainer_ai.asm
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, JugglerAI ; unused_juggler
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 3, JugglerAI ; juggler
-	dbw 3, GenericAI
-	dbw 3, GenericAI
-	dbw 2, BlackbeltAI ; blackbelt
-	dbw 3, GenericAI ; rival1
-	dbw 3, GenericAI
+	dbw 3, GenericAI  ; youngster
+	dbw 3, GenericAI ; bugcatcher
+	dbw 5, AgathaAI ; lass
+	dbw 5, LoreleiAI ; sailor
+	dbw 5, LoreleiAI ; jr trainer m
+	dbw 5, LoreleiAI ; jr trainer f
+	dbw 5, Rival3AI ; pokemanic
+	dbw 5, CooltrainerFAI ; supernerd
+	dbw 5, AgathaAI ; hiker
+	dbw 3, JugglerAI ; biker
+	dbw 5, Rival3AI ; burglar
+	dbw 5, AgathaAI ; engineer
+	dbw 3, JugglerAI ; unused juggler
+	dbw 5, CooltrainerFAI ; fisher
+	dbw 3, GenericAI ; swimmer
+	dbw 5, Rival3AI ; cueball
+	dbw 5, AgathaAI ; gambler
+	dbw 5, CooltrainerFAI  ; beauty
+	dbw 5, CooltrainerFAI ; psychic
+	dbw 5, LoreleiAI ; rocker
+	dbw 5, CooltrainerFAI ; juggler
+	dbw 5, Rival3AI ; tamer
+	dbw 3, GenericAI ; birdkeeper
+	dbw 5, Rival3AI ; blackbelt
+	dbw 3, AgathaAI  ; rival1
+	dbw 255, BrockAI ; oak
 	dbw 1, GenericAI ; chief
-	dbw 3, GenericAI
-	dbw 1, GiovanniAI ; giovanni
-	dbw 3, GenericAI
-	dbw 2, CooltrainerMAI ; cooltrainerm
-	dbw 1, CooltrainerFAI ; cooltrainerf
-	dbw 2, BrunoAI ; bruno
+	dbw 5, CooltrainerFAI ; scientist
+	dbw 5,  Rival3AI ; giovanni
+	dbw 5, CooltrainerFAI ; rocket
+	dbw 5, Rival3AI ; cooltrainerm
+	dbw 5, CooltrainerFAI ; cooltrainerf
+	dbw 5, Rival3AI ; bruno
 	dbw 5, BrockAI ; brock
-	dbw 1, MistyAI ; misty
-	dbw 1, LtSurgeAI ; surge
-	dbw 1, ErikaAI ; erika
-	dbw 2, KogaAI ; koga
-	dbw 2, BlaineAI ; blaine
-	dbw 1, SabrinaAI ; sabrina
-	dbw 3, GenericAI
-	dbw 1, Rival2AI ; rival2
-	dbw 1, Rival3AI ; rival3
-	dbw 2, LoreleiAI ; lorelei
-	dbw 3, GenericAI
-	dbw 2, AgathaAI ; agatha
-	dbw 1, LanceAI ; lance
+	dbw 5, LoreleiAI ; misty
+	dbw 5, Rival3AI ; surge
+	dbw 255, BrockAI ; erika
+	dbw 255, BrockAI; koga
+	dbw 255, BrockAI ; blaine
+	dbw 255, BrockAI ; sabrina
+	dbw 3, Rival3AI ; Gentleman
+	dbw 5, CooltrainerFAI ; rival2
+	dbw 255, BrockAI ; rival3
+	dbw 255, BrockAI ; lorelei
+	dbw 5, Rival3AI ; Channeler
+	dbw 255, BrockAI ; agatha
+	dbw 255, BrockAI ; lance
 	assert_table_length NUM_TRAINERS

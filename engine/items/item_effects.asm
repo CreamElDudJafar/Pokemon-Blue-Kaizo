@@ -32,8 +32,8 @@ ItemUsePtrTable:
 	dw ItemUseMedicine   ; ICE_HEAL
 	dw ItemUseMedicine   ; AWAKENING
 	dw ItemUseMedicine   ; PARLYZ_HEAL
-	dw ItemUseMedicine   ; FULL_RESTORE
-	dw ItemUseMedicine   ; MAX_POTION
+	dw ItemUseVitamin    ; FULL_RESTORE
+	dw ItemUseVitamin    ; MAX_POTION
 	dw ItemUseMedicine   ; HYPER_POTION
 	dw ItemUseMedicine   ; SUPER_POTION
 	dw ItemUseMedicine   ; POTION
@@ -51,26 +51,26 @@ ItemUsePtrTable:
 	dw ItemUseEvoStone   ; FIRE_STONE
 	dw ItemUseEvoStone   ; THUNDER_STONE
 	dw ItemUseEvoStone   ; WATER_STONE
-	dw ItemUseVitamin    ; HP_UP
-	dw ItemUseVitamin    ; PROTEIN
-	dw ItemUseVitamin    ; IRON
-	dw ItemUseVitamin    ; CARBOS
-	dw ItemUseVitamin    ; CALCIUM
+	dw UnusableItem      ; HP_UP
+	dw UnusableItem      ; PROTEIN
+	dw UnusableItem      ; IRON
+	dw UnusableItem      ; CARBOS
+	dw UnusableItem      ; CALCIUM
 	dw ItemUseVitamin    ; RARE_CANDY
 	dw UnusableItem      ; DOME_FOSSIL
 	dw UnusableItem      ; HELIX_FOSSIL
 	dw UnusableItem      ; SECRET_KEY
 	dw UnusableItem      ; ITEM_2C
 	dw UnusableItem      ; BIKE_VOUCHER
-	dw ItemUseXAccuracy  ; X_ACCURACY
+	dw UnusableItem      ; X_ACCURACY
 	dw ItemUseEvoStone   ; LEAF_STONE
 	dw ItemUseCardKey    ; CARD_KEY
 	dw UnusableItem      ; NUGGET
 	dw UnusableItem      ; ITEM_32
 	dw ItemUsePokeDoll   ; POKE_DOLL
-	dw ItemUseMedicine   ; FULL_HEAL
-	dw ItemUseMedicine   ; REVIVE
-	dw ItemUseMedicine   ; MAX_REVIVE
+	dw ItemUseVitamin    ; FULL_HEAL
+	dw ItemUseVitamin    ; REVIVE
+	dw ItemUseVitamin    ; MAX_REVIVE
 	dw ItemUseGuardSpec  ; GUARD_SPEC
 	dw ItemUseSuperRepel ; SUPER_REPEL
 	dw ItemUseMaxRepel   ; MAX_REPEL
@@ -81,10 +81,10 @@ ItemUsePtrTable:
 	dw ItemUseMedicine   ; LEMONADE
 	dw UnusableItem      ; S_S_TICKET
 	dw UnusableItem      ; GOLD_TEETH
-	dw ItemUseXStat      ; X_ATTACK
-	dw ItemUseXStat      ; X_DEFEND
-	dw ItemUseXStat      ; X_SPEED
-	dw ItemUseXStat      ; X_SPECIAL
+	dw UnusableItem      ; X_ATTACK
+	dw UnusableItem      ; X_DEFEND
+	dw UnusableItem      ; X_SPEED
+	dw UnusableItem      ; X_SPECIAL
 	dw ItemUseCoinCase   ; COIN_CASE
 	dw ItemUseOaksParcel ; OAKS_PARCEL
 	dw ItemUseItemfinder ; ITEMFINDER
@@ -96,10 +96,10 @@ ItemUsePtrTable:
 	dw ItemUseGoodRod    ; GOOD_ROD
 	dw ItemUseSuperRod   ; SUPER_ROD
 	dw ItemUsePPUp       ; PP_UP
-	dw ItemUsePPRestore  ; ETHER
-	dw ItemUsePPRestore  ; MAX_ETHER
-	dw ItemUsePPRestore  ; ELIXER
-	dw ItemUsePPRestore  ; MAX_ELIXER
+	dw ItemUsePPUp       ; ETHER
+	dw ItemUsePPUp       ; MAX_ETHER
+	dw ItemUsePPUp       ; ELIXER
+	dw ItemUsePPUp       ; MAX_ELIXER
 
 ItemUseBall:
 

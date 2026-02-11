@@ -1,15 +1,15 @@
 VictoryRoad1FWildMons:
-	def_grass_wildmons 15 ; encounter rate
-	db 24, MACHOP
-	db 26, GEODUDE
-	db 22, ZUBAT
-	db 36, ONIX
-	db 39, ONIX
-	db 42, ONIX
-	db 41, GRAVELER
-	db 41, GOLBAT
-	db 42, MACHOKE
-	db 43, MAROWAK
+	def_grass_wildmons 25 ; encounter rate
+	db 85, KANGASKHAN
+	db 85, PERSIAN
+	db 85, NIDOQUEEN
+	db 85, ELECTRODE
+	db 85, ELECTABUZZ
+	db 85, GOLEM
+	db 85, NIDOKING
+	db 85, CLEFABLE
+	db 85, GYARADOS
+	db 85, NIDOKING
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
