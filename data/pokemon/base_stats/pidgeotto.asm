@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db NORMAL, FLYING ; type
-	db 120 ; catch rate
+	db 255 ; catch rate
 	db 113 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw PidgeottoPicFront, PidgeottoPicBack
 
-	db GUST, SAND_ATTACK, NO_MOVE, NO_MOVE ; level 1 learnset
+	db WING_ATTACK, SAND_ATTACK, QUICK_ATTACK, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

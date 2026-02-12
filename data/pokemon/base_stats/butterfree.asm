@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db BUG, FLYING ; type
-	db 45 ; catch rate
+	db 255 ; catch rate
 	db 160 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw ButterfreePicFront, ButterfreePicBack
 
-	db CONFUSION, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db PSYBEAM, STUN_SPORE, SLEEP_POWDER, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

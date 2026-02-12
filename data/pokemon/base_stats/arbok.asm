@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db POISON, POISON ; type
-	db 90 ; catch rate
+	db 10 ; catch rate
 	db 147 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw ArbokPicFront, ArbokPicBack
 
-	db WRAP, LEER, POISON_STING, NO_MOVE ; level 1 learnset
+	db WRAP, GLARE, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

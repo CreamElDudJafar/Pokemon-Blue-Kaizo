@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw BulbasaurPicFront, BulbasaurPicBack
 
-	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db VINE_WHIP, TACKLE, TOXIC, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

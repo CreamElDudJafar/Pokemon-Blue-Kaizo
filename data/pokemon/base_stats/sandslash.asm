@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db GROUND, GROUND ; type
-	db 90 ; catch rate
+	db 120 ; catch rate
 	db 163 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw SandslashPicFront, SandslashPicBack
 
-	db SCRATCH, SAND_ATTACK, NO_MOVE, NO_MOVE ; level 1 learnset
+	db DIG, SLASH, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

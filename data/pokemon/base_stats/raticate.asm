@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db NORMAL, NORMAL ; type
-	db 90 ; catch rate
+	db 120 ; catch rate
 	db 116 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw RaticatePicFront, RaticatePicBack
 
-	db TACKLE, TAIL_WHIP, QUICK_ATTACK, NO_MOVE ; level 1 learnset
+	db BODY_SLAM, SUPER_FANG, DIG, HYPER_BEAM ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

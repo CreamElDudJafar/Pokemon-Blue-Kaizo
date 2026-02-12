@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw CharizardPicFront, CharizardPicBack
 
-	db SCRATCH, GROWL, EMBER, LEER ; level 1 learnset
+	db FLAMETHROWER, SLASH, BODY_SLAM, EARTHQUAKE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

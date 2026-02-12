@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db BUG, BUG ; type
-	db 120 ; catch rate
+	db 255 ; catch rate
 	db 72 ; base exp
 
 IF GEN_2_GRAPHICS

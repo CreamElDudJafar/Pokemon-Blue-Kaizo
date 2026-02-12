@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw NidoranFPicFront, NidoranFPicBack
 
-	db GROWL, TACKLE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db DOUBLE_KICK, BITE, TOXIC, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

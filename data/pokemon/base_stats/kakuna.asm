@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db BUG, POISON ; type
-	db 120 ; catch rate
+	db 255 ; catch rate
 	db 71 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw KakunaPicFront, KakunaPicBack
 
-	db HARDEN, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db HARDEN, POISON_STING, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

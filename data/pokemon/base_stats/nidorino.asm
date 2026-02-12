@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db POISON, POISON ; type
-	db 120 ; catch rate
+	db 255 ; catch rate
 	db 118 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw NidorinoPicFront, NidorinoPicBack
 
-	db LEER, TACKLE, HORN_ATTACK, NO_MOVE ; level 1 learnset
+	db DOUBLE_KICK, TOXIC, HORN_ATTACK, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db FIRE, FIRE ; type
-	db 75 ; catch rate
+	db 66 ; catch rate
 	db 178 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw NinetalesPicFront, NinetalesPicBack
 
-	db EMBER, TAIL_WHIP, QUICK_ATTACK, ROAR ; level 1 learnset
+	db FIRE_SPIN, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

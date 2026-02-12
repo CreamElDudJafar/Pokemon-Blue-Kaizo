@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db NORMAL, NORMAL ; type
-	db 150 ; catch rate
+	db 255 ; catch rate
 	db 68 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw ClefairyPicFront, ClefairyPicBack
 
-	db POUND, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SING, METRONOME, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset

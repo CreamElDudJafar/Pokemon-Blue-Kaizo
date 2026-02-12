@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw VenusaurPicFront, VenusaurPicBack
 
-	db TACKLE, GROWL, LEECH_SEED, VINE_WHIP ; level 1 learnset
+	db SLEEP_POWDER, BODY_SLAM, RAZOR_LEAF, DOUBLE_TEAM ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

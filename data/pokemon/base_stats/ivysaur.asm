@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw IvysaurPicFront, IvysaurPicBack
 
-	db TACKLE, GROWL, LEECH_SEED, NO_MOVE ; level 1 learnset
+	db SLEEP_POWDER, BODY_SLAM, RAZOR_LEAF, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset
