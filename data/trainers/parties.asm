@@ -540,7 +540,7 @@ GiovanniData:
 ; Viridian Gym                                                ; Not Sure Why SHF added it like this?
 	db 90, PERSIAN, DUGTRIO, ZAPDOS, GENGAR, TAUROS, MEWTWO, MEWTWO, MEWTWO, MEWTWO, NIDOKING, $32, RHYDON, 0
 
-RocketData: ; STILL NEED
+RocketData:
 ; Mt. Moon B2F
 	db 20, GASTLY, KADABRA, 0
 	db 18, ABRA, DRATINI, ARBOK, 0
