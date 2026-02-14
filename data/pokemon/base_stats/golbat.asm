@@ -4,13 +4,13 @@
 	;   hp  atk  def  spd  spc
 
 	db POISON, FLYING ; type
-	db 90 ; catch rate
+	db 100 ; catch rate
 	db 171 ; base exp
 
 	INCBIN "gfx/pokemon/front/golbat.pic", 0, 1 ; sprite dimensions
 	dw GolbatPicFront, GolbatPicBack
 
-	db LEECH_LIFE, SCREECH, BITE, NO_MOVE ; level 1 learnset
+	db CONFUSE_RAY, RAZOR_WIND, MEGA_DRAIN, HYPNOSIS ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

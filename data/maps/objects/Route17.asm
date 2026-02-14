@@ -11,14 +11,14 @@
 	const_export ROUTE17_BIKER10
 
 Route17_Object:
-	db $43 ; border block
+	db $0F ; border block
 
 	def_warp_events
 
 	def_bg_events
 	bg_event  9, 51, TEXT_ROUTE17_NOTICE_SIGN1
 	bg_event  9, 63, TEXT_ROUTE17_TRAINER_TIPS1
-	bg_event  9, 75, TEXT_ROUTE17_TRAINER_TIPS2
+	bg_event 17, 143, TEXT_ROUTE17_TRAINER_TIPS2
 	bg_event  9, 87, TEXT_ROUTE17_SIGN
 	bg_event  9, 111, TEXT_ROUTE17_NOTICE_SIGN2
 	bg_event  9, 141, TEXT_ROUTE17_CYCLING_ROAD_ENDS_SIGN
