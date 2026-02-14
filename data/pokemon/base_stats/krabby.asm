@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, WATER ; type
-	db 225 ; catch rate
+	db 255 ; catch rate
 	db 115 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw KrabbyPicFront, KrabbyPicBack
 
-	db BUBBLE, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
+	db CRABHAMMER, VICEGRIP, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

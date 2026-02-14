@@ -1,10 +1,10 @@
 	db DEX_MAGMAR ; pokedex id
 
-	db  65,  95,  57,  93,  85
+	db  65,  100,  60,  105,  125
 	;   hp  atk  def  spd  spc
 
 	db FIRE, FIRE ; type
-	db 45 ; catch rate
+	db 200 ; catch rate
 	db 167 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw MagmarPicFront, MagmarPicBack
 
-	db EMBER, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db CONFUSE_RAY, THUNDERBOLT, BODY_SLAM, FIRE_BLAST ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

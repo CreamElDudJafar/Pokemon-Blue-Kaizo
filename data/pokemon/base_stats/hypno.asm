@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
-	db 75 ; catch rate
+	db 1   ; catch rate
 	db 165 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw HypnoPicFront, HypnoPicBack
 
-	db POUND, HYPNOSIS, DISABLE, CONFUSION ; level 1 learnset
+	db THUNDER_WAVE, HYPNOSIS, PSYCHIC_M, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

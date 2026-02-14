@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, POISON ; type
-	db 60 ; catch rate
+	db 1   ; catch rate
 	db 205 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw TentacruelPicFront, TentacruelPicBack
 
-	db ACID, SUPERSONIC, WRAP, NO_MOVE ; level 1 learnset
+	db WRAP, SURF, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

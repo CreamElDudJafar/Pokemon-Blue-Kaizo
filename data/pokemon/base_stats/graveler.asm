@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db ROCK, GROUND ; type
-	db 120 ; catch rate
+	db 60  ; catch rate
 	db 134 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw GravelerPicFront, GravelerPicBack
 
-	db TACKLE, DEFENSE_CURL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db DIG, SELFDESTRUCT, ROCK_SLIDE, EXPLOSION ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

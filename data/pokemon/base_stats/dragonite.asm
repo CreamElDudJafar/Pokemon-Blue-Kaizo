@@ -4,8 +4,8 @@
 	;   hp  atk  def  spd  spc
 
 	db DRAGON, FLYING ; type
-	db 45 ; catch rate
-	db 218 ; base exp
+	db 1   ; catch rate
+	db 245 ; base exp
 
 IF GEN_2_GRAPHICS
 	INCBIN "gfx/pokemon/gsfront/dragonite.pic", 0, 1 ; sprite dimensions
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw DragonitePicFront, DragonitePicBack
 
-	db WRAP, LEER, THUNDER_WAVE, AGILITY ; level 1 learnset
+	db WRAP, BLIZZARD, THUNDER_WAVE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

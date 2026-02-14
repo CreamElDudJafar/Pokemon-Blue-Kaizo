@@ -4,8 +4,8 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, ICE ; type
-	db 45 ; catch rate
-	db 219 ; base exp
+	db 1   ; catch rate
+	db 240 ; base exp
 
 IF GEN_2_GRAPHICS
 	INCBIN "gfx/pokemon/gsfront/lapras.pic", 0, 1 ; sprite dimensions
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw LaprasPicFront, LaprasPicBack
 
-	db WATER_GUN, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db DRAGON_RAGE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, ICE ; type
-	db 75 ; catch rate
+	db 30 ; catch rate
 	db 176 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw DewgongPicFront, DewgongPicBack
 
-	db HEADBUTT, GROWL, AURORA_BEAM, NO_MOVE ; level 1 learnset
+	db ICE_BEAM, WATERFALL, BODY_SLAM, HORN_DRILL ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

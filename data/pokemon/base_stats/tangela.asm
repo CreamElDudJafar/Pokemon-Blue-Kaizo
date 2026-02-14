@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db GRASS, GRASS ; type
-	db 45 ; catch rate
+	db 80 ; catch rate
 	db 166 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw TangelaPicFront, TangelaPicBack
 
-	db CONSTRICT, BIND, NO_MOVE, NO_MOVE ; level 1 learnset
+	db STUN_SPORE, SLEEP_POWDER, WRAP, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db FIGHTING, FIGHTING ; type
-	db 45 ; catch rate
+	db 255 ; catch rate
 	db 140 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw HitmonchanPicFront, HitmonchanPicBack
 
-	db COMET_PUNCH, AGILITY, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SUBMISSION, BODY_SLAM, SEISMIC_TOSS, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

@@ -1,10 +1,10 @@
 	db DEX_CHANSEY ; pokedex id
 
-	db 250,   5,   5,  50, 105
+	db 255,   5,  45,  50, 105
 	;   hp  atk  def  spd  spc
 
 	db NORMAL, NORMAL ; type
-	db 30 ; catch rate
+	db 1   ; catch rate
 	db 255 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw ChanseyPicFront, ChanseyPicBack
 
-	db POUND, DOUBLESLAP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db MINIMIZE, SEISMIC_TOSS, THUNDER_WAVE, SOFTBOILED ; level 1 learnset
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset

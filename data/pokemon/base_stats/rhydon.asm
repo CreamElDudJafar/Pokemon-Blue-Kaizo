@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db GROUND, ROCK ; type
-	db 60 ; catch rate
+	db 1   ; catch rate
 	db 204 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw RhydonPicFront, RhydonPicBack
 
-	db HORN_ATTACK, STOMP, TAIL_WHIP, FURY_ATTACK ; level 1 learnset
+	db EARTHQUAKE, BODY_SLAM, ROCK_SLIDE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

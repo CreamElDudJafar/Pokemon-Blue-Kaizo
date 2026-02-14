@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db POISON, POISON ; type
-	db 235 ; catch rate
+	db 255 ; catch rate
 	db 60 ; base exp
 
 IF GEN_2_GRAPHICS

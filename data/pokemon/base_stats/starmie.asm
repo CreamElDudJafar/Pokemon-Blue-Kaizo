@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, PSYCHIC_TYPE ; type
-	db 60 ; catch rate
+	db 1   ; catch rate
 	db 207 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw StarmiePicFront, StarmiePicBack
 
-	db TACKLE, WATER_GUN, HARDEN, NO_MOVE ; level 1 learnset
+	db THUNDER_WAVE, BLIZZARD, THUNDERBOLT, RECOVER ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

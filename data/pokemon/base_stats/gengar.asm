@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db GHOST, POISON ; type
-	db 45 ; catch rate
+	db 1   ; catch rate
 	db 190 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw GengarPicFront, GengarPicBack
 
-	db LICK, CONFUSE_RAY, NIGHT_SHADE, NO_MOVE ; level 1 learnset
+	db EXPLOSION, HYPNOSIS, PSYCHIC_M, NIGHT_SHADE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

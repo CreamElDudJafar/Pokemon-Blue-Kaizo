@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, WATER ; type
-	db 190 ; catch rate
+	db 110 ; catch rate
 	db 97 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw ShellderPicFront, ShellderPicBack
 
-	db TACKLE, WITHDRAW, NO_MOVE, NO_MOVE ; level 1 learnset
+	db EXPLOSION, CLAMP, AURORA_BEAM, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

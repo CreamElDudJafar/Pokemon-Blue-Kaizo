@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, ICE ; type
-	db 60 ; catch rate
+	db 1   ; catch rate
 	db 203 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw CloysterPicFront, CloysterPicBack
 
-	db WITHDRAW, SUPERSONIC, CLAMP, AURORA_BEAM ; level 1 learnset
+	db EXPLOSION, BLIZZARD, CLAMP, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

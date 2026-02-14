@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, PSYCHIC_TYPE ; type
-	db 190 ; catch rate
+	db 80 ; catch rate
 	db 99 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw SlowpokePicFront, SlowpokePicBack
 
-	db CONFUSION, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db CONFUSION, BUBBLEBEAM, HEADBUTT, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

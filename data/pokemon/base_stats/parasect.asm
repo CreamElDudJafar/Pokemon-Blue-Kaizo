@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db BUG, GRASS ; type
-	db 75 ; catch rate
+	db 200 ; catch rate
 	db 128 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw ParasectPicFront, ParasectPicBack
 
-	db SCRATCH, STUN_SPORE, LEECH_LIFE, NO_MOVE ; level 1 learnset
+	db STUN_SPORE, MEGA_DRAIN, BODY_SLAM, SPORE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

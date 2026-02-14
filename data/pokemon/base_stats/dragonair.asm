@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db DRAGON, DRAGON ; type
-	db 45 ; catch rate
+	db 20  ; catch rate
 	db 144 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw DragonairPicFront, DragonairPicBack
 
-	db WRAP, LEER, THUNDER_WAVE, NO_MOVE ; level 1 learnset
+	db DRAGON_RAGE, WRAP, THUNDER_WAVE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

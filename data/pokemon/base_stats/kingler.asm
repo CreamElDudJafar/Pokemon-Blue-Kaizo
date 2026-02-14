@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db WATER, WATER ; type
-	db 60 ; catch rate
+	db 30 ; catch rate
 	db 206 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw KinglerPicFront, KinglerPicBack
 
-	db BUBBLE, LEER, VICEGRIP, NO_MOVE ; level 1 learnset
+	db CRABHAMMER, BODY_SLAM, GUILLOTINE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

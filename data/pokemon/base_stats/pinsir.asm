@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db BUG, BUG ; type
-	db 45 ; catch rate
+	db 1   ; catch rate
 	db 200 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw PinsirPicFront, PinsirPicBack
 
-	db VICEGRIP, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db WRAP, GUILLOTINE, BODY_SLAM, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

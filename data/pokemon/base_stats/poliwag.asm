@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw PoliwagPicFront, PoliwagPicBack
 
-	db BUBBLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db BUBBLEBEAM, HYPNOSIS, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

@@ -1,11 +1,11 @@
 	db DEX_MOLTRES ; pokedex id
 
-	db  90, 100,  90,  90, 125
+	db  95, 100,  90,  90, 125
 	;   hp  atk  def  spd  spc
 
 	db FIRE, FLYING ; type
-	db 3 ; catch rate
-	db 217 ; base exp
+	db 1   ; catch rate
+	db 240 ; base exp
 
 IF GEN_2_GRAPHICS
 	INCBIN "gfx/pokemon/gsfront/moltres.pic", 0, 1 ; sprite dimensions
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw MoltresPicFront, MoltresPicBack
 
-	db PECK, FIRE_SPIN, NO_MOVE, NO_MOVE ; level 1 learnset
+	db FIRE_BLAST, SKY_ATTACK, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

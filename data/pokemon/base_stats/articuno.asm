@@ -1,11 +1,11 @@
 	db DEX_ARTICUNO ; pokedex id
 
-	db  90,  85, 100,  85, 125
+	db  105,  85, 100,  85, 125
 	;   hp  atk  def  spd  spc
 
 	db ICE, FLYING ; type
-	db 3 ; catch rate
-	db 215 ; base exp
+	db 1 ; catch rate
+	db 240 ; base exp
 
 IF GEN_2_GRAPHICS
 	INCBIN "gfx/pokemon/gsfront/articuno.pic", 0, 1 ; sprite dimensions
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw ArticunoPicFront, ArticunoPicBack
 
-	db PECK, ICE_BEAM, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SKY_ATTACK, BLIZZARD, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset

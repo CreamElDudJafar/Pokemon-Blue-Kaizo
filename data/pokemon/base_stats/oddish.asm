@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw OddishPicFront, OddishPicBack
 
-	db ABSORB, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TOXIC, ACID, STUN_SPORE, MEGA_DRAIN ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset

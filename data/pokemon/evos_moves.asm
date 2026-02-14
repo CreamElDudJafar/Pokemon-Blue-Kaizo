@@ -207,8 +207,8 @@ RhydonEvosMoves:
 	db 0
 ; Learnset
 	db 30, ROCK_SLIDE
-	db 40, ROCK_SLIDE
 	db 42, EARTHQUAKE
+	db 40, ROCK_SLIDE
 	db 48, ROCK_SLIDE
 	db 55, ROCK_SLIDE
 	db 64, EARTHQUAKE
@@ -446,7 +446,7 @@ GyaradosEvosMoves:
 	db 30, THUNDERBOLT
 	db 32, BODY_SLAM
 	db 41, BLIZZARD
-	db 52, HYPER_BEAM
+	db 52, HYDRO_PUMP
 	db 0
 
 ShellderEvosMoves:
@@ -542,9 +542,9 @@ TangelaEvosMoves:
 	db 29, STUN_SPORE
 	db 32, STUN_SPORE
 	db 36, STUN_SPORE
-	db 39, STUN_SPORE
-	db 45, STUN_SPORE
-	db 49, STUN_SPORE
+	db 39, SLEEP_POWDER
+	db 45, SLEEP_POWDER
+	db 49, SLEEP_POWDER
 	db 0
 
 MissingNo1FEvosMoves:
@@ -641,8 +641,8 @@ GravelerEvosMoves:
 	db 16, EXPLOSION
 	db 21, EXPLOSION
 	db 29, EXPLOSION
-	db 36, EXPLOSION
-	db 42, EXPLOSION
+	db 36, ROCK_SLIDE
+	db 42, EARTHQUAKE
 	db 0
 
 ChanseyEvosMoves:
@@ -677,6 +677,7 @@ MrMimeEvosMoves:
 	db 20, HYPNOSIS
 	db 25, THUNDERBOLT
 	db 39, PSYCHIC_M
+	db 47, PSYCHIC_M
 	db 0
 
 HitmonleeEvosMoves:
@@ -728,7 +729,7 @@ PsyduckEvosMoves:
 	db EVOLVE_LEVEL, 20, GOLDUCK
 	db 0
 ; Learnset
-	db 9, PSYBEAM
+	db 9,  PSYBEAM
 	db 10, WATERFALL
 	db 11, SEISMIC_TOSS
 	db 12, HYPNOSIS
@@ -963,7 +964,7 @@ PoliwagEvosMoves:
 ; Learnset
 	db 10, BODY_SLAM
 	db 11, BODY_SLAM
-	db 13, WATER_GUN
+	db 25, BODY_SLAM
 	db 31, BODY_SLAM
 	db 38, BODY_SLAM
 	db 45, HYDRO_PUMP
@@ -1079,8 +1080,6 @@ PikachuEvosMoves:
 	db EVOLVE_ITEM, THUNDER_STONE, 1, RAICHU
 	db 0
 ; Learnset
-	db 6,  QUICK_ATTACK
-	db 7,  THUNDER_WAVE
 	db 9,  HEADBUTT
 	db 16, THUNDERPUNCH
 	db 20, THUNDERBOLT
@@ -1138,7 +1137,6 @@ KabutoEvosMoves:
 	db 34, ABSORB
 	db 39, SLASH
 	db 44, LEER
-	db 45, BLIZZARD
 	db 49, HYDRO_PUMP
 	db 0
 
@@ -1228,7 +1226,7 @@ OmastarEvosMoves:
 	db 34, SEISMIC_TOSS
 	db 39, SEISMIC_TOSS
 	db 44, SEISMIC_TOSS
-	db 53, HYDRO_PUMP
+	db 49, HYDRO_PUMP
 	db 0
 
 JigglypuffEvosMoves:
@@ -1271,7 +1269,6 @@ FlareonEvosMoves:
 	db 27, FIRE_BLAST
 	db 31, FIRE_BLAST
 	db 37, FIRE_BLAST
-	db 37, FIRE_BLAST
 	db 40, FIRE_BLAST
 	db 42, FIRE_BLAST
 	db 44, FIRE_BLAST
@@ -1301,8 +1298,8 @@ VaporeonEvosMoves:
 	db 31, WATERFALL
 	db 37, WATERFALL
 	db 40, WATERFALL
-	db 42, HYDRO_PUMP
 	db 44, HYDRO_PUMP
+	db 47, HYDRO_PUMP
 	db 48, HYDRO_PUMP
 	db 54, HYDRO_PUMP
 	db 0
@@ -1327,7 +1324,7 @@ ZubatEvosMoves:
 	db 10, CONFUSE_RAY
 	db 15, CONFUSE_RAY
 	db 16, HYPNOSIS
-	db 28, HYPNOSIS
+	db 28, CONFUSE_RAY
 	db 58, HYPNOSIS
 	db 0
 
@@ -1398,7 +1395,7 @@ BeedrillEvosMoves:
 	db 16, TWINEEDLE
 	db 20, TWINEEDLE
 	db 25, TWINEEDLE
-	db 30, TWINEEDLE
+	db 30, PIN_MISSILE
 	db 35, TWINEEDLE
 	db 0
 
@@ -1449,6 +1446,7 @@ VenomothEvosMoves:
 	db 24, STUN_SPORE
 	db 27, STUN_SPORE
 	db 30, STUN_SPORE
+	db 38, STUN_SPORE
 	db 43, SLEEP_POWDER
 	db 50, PSYCHIC_M
 	db 0
@@ -1494,12 +1492,12 @@ ButterfreeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 12, SLEEP_POWDER
-	db 15, SLEEP_POWDER
-	db 16, SLEEP_POWDER
-	db 17, SLEEP_POWDER
-	db 21, SLEEP_POWDER
-	db 26, SLEEP_POWDER
+	db 12, PSYBEAM
+	db 15, STUN_SPORE
+	db 16, STUN_SPORE
+	db 17, STUN_SPORE
+	db 21, STUN_SPORE
+	db 26, STUN_SPORE
 	db 32, SLEEP_POWDER
 	db 0
 
@@ -1511,7 +1509,7 @@ MachampEvosMoves:
 	db 25, SUBMISSION
 	db 36, SUBMISSION
 	db 44, SUBMISSION
-	db 45, HI_JUMP_KICK
+	db 52, HI_JUMP_KICK
 	db 0
 
 MissingNo7FEvosMoves:
@@ -1540,8 +1538,7 @@ HypnoEvosMoves:
 	db 24, HYPNOSIS
 	db 33, HYPNOSIS
 	db 37, HYPNOSIS
-	db 37, MEDITATE
-	db 43, HYPNOSIS
+	db 43, PSYCHIC_M
 	db 0
 
 GolbatEvosMoves:
@@ -1718,7 +1715,7 @@ AlakazamEvosMoves:
 	db 20, RECOVER
 	db 27, RECOVER
 	db 31, RECOVER
-	db 38, RECOVER
+	db 38, PSYCHIC_M
 	db 42, RECOVER
 	db 0
 
@@ -1739,10 +1736,12 @@ PidgeotEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+	db  5, SAND_ATTACK
+	db 12, RAZOR_WIND
 	db 21, RAZOR_WIND
 	db 31, RAZOR_WIND
-	db 34, AGILITY
 	db 44, QUICK_ATTACK
+	db 54, RAZOR_WIND
 	db 0
 
 StarmieEvosMoves:
@@ -2125,7 +2124,7 @@ WeepinbellEvosMoves:
 	db EVOLVE_ITEM, LEAF_STONE, 1, VICTREEBEL
 	db 0
 ; Learnset
-	db 16, MEGA_DRAIN
+	db 16, RAZOR_LEAF
 	db 17, STUN_SPORE
 	db 18, STUN_SPORE
 	db 23, STUN_SPORE

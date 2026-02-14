@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db POISON, FLYING ; type
-	db 90 ; catch rate
+	db 100 ; catch rate
 	db 171 ; base exp
 
 IF GEN_2_GRAPHICS
@@ -14,7 +14,7 @@ ELSE
 ENDC
 	dw GolbatPicFront, GolbatPicBack
 
-	db LEECH_LIFE, SCREECH, BITE, NO_MOVE ; level 1 learnset
+	db CONFUSE_RAY, RAZOR_WIND, MEGA_DRAIN, HYPNOSIS ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
