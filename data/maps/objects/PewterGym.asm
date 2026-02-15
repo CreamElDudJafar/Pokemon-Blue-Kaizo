@@ -4,7 +4,7 @@
 	const_export PEWTERGYM_GYM_GUIDE
 
 PewterGym_Object:
-	db $3 ; border block
+	db $08 ; border block
 
 	def_warp_events
 	warp_event  4, 13, LAST_MAP, 3
