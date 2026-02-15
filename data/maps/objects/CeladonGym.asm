@@ -9,7 +9,7 @@
 	const_export CELADONGYM_COOLTRAINER_F4
 
 CeladonGym_Object:
-	db $3 ; border block
+	db $34 ; border block
 
 	def_warp_events
 	warp_event  4, 17, LAST_MAP, 7

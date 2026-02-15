@@ -9,7 +9,7 @@
 	const_export VIRIDIANFOREST_YOUNGSTER5
 
 ViridianForest_Object:
-	db $3 ; border block
+	db $02 ; border block
 
 	def_warp_events
 	warp_event  1,  0, VIRIDIAN_FOREST_NORTH_GATE, 3
