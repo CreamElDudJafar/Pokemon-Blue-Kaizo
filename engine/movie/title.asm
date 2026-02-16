@@ -124,7 +124,7 @@ DisplayTitleScreen:
 	call EnableLCD
 
 IF DEF(_RED)
-	ld a, STARTER1 ; which Pokemon to show first on the title screen
+	ld a, MEWTWO ; which Pokemon to show first on the title screen
 ENDC
 IF DEF(_BLUE)
 	ld a, MEWTWO ; which Pokemon to show first on the title screen

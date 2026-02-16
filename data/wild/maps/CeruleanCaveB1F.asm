@@ -1,5 +1,5 @@
 CeruleanCaveB1FWildMons:
-	def_grass_wildmons 42 ; encounter rate
+	def_grass_wildmons 40 ; encounter rate
 	db 100, ALAKAZAM
 	db 100, TAUROS
 	db 100, STARMIE
