@@ -1,5 +1,5 @@
 _FightingDojoKarateMasterText::
-	text "I am BRUNO, the"
+	text "I am BRUNO,the"
 	line "new LEADER of the"
 	cont "DOJO!"
 
