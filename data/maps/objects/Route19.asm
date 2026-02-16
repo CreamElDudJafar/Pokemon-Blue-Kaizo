@@ -16,7 +16,7 @@ Route19_Object:
 	def_warp_events
 
 	def_bg_events
-	bg_event 11,  9, TEXT_ROUTE19_SIGN
+	bg_event 9,  9, TEXT_ROUTE19_SIGN
 
 	def_object_events
 	object_event  7,  9, SPRITE_COOLTRAINER_M, STAY, LEFT, TEXT_ROUTE19_COOLTRAINER_M1, OPP_SWIMMER, 2

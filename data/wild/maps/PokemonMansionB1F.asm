@@ -1,7 +1,7 @@
 PokemonMansionB1FWildMons:
 	def_grass_wildmons 88 ; encounter rate
 	db 63, RATICATE
-	db 62, WEEZING
+	db 63, WEEZING
 	db 63, VENOMOTH
 	db 62, ELECTRODE
 	db 62, MUK
