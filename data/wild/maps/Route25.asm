@@ -7,8 +7,8 @@ Route25WildMons:
 	db 20, PSYDUCK
 	db 20, POLIWAG
 	db 20, SEEL
-	db 20, NIDORAN_M
 	db 20, NIDORAN_F
+	db 20, NIDORAN_M
 	db 12, MR_MIME
 	end_grass_wildmons
 

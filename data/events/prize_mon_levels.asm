@@ -1,14 +1,4 @@
 PrizeMonLevelDictionary:
-IF DEF(_RED)
-	db ABRA,      9
-	db CLEFAIRY,  8
-	db NIDORINA, 17
-
-	db DRATINI,  18
-	db SCYTHER,  25
-	db PORYGON,  26
-ENDC
-IF DEF(_BLUE)
 	db IVYSAUR,    35
 	db CHARMELEON, 35
 	db WARTORTLE,  35
@@ -16,4 +6,3 @@ IF DEF(_BLUE)
 	db NIDOKING,   40
 	db NIDOQUEEN,  40
 	db PORYGON,    40
-ENDC

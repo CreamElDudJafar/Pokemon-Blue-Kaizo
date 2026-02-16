@@ -7,8 +7,8 @@ Route1WildMons:
 	db  3, EKANS
 	db  3, SANDSHREW
 	db  3, SPEAROW
-	db  4, NIDORAN_M
 	db  4, NIDORAN_F
+	db  4, NIDORAN_M
 	db  5, PIKACHU
 	end_grass_wildmons
 
