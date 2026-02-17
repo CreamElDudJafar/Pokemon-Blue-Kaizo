@@ -209,15 +209,26 @@ HoFLoadMonPlayerPicTileIDs:
 HoFDisplayPlayerStats:
 	SetEvent EVENT_HALL_OF_FAME_DEX_RATING
 	predef DisplayDexRating
+	hlcoord 11, 0 ; Kaizo Text Box
+	lb bc, 2, 7
+	call TextBoxBorder
+	hlcoord 12, 1
+	ld de, BlueText
+	call PlaceString
+	hlcoord 12, 2
+	ld de, KaizoText
+	call PlaceString
+	jp .Next1
+.Next1
 	hlcoord 0, 4
 	ld b, 6
 	ld c, 10
 	call TextBoxBorder
-	hlcoord 5, 0
+	hlcoord 0, 0
 	ld b, 2
 	ld c, 9
 	call TextBoxBorder
-	hlcoord 7, 2
+	hlcoord 1, 2
 	ld de, wPlayerName
 	call PlaceString
 	hlcoord 1, 6
@@ -249,6 +260,12 @@ HoFPrintTextAndDelay:
 	call PrintText
 	ld c, 120
 	jp DelayFrames
+
+BlueText:
+	db "BLUE@"
+
+KaizoText:
+	db "KAIZO@"
 
 HoFPlayTimeText:
 	db "PLAY TIME@"
