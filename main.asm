@@ -334,7 +334,6 @@ INCLUDE "engine/items/itemfinder.asm"
 SECTION "Vending Machine", ROMX
 
 INCLUDE "engine/events/vending_machine.asm"
-INCLUDE "engine/overworld/use_another_repel.asm"
 
 
 SECTION "Itemfinder 2", ROMX
@@ -355,3 +354,8 @@ INCLUDE "data/battle_anims/frame_blocks.asm"
 INCLUDE "engine/movie/evolution.asm"
 INCLUDE "engine/overworld/elevator.asm"
 INCLUDE "engine/items/tm_prices.asm"
+
+
+SECTION "bank1F", ROMX
+
+INCLUDE "engine/overworld/use_another_repel.asm"
