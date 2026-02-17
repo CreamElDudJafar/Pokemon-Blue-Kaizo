@@ -2,6 +2,12 @@
 
 This is a disassembly of Pokémon Blue Kaizo.
 
+<img width="736" height="643" alt="bk3" src="https://github.com/user-attachments/assets/26c8ae97-c31e-429b-a523-d3130e100e87" />
+<img width="725" height="672" alt="bk1" src="https://github.com/user-attachments/assets/59f37f5f-dd34-45d3-8a65-087fa7edba3b" />
+<img width="720" height="671" alt="bk" src="https://github.com/user-attachments/assets/f81bb4b1-2ddf-44fe-9183-0df741833795" />
+<img width="713" height="647" alt="bk4" src="https://github.com/user-attachments/assets/dfdc124c-643f-4223-ad40-2d0aaff51a07" />
+<img width="725" height="666" alt="rk" src="https://github.com/user-attachments/assets/b39d8ab3-d824-4586-bffb-5b0c41eb5922" />
+
 Blue Kaizo started as a binary/hex edit hack by SinisterHoodedFigure (SHF) in 2014.
 
 A few laters, the Pret disassembly of Pokemon Red and Blue were completed.
