@@ -1,44 +1,56 @@
-# Pokémon Red and Blue [![Build Status][ci-badge]][ci]
+# Pokémon Blue Kaizo
 
-This is a disassembly of Pokémon Red and Blue with GBC/Yellow Colors.
+This is a disassembly of Pokémon Blue Kaizo.
 
-Credits for making this SPECIFIC version happen:
-Jojobear13: Game: ShinPokeRed (Originally backporting Pokemon Yellow Functions)
-Vortyne/Vortiene: Game: PureRGB (Also backported Pokemon Yellow Functions)
-RainbowMetalPigeon
-ZetaPhoenix
-Engezerstorung
+Blue Kaizo started as a binary/hex edit hack by SinisterHoodedFigure (SHF) in 2014.
+
+A few laters, the Pret disassembly of Pokemon Red and Blue were completed.
+
+Since then Kaizo hacks have been made and have become more popular as the years go by. Blue Kaizo due to being older wasn't able to be updated much as binary editing has gone away.
+
+I reached out to SHF about updating Blue Kaizo and some of his other games in 2024/2025. Those games have been updated and you can find the patches here: https://github.com/CreamElDudJafar/SHF-Kaizo-Patches
+
+However, with the creation of Yellow Kaizo by SHF and I (2026), I decided the world needs a Blue Kaizo disassembly so here it is!
+
+Their is 4 Branches here for you to choose from:
+- Main- Blue Kaizo (2025/2026 Update)
+- Yellow Colors- Blue Kaizo with Pokemon Yellow Color palettes backported (2025/2026 Update)
+- Full GBC Color- Blue Kaizo in full GBC Color. Game can be built with Gen 1 or Gen 2 graphics (Gen 2 has EXP Bar, Caught Indicator Icon) (2025/2026 Update)
+- 2016- Blue Kaizo (2016 Version)
+
+2025/2026 Update:
+- Bag Space Holds 50
+- HMs Can Be Deleted Now
+- Game Title Displayed In Hall of Fame Display
+- When Repel Used, Will Ask To Use Another
+- Trainer Move AI Choices Updated
+- Party Changes By SinisterHoodedFigure
+
+Also for the first time, you can build Red Kaizo and use it as a base. All features of Blue Kaizo exist and no differences
 
 
-Tutorials Used:
-https://github.com/pret/pokeyellow/wiki/Free-some-space-in-BANK-1E (RainbowMetalPigeon and Vortiene)
-https://github.com/pret/pokered/wiki/Free-MORE-some-space-in-the-Home-BANK (ZetaPhoenix, Engezerstorung and Vortiene)
+CREDITS:
+Remaking Blue Kaizo in disassembly could not have been done without the following contributors:
+- SHF for creating Blue Kaizo and updating it in 2025/2026
+- Swampert/Swampert Tools for allowing me to read some of the code without reading Hex
+- Gold Finger/HxD hex editors for reading the Blue Kaizo Hex code
+- Pret for disassembly of Pokemon Red and Blue
+- CRzShadows for game name in Hall of Fame
+- DannyE for Pokemon Red GBC disassembly
+- Jojobear13 for the Yellow colors backported
+- Vortiene for the Repel System Contribution, Bag Space Increase Method, and Yellow colors backported
+- RainbowMetalPigeon, ZetaPhoenix, Engezerstorung for tutorials that helped with home bank space
+- Myself for Pokemon Red with Yellow Colors disassembly/ remaking Blue Kaizo in disassembly
+- Everyone who plays Blue Kaizo and loves it
 
 
-It builds the following ROMs:
+This is open source for anyone and all to use as a base, however, with that being said please take the time to credit this repo and contributors.
 
-- Pokemon Red (UE) [S][!].gb `sha1: ea9bcae617fdf159b045185467ae58b2e4a48b9a`
-- Pokemon Blue (UE) [S][!].gb `sha1: d7037c83e1ae5b39bde3c30787637ba1d4c48ce2`
-- BLUEMONS.GB (debug build) `sha1: 5b1456177671b79b263c614ea0e7cc9ac542e9c4`
-- dmgapae0.e69.patch `sha1: 0fb5f743696adfe1dbb2e062111f08f9bc5a293a`
-- dmgapee0.e68.patch `sha1: ed4be94dc29c64271942c87f2157bca9ca1019c7`
+Below is where you can find some other information about the game originally:
+https://www.pokecommunity.com/threads/pokemon-blue-kaizo-update-4-5-very-challenging-experience.322127/
 
-To set up the repository, see [**INSTALL.md**](INSTALL.md).
+ANY ISSUES, COMMENTS, OR BUGS, PLEASE REACH OUT
+
+THANKS AND ENJOY!
 
 
-## See also
-
-- [**Wiki**][wiki] (includes [tutorials][tutorials])
-- [**Symbols**][symbols]
-- [**Tools**][tools]
-
-You can find us on [Discord (pret, #pokered)](https://discord.gg/d5dubZ3).
-
-For other pret projects, see [pret.github.io](https://pret.github.io/).
-
-[wiki]: https://github.com/pret/pokered/wiki
-[tutorials]: https://github.com/pret/pokered/wiki/Tutorials
-[symbols]: https://github.com/pret/pokered/tree/symbols
-[tools]: https://github.com/pret/gb-asm-tools
-[ci]: https://github.com/pret/pokered/actions
-[ci-badge]: https://github.com/pret/pokered/actions/workflows/main.yml/badge.svg
