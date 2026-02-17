@@ -357,6 +357,11 @@ INCLUDE "engine/overworld/elevator.asm"
 INCLUDE "engine/items/tm_prices.asm"
 
 
+SECTION "bank1F", ROMX
+
+INCLUDE "engine/overworld/use_another_repel.asm"
+
+
 SECTION "CGB Mode Code", ROMX
 
 INCLUDE "data/sgb/bg_map_attributes.asm"
