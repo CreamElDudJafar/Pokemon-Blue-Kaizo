@@ -59,3 +59,6 @@ ANY ISSUES, COMMENTS, OR BUGS, PLEASE REACH OUT
 THANKS AND ENJOY!
 
 
+The Blue Kaizo repository was made off of pret/pokered commit #568 on January 24, 2026 (https://github.com/pret/pokered/commit/fbcf7d0e19a3a2db505440d3ccd3d40ca996c15c)
+
+
