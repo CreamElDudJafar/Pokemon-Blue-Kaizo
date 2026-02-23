@@ -347,7 +347,6 @@ INCLUDE "engine/items/town_map.asm"
 INCLUDE "engine/gfx/mon_icons.asm"
 INCLUDE "engine/events/in_game_trades.asm"
 INCLUDE "engine/gfx/palettes.asm"
-INCLUDE "engine/overworld/use_another_repel.asm"
 
 
 SECTION "Engine Save", ROMX
@@ -396,3 +395,8 @@ INCLUDE "engine/overworld/elevator.asm"
 INCLUDE "engine/items/tm_prices.asm"
 
 INCLUDE "color/animations.asm"
+
+
+SECTION "Repel", ROMX
+
+INCLUDE "engine/overworld/use_another_repel.asm"
