@@ -357,7 +357,7 @@ INCLUDE "engine/overworld/elevator.asm"
 INCLUDE "engine/items/tm_prices.asm"
 
 
-SECTION "bank1F", ROMX
+SECTION "Repel", ROMX
 
 INCLUDE "engine/overworld/use_another_repel.asm"
 

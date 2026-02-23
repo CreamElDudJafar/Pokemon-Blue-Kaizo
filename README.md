@@ -25,6 +25,7 @@ Their is 4 Branches here for you to choose from:
 - 2016- Blue Kaizo (2016 Version)
 
 2025/2026 Update:
+- 151 Party Menu Icons
 - Bag Space Holds 50
 - HMs Can Be Deleted Now
 - Game Title Displayed In Hall of Fame Display
@@ -42,7 +43,7 @@ Remaking Blue Kaizo in disassembly could not have been done without the followin
 - Gold Finger/HxD hex editors for reading the Blue Kaizo Hex code
 - Pret for disassembly of Pokemon Red and Blue
 - CRzShadows for game name in Hall of Fame
-- DannyE for Pokemon Red GBC disassembly
+- DannyE for Pokemon Red GBC disassembly/ Unique Party Menu Icons
 - Jojobear13 for the Yellow colors backported
 - Vortiene for the Repel System Contribution, Bag Space Increase Method, and Yellow colors backported
 - RainbowMetalPigeon, ZetaPhoenix, Engezerstorung for tutorials that helped with home bank space
