@@ -22,6 +22,16 @@ DEF SPR_PAL_TREE    EQU 6
 DEF SPR_PAL_ROCK    EQU 7
 DEF SPR_PAL_RANDOM  EQU 8
 
+DEF PARTY_PAL_RED    EQU 0
+DEF PARTY_PAL_BLUE   EQU 1
+DEF PARTY_PAL_GREEN  EQU 2
+DEF PARTY_PAL_BROWN  EQU 3
+DEF PARTY_PAL_PINK   EQU 4
+DEF PARTY_PAL_PURPLE EQU 5
+DEF PARTY_PAL_YELLOW EQU 6
+DEF PARTY_PAL_GREY   EQU 7
+DEF PARTY_PAL_SGB    EQU $FF
+
 LoadOverworldSpritePalettes:
 	ldh a, [rWBK]
 	ld b, a
@@ -31,7 +41,7 @@ LoadOverworldSpritePalettes:
 	; Does the map we're on use dark/night palettes?
 	; Load the matching Object Pals if so
 	ld a, [wCurMapTileset]
-	ld hl, SpritePalettesNite
+	ld hl, MapSpritePalettesNite
 	cp CAVERN
 	jr z, .gotPaletteList
 	; If it is the Pokemon Center, load different pals for the Heal Machine to flash
@@ -41,8 +51,16 @@ LoadOverworldSpritePalettes:
 	ld a, [wCurMap]
 	cp INDIGO_PLATEAU_LOBBY
 	jr z, .gotPaletteList
-	; If not, load the normal Object Pals
-	ld hl, SpritePalettes
+; If it is an outdoor map, load different pals for the cut trees and boulders
+  	ld hl, MapSpritePalettes
+   	and a ; cp 0, check for Overworld
+   	jr z, .gotPaletteList
+	cp FOREST
+	jr z, .gotPaletteList
+	cp PLATEAU
+	jr z, .gotPaletteList
+ ; If not, load the Indoor Object Pals
+   	ld hl, MapSpritePalettesIndoor
 .gotPaletteList
 	pop bc
 	ld a, b
@@ -123,6 +141,57 @@ ColorOverworldSprite::
 	pop bc
 	pop af
 	ret
+
+; Color the Party menu pokemon sprites
+
+LoadSinglePartySpritePalette::
+; Load a single sprite palette
+	ld a, [wMonPartySpriteSpecies]
+	call GetPartySpritePalette
+	jr LoadPartyMenuSpritePalettes.done
+
+LoadPartyMenuSpritePalettes::
+	ld hl, wPartySpecies
+	ld e, 0
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .done
+	push hl
+	push de
+	call GetPartySpritePalette
+	pop de
+	pop hl
+	inc e
+	jr .loop
+.done	
+	ld a, 2
+	ldh [rWBK], a
+	ld [W2_ForceOBPUpdate], a
+	xor a
+	ldh [rWBK], a
+	ret
+
+GetPartySpritePalette:
+	ld [wPokedexNum], a ; Store a in wram to be used in the function
+;	predef IndexToPokedex ; Convert ID to Pokedex ID	
+   farcall IndexToPokedex
+	ld a, [wPokedexNum] ; Get the result of the function
+	cp 152 ; check for and ID higher than Mew's
+	jr c, .notAboveMew ; Jump if not higher than Mew's
+	xor a ; if higher than Mew's then give ID 0 so that purple palette is assigned
+.notAboveMew
+	ld hl, PartyPaletteAssignments
+	ld b, 0
+	ld c, a ; Add the pokemon pokedex ID which is used as a pointer in the palette assignment list
+	add hl, bc
+	ld a, [hl] ; Load pokemon assigned palette
+	ld d, a
+	cp PARTY_PAL_SGB
+	jp c, LoadMapPalette_Sprite
+	farcall DetermineDexPaletteID
+	ld d, a
+	jp LoadSGBPalette_Sprite
 
 ; This is called whenever [wUpdateSpritesEnabled] != 1 (overworld sprites not enabled?).
 ;
@@ -566,5 +635,315 @@ TypeColorTable: ; Used for a select few sprites to be colorized based on attack 
 	db 6 ; ICE EQU $19
 	db 1 ; DRAGON EQU $1A
 	assert_table_length NUM_TYPES
+
+; List for the "each pokemon have their own unique palette" party coloring method.
+; Entries in this list are the palettes to load for a party member.
+; You can modify them by adding palettes in the color/spritepalettes.asm SpritePalettes.
+; Use PARTY_PAL_SGB to use the Pokemon SGB palette
+PartyPaletteAssignments:
+	; MISSINGNO
+	db PARTY_PAL_PURPLE
+	; BULBASAUR
+	db PARTY_PAL_GREEN
+	; IVYSAUR
+	db PARTY_PAL_GREEN
+	; VENUSAUR
+	db PARTY_PAL_GREEN
+	; CHARMANDER
+	db PARTY_PAL_RED
+	; CHARMELEON
+	db PARTY_PAL_RED
+	; CHARIZARD
+	db PARTY_PAL_RED
+	; SQUIRTLE
+	db PARTY_PAL_BLUE
+	; WARTORTLE
+	db PARTY_PAL_BLUE
+	; BLASTOISE
+	db PARTY_PAL_BLUE
+	; CATERPIE
+	db PARTY_PAL_GREEN
+	; METAPOD
+	db PARTY_PAL_GREEN
+	; BUTTERFREE
+	db PARTY_PAL_BLUE
+	; WEEDLE
+	db PARTY_PAL_YELLOW
+	; KAKUNA
+	db PARTY_PAL_YELLOW
+	; BEEDRILL
+	db PARTY_PAL_YELLOW
+	; PIDGEY
+	db PARTY_PAL_BROWN
+	; PIDGEOTTO
+	db PARTY_PAL_BROWN
+	; PIDGEOT
+	db PARTY_PAL_BROWN
+	; RATTATA
+	db PARTY_PAL_PURPLE
+	; RATICATE
+	db PARTY_PAL_BROWN
+	; SPEAROW
+	db PARTY_PAL_BROWN
+	; FEAROW
+	db PARTY_PAL_BROWN
+	; EKANS
+	db PARTY_PAL_PURPLE
+	; ARBOK
+	db PARTY_PAL_PURPLE
+	; PIKACHU
+	db PARTY_PAL_RED ; SGB
+	; RAICHU
+	db PARTY_PAL_YELLOW
+	; SANDSHREW
+	db PARTY_PAL_YELLOW
+	; SANDSLASH
+	db PARTY_PAL_YELLOW
+	; NIDORAN_F
+	db PARTY_PAL_BLUE
+	; NIDORINA
+	db PARTY_PAL_BLUE
+	; NIDOQUEEN
+	db PARTY_PAL_BLUE
+	; NIDORAN_M
+	db PARTY_PAL_PINK
+	; NIDORINO
+	db PARTY_PAL_PINK
+	; NIDOKING
+	db PARTY_PAL_PINK
+	; CLEFAIRY
+	db PARTY_PAL_PINK
+	; CLEFABLE
+	db PARTY_PAL_PINK
+	; VULPIX
+	db PARTY_PAL_RED
+	; NINETALES
+	db PARTY_PAL_YELLOW
+	; JIGGLYPUFF
+	db PARTY_PAL_PINK
+	; WIGGLYTUFF
+	db PARTY_PAL_PINK
+	; ZUBAT
+	db PARTY_PAL_BLUE
+	; GOLBAT
+	db PARTY_PAL_BLUE
+	; ODDISH
+	db PARTY_PAL_GREEN
+	; GLOOM
+	db PARTY_PAL_RED
+	; VILEPLUME
+	db PARTY_PAL_RED
+	; PARAS
+	db PARTY_PAL_RED
+	; PARASECT
+	db PARTY_PAL_RED
+	; VENONAT
+	db PARTY_PAL_RED
+	; VENOMOTH
+	db PARTY_PAL_PURPLE
+	; DIGLETT
+	db PARTY_PAL_BROWN
+	; DUGTRIO
+	db PARTY_PAL_BROWN
+	; MEOWTH
+	db PARTY_PAL_YELLOW
+	; PERSIAN
+	db PARTY_PAL_YELLOW
+	; PSYDUCK
+	db PARTY_PAL_YELLOW
+	; GOLDUCK
+	db PARTY_PAL_BLUE
+	; MANKEY
+	db PARTY_PAL_BROWN
+	; PRIMEAPE
+	db PARTY_PAL_BROWN
+	; GROWLITHE
+	db PARTY_PAL_RED
+	; ARCANINE
+	db PARTY_PAL_RED
+	; POLIWAG
+	db PARTY_PAL_RED
+	; POLIWHIRL
+	db PARTY_PAL_BLUE
+	; POLIWRATH
+	db PARTY_PAL_BLUE
+	; ABRA
+	db PARTY_PAL_YELLOW
+	; KADABRA
+	db PARTY_PAL_YELLOW
+	; ALAKAZAM
+	db PARTY_PAL_YELLOW
+	; MACHOP
+	db PARTY_PAL_GREY
+	; MACHOKE
+	db PARTY_PAL_GREY
+	; MACHAMP
+	db PARTY_PAL_GREY
+	; BELLSPROUT
+	db PARTY_PAL_GREEN
+	; WEEPINBELL
+	db PARTY_PAL_GREEN
+	; VICTREEBEL
+	db PARTY_PAL_GREEN
+	; TENTACOOL
+	db PARTY_PAL_BLUE
+	; TENTACRUEL
+	db PARTY_PAL_BLUE
+	; GEODUDE
+	db PARTY_PAL_GREY
+	; GRAVELER
+	db PARTY_PAL_GREY
+	; GOLEM
+	db PARTY_PAL_GREY
+	; PONYTA
+	db PARTY_PAL_RED
+	; RAPIDASH
+	db PARTY_PAL_RED
+	; SLOWPOKE
+	db PARTY_PAL_PINK
+	; SLOWBRO
+	db PARTY_PAL_PINK
+	; MAGNEMITE
+	db PARTY_PAL_GREY
+	; MAGNETON
+	db PARTY_PAL_GREY
+	; FARFETCH_D
+	db PARTY_PAL_BROWN
+	; DODUO
+	db PARTY_PAL_BROWN
+	; DODRIO
+	db PARTY_PAL_BROWN
+	; SEEL
+	db PARTY_PAL_BLUE
+	; DEWGONG
+	db PARTY_PAL_BLUE
+	; GRIMER
+	db PARTY_PAL_PURPLE
+	; MUK
+	db PARTY_PAL_PURPLE
+	; SHELLDER
+	db PARTY_PAL_PURPLE
+	; CLOYSTER
+	db PARTY_PAL_PURPLE
+	; GASTLY
+	db PARTY_PAL_PURPLE
+	; HAUNTER
+	db PARTY_PAL_RED
+	; GENGAR
+	db PARTY_PAL_RED
+	; ONIX
+	db PARTY_PAL_GREY
+	; DROWZEE
+	db PARTY_PAL_YELLOW
+	; HYPNO
+	db PARTY_PAL_YELLOW
+	; KRABBY
+	db PARTY_PAL_RED
+	; KINGLER
+	db PARTY_PAL_RED
+	; VOLTORB
+	db PARTY_PAL_RED
+	; ELECTRODE
+	db PARTY_PAL_RED
+	; EXEGGCUTE
+	db PARTY_PAL_PINK
+	; EXEGGUTOR
+	db PARTY_PAL_GREEN
+	; CUBONE
+	db PARTY_PAL_BROWN
+	; MAROWAK
+	db PARTY_PAL_BROWN
+	; HITMONLEE
+	db PARTY_PAL_BROWN
+	; HITMONCHAN
+	db PARTY_PAL_BROWN
+	; LICKITUNG
+	db PARTY_PAL_PINK
+	; KOFFING
+	db PARTY_PAL_PURPLE
+	; WEEZING
+	db PARTY_PAL_PURPLE
+	; RHYHORN
+	db PARTY_PAL_GREY
+	; RHYDON
+	db PARTY_PAL_GREY
+	; CHANSEY
+	db PARTY_PAL_PINK
+	; TANGELA
+	db PARTY_PAL_BLUE
+	; KANGASKHAN
+	db PARTY_PAL_BROWN
+	; HORSEA
+	db PARTY_PAL_BLUE
+	; SEADRA
+	db PARTY_PAL_BLUE
+	; GOLDEEN
+	db PARTY_PAL_RED
+	; SEAKING
+	db PARTY_PAL_RED
+	; STARYU
+	db PARTY_PAL_RED
+	; STARMIE
+	db PARTY_PAL_PURPLE
+	; MR_MIME
+	db PARTY_PAL_RED
+	; SCYTHER
+	db PARTY_PAL_GREEN
+	; JYNX
+	db PARTY_PAL_RED
+	; ELECTABUZZ
+	db PARTY_PAL_YELLOW
+	; MAGMAR
+	db PARTY_PAL_RED
+	; PINSIR
+	db PARTY_PAL_BROWN
+	; TAUROS
+	db PARTY_PAL_BROWN
+	; MAGIKARP
+	db PARTY_PAL_RED
+	; GYARADOS
+	db PARTY_PAL_BLUE
+	; LAPRAS
+	db PARTY_PAL_BLUE
+	; DITTO
+	db PARTY_PAL_PURPLE
+	; EEVEE
+	db PARTY_PAL_BROWN
+	; VAPOREON
+	db PARTY_PAL_BLUE
+	; JOLTEON
+	db PARTY_PAL_YELLOW
+	; FLAREON
+	db PARTY_PAL_RED
+	; PORYGON
+	db PARTY_PAL_PURPLE
+	; OMANYTE
+	db PARTY_PAL_BLUE
+	; OMASTAR
+	db PARTY_PAL_BLUE
+	; KABUTO
+	db PARTY_PAL_BROWN
+	; KABUTOPS
+	db PARTY_PAL_BROWN
+	; AERODACTYL
+	db PARTY_PAL_GREY
+	; SNORLAX
+	db PARTY_PAL_YELLOW
+	; ARTICUNO
+	db PARTY_PAL_BLUE
+	; ZAPDOS
+	db PARTY_PAL_YELLOW
+	; MOLTRES
+	db PARTY_PAL_RED
+	; DRATINI
+	db PARTY_PAL_BLUE
+	; DRAGONAIR
+	db PARTY_PAL_BLUE
+	; DRAGONITE
+	db PARTY_PAL_YELLOW
+	; MEWTWO
+	db PARTY_PAL_PURPLE
+	; MEW
+	db PARTY_PAL_PINK
 
 INCLUDE "color/data/spritepalettes.asm"

@@ -1921,7 +1921,11 @@ wPlayerCoins:: dw ; BCD
 wToggleableObjectFlags:: flag_array $100
 wToggleableObjectFlagsEnd::
 
-	ds 7
+	ds 6
+
+wPartySpritePaletteSlot::
+; saved copy of SPRITESTATEDATA1_PICTUREID
+wSavedSpritePictureID:: db
 
 ; saved copy of SPRITESTATEDATA1_IMAGEINDEX (used for sprite facing/anim)
 wSavedSpriteImageIndex:: db

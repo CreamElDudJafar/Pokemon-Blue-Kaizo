@@ -1,4 +1,4 @@
-SpritePalettes: ; Taken from pokemon GSC.
+MapSpritePalettes: ; Taken from pokemon GSC.
 
 ; PAL_OW_RED
 	RGB 27,31,27
@@ -48,7 +48,57 @@ SpritePalettes: ; Taken from pokemon GSC.
 	RGB 20,15,3
 	RGB 7,7,7
 
-SpritePalettesNite: ; Taken from pokemon GSC.
+MapSpritePalettesIndoor: ; Taken from pokemon GSC.
+
+; PAL_OW_RED
+	RGB 27,31,27
+	RGB 31,19,10
+	RGB 31,7,1
+	RGB 0,0,0
+
+; PAL_OW_BLUE
+	RGB 27,31,27
+	RGB 31,19,10
+	RGB 10,9,31
+	RGB 0,0,0
+
+; PAL_OW_GREEN
+	RGB 27,31,27
+	RGB 31,19,10
+	RGB 7,23,3
+	RGB 0,0,0
+
+; PAL_OW_BROWN
+	RGB 27,31,27
+	RGB 31,19,10
+	RGB 15,10,3
+	RGB 0,0,0
+
+; PAL_OW_PURPLE
+	RGB 27,31,27
+	RGB 31,19,10
+	RGB 18,4,18
+	RGB 0,0,0
+
+; PAL_OW_EMOJI
+	RGB 31,31,31
+	RGB 31,31,31
+	RGB 13,13,13
+	RGB 0,0,0
+
+; PAL_OW_TREE
+	RGB 18,24,9
+	RGB 15,20,1
+	RGB 9,13,0
+	RGB 7,7,7
+
+; PAL_OW_ROCK
+	RGB 30,28,26
+	RGB 21,17,7
+	RGB 16,13,3
+	RGB 0,0,0
+
+MapSpritePalettesNite: ; Taken from pokemon GSC.
 
 ; PAL_OW_RED
 	RGB 27,31,27
@@ -190,6 +240,59 @@ AttackSpritePalettes:
 	RGB 16,0,20
 	RGB 12,0,13
 	RGB 0,0,0
+
+SpritePalettes:
+	; RED_MON
+	RGB 27,31,27
+	RGB 31,25,13
+	RGB 31,6,0
+	RGB 0,0,0
+	; BLUE_MON
+	RGB 27,31,27
+	RGB 31,25,13
+	RGB 14,19,26
+	RGB 0,0,0
+	; GREEN_MON
+	RGB 27,31,27
+	RGB 31,25,13
+	RGB 2,19,3
+	RGB 0,0,0
+	; BROWN_MON
+	RGB 27,31,27
+	RGB 31,25,13
+	RGB 20,14,8
+	RGB 0,0,0
+	; PINK_MON
+	RGB 27,31,27
+	RGB 31,25,13
+	RGB 30,13,22
+	RGB 0,0,0
+	; PURPLE_MON
+	RGB 27,31,27
+	RGB 31,25,13
+	RGB 20,13,28
+	RGB 0,0,0
+	; YELLOW_MON
+	RGB 27,31,27
+	RGB 31,25,13
+	RGB 31,19,0
+	RGB 0,0,0
+	; GREY_MON
+	RGB 27,31,27
+	RGB 31,25,13
+	RGB 16,16,16
+	RGB 0,0,0
+
+
+DEF const_value = 0
+	const SPRITE_PAL_REDMON
+	const SPRITE_PAL_BLUEMON
+	const SPRITE_PAL_GREENMON
+	const SPRITE_PAL_BROWNMON
+	const SPRITE_PAL_PINKMON
+	const SPRITE_PAL_PURPLEMON
+	const SPRITE_PAL_YELLOWMON
+	const SPRITE_PAL_GREYMON
 
 ; Not related to sprites, move this somewhere else?
 SlotPaletteMap:

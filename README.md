@@ -46,6 +46,7 @@ Remaking Blue Kaizo in disassembly could not have been done without the followin
 - DannyE for Pokemon Red GBC disassembly/ Unique Party Menu Icons
 - Jojobear13 for the Yellow colors backported
 - Vortiene for the Repel System Contribution, Bag Space Increase Method, and Yellow colors backported
+- Engezerstorung for color party icon code
 - Myself for Pokemon Red with Yellow Colors disassembly/ remaking Blue Kaizo in disassembly
 - Everyone who plays Blue Kaizo and loves it
 
