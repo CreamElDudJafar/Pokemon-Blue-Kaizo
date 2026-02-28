@@ -10,4 +10,5 @@ DungeonTilesets:
 	db FACILITY
 	db CEMETERY
 	db GYM
+	db SAFARI
 	db -1 ; end

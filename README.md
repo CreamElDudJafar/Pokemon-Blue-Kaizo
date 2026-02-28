@@ -21,7 +21,7 @@ However, with the creation of Yellow Kaizo by SHF and I (2026), I decided the wo
 Their is 4 Branches here for you to choose from:
 - Main- Blue Kaizo (2025/2026 Update)
 - Yellow Colors- Blue Kaizo with Pokemon Yellow Color palettes backported (2025/2026 Update)
-- Full GBC Color- Blue Kaizo in full GBC Color. Game can be built with Gen 1 or Gen 2 graphics (Gen 2 has EXP Bar, Caught Indicator Icon) (2025/2026 Update)
+- Full GBC Color- Blue Kaizo in full GBC Color. Game can be built with Gen 1 or Gen 2 graphics (Gen 2 has EXP Bar, Caught Indicator Icon) (Also has Snow/Christmas Version) (2025/2026 Update)
 - 2016- Blue Kaizo (2016 Version)
 
 2025/2026 Update:
@@ -45,6 +45,7 @@ Remaking Blue Kaizo in disassembly could not have been done without the followin
 - CRzShadows for game name in Hall of Fame
 - DannyE for Pokemon Red GBC disassembly/ Unique Party Menu Icons
 - Jojobear13 for the Yellow colors backported
+- JustRegularLuna for the Snowy/Christmas tileset and colors
 - Vortiene for the Repel System Contribution, Bag Space Increase Method, and Yellow colors backported
 - Engezerstorung for color party icon code
 - Myself for Pokemon Red with Yellow Colors disassembly/ remaking Blue Kaizo in disassembly

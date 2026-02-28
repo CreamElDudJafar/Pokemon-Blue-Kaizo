@@ -1,5 +1,7 @@
 DEF GEN_2_GRAPHICS EQU 0
 
+DEF SNOW EQU 0
+
 INCLUDE "macros/asserts.asm"
 INCLUDE "macros/const.asm"
 INCLUDE "macros/predef.asm"

@@ -30,10 +30,15 @@ MapPaletteAssignments:
 	dw ClubPalMap        ; CLUB
 	dw FacilityPalMap    ; FACILITY
 	dw PlateauPalMap     ; PLATEAU
+	dw SafariPalMap      ; SAFARI
 	assert_table_length NUM_TILESETS
 
 OverworldPalMap:
+IF SNOW
+	INCLUDE "color/tilesets/overworld_snow.asm"
+ELSE
 	INCLUDE "color/tilesets/overworld.asm"
+ENDC
 
 RedsHouse1PalMap:
 RedsHouse2PalMap:
@@ -44,7 +49,11 @@ PokecenterPalMap:
 	INCLUDE "color/tilesets/pokecenter.asm"
 
 ForestPalMap:
+IF SNOW
+	INCLUDE "color/tilesets/forest_snow.asm"
+ELSE
 	INCLUDE "color/tilesets/forest.asm"
+ENDC
 
 DojoPalMap:
 GymPalMap:
@@ -74,7 +83,11 @@ InteriorPalMap:
 	INCLUDE "color/tilesets/interior.asm"
 
 CavernPalMap:
+IF SNOW
+	INCLUDE "color/tilesets/ice_cavern.asm"
+ELSE
 	INCLUDE "color/tilesets/cavern.asm"
+ENDC
 
 LobbyPalMap:
 	INCLUDE "color/tilesets/lobby.asm"
@@ -92,4 +105,15 @@ FacilityPalMap:
 	INCLUDE "color/tilesets/facility.asm"
 
 PlateauPalMap:
+IF SNOW
+	INCLUDE "color/tilesets/plateau_snow.asm"
+ELSE
 	INCLUDE "color/tilesets/plateau.asm"
+ENDC
+
+SafariPalMap:
+IF SNOW
+	INCLUDE "color/tilesets/safari_snow.asm"
+ELSE
+	INCLUDE "color/tilesets/safari.asm"
+ENDC

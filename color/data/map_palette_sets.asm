@@ -25,13 +25,18 @@ MapPaletteSets:
 	dw ClubPalSet        ; CLUB
 	dw FacilityPalSet    ; FACILITY
 	dw PlateauPalSet     ; PLATEAU
+	dw SafariPalSet      ; SAFARI
 	assert_table_length NUM_TILESETS
 
 OverworldPalSet:
 PlateauPalSet:
 	db OUTDOOR_GRAY
 	db OUTDOOR_RED
+IF SNOW
+	db FOREST_TREES
+ELSE
 	db OUTDOOR_GREEN
+ENDC
 	db OUTDOOR_BLUE
 	db OUTDOOR_YELLOW
 	db OUTDOOR_BROWN
@@ -73,6 +78,16 @@ LabPalSet:
 	db PC_POKEBALL_PAL
 
 ForestPalSet:
+IF SNOW	
+	db OUTDOOR_GRAY
+	db OUTDOOR_RED
+	db OUTDOOR_GREEN
+	db OUTDOOR_BLUE
+	db OUTDOOR_YELLOW
+	db OUTDOOR_BROWN
+	db OUTDOOR_ROOF
+	db CRYS_TEXTBOX
+ELSE
 	db OUTDOOR_GRAY
 	db FOREST_ROCKS
 	db OUTDOOR_GREEN
@@ -81,6 +96,7 @@ ForestPalSet:
 	db OUTDOOR_BROWN
 	db FOREST_TREES
 	db CRYS_TEXTBOX
+ENDC
 
 PokecenterPalSet:
 	db INDOOR_GRAY
@@ -122,3 +138,14 @@ CavernPalSet:
 	db CAVE_BROWN
 	db CAVE_LIGHT_BLUE
 	db CRYS_TEXTBOX
+
+SafariPalSet:
+	db OUTDOOR_GRAY
+	db OUTDOOR_RED
+	db OUTDOOR_GREEN
+	db OUTDOOR_BLUE
+	db OUTDOOR_YELLOW
+	db OUTDOOR_BROWN
+	db OUTDOOR_ROOF
+	db CRYS_TEXTBOX
+
