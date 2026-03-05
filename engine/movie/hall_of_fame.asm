@@ -213,7 +213,12 @@ HoFDisplayPlayerStats:
 	lb bc, 2, 7
 	call TextBoxBorder
 	hlcoord 12, 1
+IF DEF(_RED)
+	ld de, RedText
+ENDC
+IF DEF(_BLUE)
 	ld de, BlueText
+ENDC
 	call PlaceString
 	hlcoord 12, 2
 	ld de, KaizoText
@@ -260,6 +265,9 @@ HoFPrintTextAndDelay:
 	call PrintText
 	ld c, 120
 	jp DelayFrames
+
+RedText:
+	db "RED@"
 
 BlueText:
 	db "BLUE@"
