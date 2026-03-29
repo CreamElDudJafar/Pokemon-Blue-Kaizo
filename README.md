@@ -10,9 +10,9 @@ This is a disassembly of Pokémon Blue Kaizo.
 
 Blue Kaizo started as a binary/hex edit hack by SinisterHoodedFigure (SHF) in 2014.
 
-A few laters, the Pret disassembly of Pokemon Red and Blue were completed.
+A few years later, the Pret disassembly of Pokemon Red and Blue was completed.
 
-Since then Kaizo hacks have been made and have become more popular as the years go by. Blue Kaizo due to being older wasn't able to be updated much as binary editing has gone away.
+Since then, new Kaizo hacks have been made and becoming more popular. Blue Kaizo, due to being older wasn't able to be updated much as binary editing has gone away.
 
 I reached out to SHF about updating Blue Kaizo and some of his other games in 2024/2025. Those games have been updated and you can find the patches here: https://github.com/CreamElDudJafar/SHF-Kaizo-Patches
 
