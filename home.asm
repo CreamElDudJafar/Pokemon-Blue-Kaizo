@@ -142,6 +142,9 @@ InterruptWrapper:
 	ldh a, [hLoadedROMBank]
 	ld c, a
 
+	ldh a, [hColorHackTmp2] ; [hColorHackTmps2]
+	ld e, a
+
 	; Change ROM bank if an interrupt occurred in the middle of DelayFrameHook
 	ldh a, [hDelayFrameHookBank]
 	and a
@@ -153,10 +156,9 @@ InterruptWrapper:
 
 	xor a
 	ldh [rWBK], a
-	ld de, .ret
-	push de
-	jp hl
-.ret
+	call JumpToAddress
+	ld a, e
+	ldh [hColorHackTmp2], a ; [hColorHackTmps2]
 	ld a, b
 	ldh [rWBK], a
 	ld a, c
