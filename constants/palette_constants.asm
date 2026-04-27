@@ -62,6 +62,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_BADGE     ; $22
 	const PAL_CAVE      ; $23
 	const PAL_GAMEFREAK ; $24
+	const PAL_GIRL      ; $25
 IF GEN_2_GRAPHICS
 	const PAL_BULBASAUR  ; $25
 	const PAL_IVYSAUR    ; $26
@@ -240,7 +241,7 @@ IF GEN_2_GRAPHICS
 	const PAL_BLACKBELT     ; $D3
 	const PAL_GARY1         ; $D4
 	const PAL_OAK           ; $D5
-	const PAL_CHIEF         ; $D6
+	const PAL_LEAF          ; $D6 ; was PAL_CHIEF 
 	const PAL_SCIENTIST     ; $D7
 	const PAL_GIOVANNI      ; $D8
 	const PAL_ROCKET        ; $D9

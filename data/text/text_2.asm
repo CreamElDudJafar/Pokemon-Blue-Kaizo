@@ -1760,6 +1760,11 @@ _DoYouWantToNicknameText::
 	text "?"
 	done
 
+_BoyGirlText::
+    	text "Play as a boy, or"
+    	line "as a girl?"
+    	done
+
 _YourNameIsText::
 	text "Right! So your"
 	line "name is <PLAYER>!"

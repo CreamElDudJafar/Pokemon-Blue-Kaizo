@@ -836,8 +836,12 @@ SetPal_GameFreakIntro:
 
 ; Trainer card
 SetPal_TrainerCard:
+	ld a, [wPlayerGender]
+	ld b, a
+
 	ld a, 2
 	ldh [rWBK], a
+	push bc
 
 	ld d, PAL_MEWMON
 	ld e, 0
@@ -853,11 +857,24 @@ SetPal_TrainerCard:
 	farcall LoadSGBPalette
 
 	; Red's palette
+	pop bc
+	ld a, b
+	and a 
+	jr z, .male
+IF GEN_2_GRAPHICS
+	ld d, PAL_LEAF
+ELSE
+	ld d, PAL_GIRL
+ENDC
+	jr .female
+.male
 IF GEN_2_GRAPHICS
 	ld d, PAL_HERO
 ELSE
 	ld d, PAL_REDMON
 ENDC
+
+.female
 	ld e, 4
 	farcall LoadSGBPalette
 
