@@ -18,6 +18,15 @@ ELSE
 ENDC
 	jr GotPalID
 
+GetGreenPalID:
+	call ClearScreen
+IF GEN_2_GRAPHICS
+	ld a, PAL_LEAF
+ELSE
+	ld a, PAL_GIRL
+ENDC
+	jr GotPalID
+
 GetRivalPalID:
 	call ClearScreen
 IF GEN_2_GRAPHICS
@@ -33,7 +42,11 @@ GotPalID:
 
 	ld a, 2
 	ldh [rWBK], a
+	push de
 	CALL_INDIRECT LoadSGBPalette
+	pop de
+	ld e, 2
+	CALL_INDIRECT LoadSGBPalette_Sprite
 	xor a
 	ldh [rWBK], a
 	ret
