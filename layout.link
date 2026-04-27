@@ -175,8 +175,10 @@ ROMX $2A
 	"Text 11"
 ROMX $2B
 	"Pokédex Text"
+	"Pics 6"
 ROMX $2C
 	"Move Names"
+	"NPC Sprites 3"
 ROMX $30
 	org $4000
 	"Party Mon Sprites Gfx 1"

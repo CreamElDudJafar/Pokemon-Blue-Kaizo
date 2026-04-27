@@ -2051,7 +2051,11 @@ wRoute18Gate1FCurScript:: db
 	ds 78
 wGameProgressFlagsEnd::
 
-	ds 56
+wPlayerGender:: db
+	; $00 = boy
+	; $01 = girl
+
+	ds 55
 
 wObtainedHiddenItemsFlags:: flag_array MAX_HIDDEN_ITEMS
 
