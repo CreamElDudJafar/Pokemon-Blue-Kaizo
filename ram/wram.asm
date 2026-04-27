@@ -2063,6 +2063,10 @@ wLastOBP1::db
 wBGPPalsBuffer:: ds (NUM_ACTIVE_PALS + 1) * PAL_SIZE ; 32 bytes
 wdef4:: db
 
+wPlayerGender:: db
+	; $00 = boy
+	; $01 = girl
+
 ENDU
 
 

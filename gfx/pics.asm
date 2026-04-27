@@ -263,9 +263,6 @@ PidgeotPicBack::       INCBIN "gfx/pokemon/back/pidgeotb.pic"
 StarmiePicFront::      INCBIN "gfx/pokemon/front/starmie.pic"
 StarmiePicBack::       INCBIN "gfx/pokemon/back/starmieb.pic"
 
-RedPicBack::           INCBIN "gfx/player/redb.pic"
-OldManPicBack::        INCBIN "gfx/battle/oldmanb.pic"
-
 
 SECTION "Pics 5", ROMX
 
@@ -373,3 +370,10 @@ LoreleiPic::       INCBIN "gfx/trainers/lorelei.pic"
 ChannelerPic::     INCBIN "gfx/trainers/channeler.pic"
 AgathaPic::        INCBIN "gfx/trainers/agatha.pic"
 LancePic::         INCBIN "gfx/trainers/lance.pic"
+
+
+SECTION "Pics 6", ROMX
+
+RedPicBack::           INCBIN "gfx/player/redb.pic"
+GreenPicBack::         INCBIN "gfx/player/greenb.pic"
+OldManPicBack::        INCBIN "gfx/battle/oldmanb.pic"
