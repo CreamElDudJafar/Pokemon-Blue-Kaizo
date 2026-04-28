@@ -497,10 +497,10 @@ Rival1Data:
 	db $FF, 20, DRATINI, 19, KADABRA, 19, DRAGONAIR, 20, MEW, 0
 	db $FF, 20, DRATINI, 19, KADABRA, 19, DRAGONAIR, 20, MEW, 0
 
-ProfOakData:                                                           
-	db 115, SNORLAX, RAICHU, CHARIZARD, VENUSAUR, BLASTOISE, TAUROS, 0
-	db 115, SNORLAX, RAICHU, CHARIZARD, VENUSAUR, BLASTOISE, TAUROS, 0
-	db 115, SNORLAX, RAICHU, CHARIZARD, VENUSAUR, BLASTOISE, TAUROS, 0
+ProfOakData:                                                           ; Not Sure Why SHF added it like this? 
+	db 115, RAICHU, MACHAMP, CHANSEY, CHARIZARD, VENUSAUR, BLASTOISE, $45, BLASTOISE, DODUO, GYARADOS, 0
+	db 115, RAICHU, MACHAMP, CHANSEY, CHARIZARD, VENUSAUR, BLASTOISE, $45, VENUSAUR, DODUO, GYARADOS, 0
+	db 115, RAICHU, MACHAMP, CHANSEY, CHARIZARD, VENUSAUR, BLASTOISE, $45, CHARIZARD, DODUO, GYARADOS, 0
 
 ChiefData:
 ; none
@@ -537,8 +537,8 @@ GiovanniData:
 	db 55, PERSIAN, DUGTRIO, NIDOQUEEN, NIDOKING, RHYDON, TAUROS, 0, 
 ; Silph Co. 11F
 	db 72, PERSIAN, NIDOQUEEN, ALAKAZAM, GENGAR, TAUROS, ZAPDOS, 0
-; Viridian Gym                                                
-	db 90, PERSIAN, DUGTRIO, ZAPDOS, GENGAR, TAUROS, MEWTWO, 0
+; Viridian Gym                                                ; Not Sure Why SHF added it like this?
+	db 90, PERSIAN, DUGTRIO, ZAPDOS, GENGAR, TAUROS, MEWTWO, MEWTWO, MEWTWO, MEWTWO, NIDOKING, $32, RHYDON, 0
 
 RocketData:
 ; Mt. Moon B2F
@@ -636,8 +636,8 @@ CooltrainerFData:
 	db 144, 0
 	db 85, 0
 
-BrunoData:                                                    
-	db 68, GOLEM, PRIMEAPE, RHYDON, POLIWRATH, MUK, MACHAMP, 0
+BrunoData:                                                    ; Not Sure Why SHF added it like this?
+	db 68, GOLEM, PRIMEAPE, RHYDON, POLIWRATH, MUK, MACHAMP, 0, ONIX, SEEL, MACHAMP, 0
 
 BrockData:
 	db 15, GOLEM, KABUTO, OMANYTE, AERODACTYL, 0
@@ -651,14 +651,14 @@ LtSurgeData:
 ErikaData:
 	db 54, VILEPLUME, CLEFABLE, VENUSAUR, TANGELA, VICTREEBEL, EXEGGUTOR, 0
 
-KogaData:                                                             
-	db 66, VENOMOTH, WEEZING, MR_MIME, NIDOKING, GENGAR, TENTACRUEL, 0
+KogaData:                                                             ; Not Sure Why SHF added it like this?
+	db 66, VENOMOTH, WEEZING, MR_MIME, NIDOKING, GENGAR, TENTACRUEL, 0, WEEZING, 0
 
-BlaineData:                                                         
-	db 84, CHARIZARD, CHANSEY, RAPIDASH, FLAREON, MAGMAR, MOLTRES, 0
+BlaineData:                                                         ; Not Sure Why SHF added it like this?
+	db 84, CHARIZARD, CHANSEY, RAPIDASH, FLAREON, MAGMAR, MOLTRES, 0, ARCANINE, 0
 
-SabrinaData:                                                  
-	db 75, JYNX, SLOWBRO, HYPNO, EXEGGUTOR, STARMIE, ALAKAZAM, 0
+SabrinaData:                                                    ; Not Sure Why SHF added it like this?
+	db 75, JYNX, SLOWBRO, HYPNO, EXEGGUTOR, STARMIE, ALAKAZAM, 0, ALAKAZAM, 0
 
 GentlemanData:
 ; SS Anne 1F Rooms
@@ -676,11 +676,11 @@ Rival2Data:
 	db $FF, 30, JOLTEON, 30, FLAREON, 31, VAPOREON, 31, MEW, 0
 	db $FF, 30, FLAREON, 30, VAPOREON, 31, JOLTEON, 31, MEW, 0
 	db $FF, 30, VAPOREON, 30, JOLTEON, 31, FLAREON, 31, MEW, 0
-; Pokémon Tower 2F                                                 
-	db 53, GOLEM, PIDGEOT, VENUSAUR, CHARIZARD, BLASTOISE, MEW, 0
-	db 53, PIDGEOT, GOLEM, VENUSAUR, BLASTOISE, CHARIZARD, MEW, 0
-	db 53, PIDGEOT, GOLEM, BLASTOISE, VENUSAUR, CHARIZARD, MEW, 0
-; Silph Co. 7F                                                          
+; Pokémon Tower 2F                                                  ; Not Sure Why SHF added it like this?
+	db 53, GOLEM, PIDGEOT, VENUSAUR, CHARIZARD, BLASTOISE, MEW, CHANSEY, BLASTOISE, CHANSEY, MEW, 0
+	db 53, PIDGEOT, GOLEM, VENUSAUR, BLASTOISE, CHARIZARD, MEW, CHANSEY, VENUSAUR, CHANSEY, MEW, 0
+	db 53, PIDGEOT, GOLEM, BLASTOISE, VENUSAUR, CHARIZARD, MEW, CHANSEY, CHARIZARD, CHANSEY, MEW, 0
+; Silph Co. 7F                                                          ; Not Sure Why SHF added it like this?
 	db 70, DODRIO, SANDSLASH, EXEGGUTOR, GYARADOS, ARCANINE, MEW, TAUROS, EXEGGUTOR, TAUROS, MEW, 0
 	db 70, SANDSLASH, DODRIO, EXEGGUTOR, GYARADOS, ARCANINE, MEW, TAUROS, GYARADOS, TAUROS, MEW, 0
 	db 70, SANDSLASH, DODRIO, ARCANINE, EXEGGUTOR, GYARADOS, MEW, SEEL, EXEGGUTOR, TAUROS, MEW, 0
@@ -689,13 +689,13 @@ Rival2Data:
 	db $FF, 85, JOLTEON, 85, RHYDON, 85, TAUROS, 85, EXEGGUTOR, 85, STARMIE, 88, MEW, 0
 	db $FF, 85, JOLTEON, 85, RHYDON, 85, TAUROS, 85, EXEGGUTOR, 85, STARMIE, 88, MEW, 0
 
-Rival3Data:                                                   
-	db 115, MEW, JOLTEON, EXEGGUTOR, STARMIE, TAUROS, MEWTWO, 0
-	db 115, MEW, JOLTEON, EXEGGUTOR, STARMIE, TAUROS, MEWTWO, 0
-	db 115, MEW, JOLTEON, EXEGGUTOR, STARMIE, TAUROS, MEWTWO, 0
+Rival3Data:                                                   ; Not Sure Why SHF added it like this?
+	db 115, MEW, JOLTEON, EXEGGUTOR, STARMIE, TAUROS, MEWTWO, JIGGLYPUFF, STARMIE, JIGGLYPUFF, TAUROS, JIGGLYPUFF, MEWTWO, 0
+	db 115, MEW, JOLTEON, EXEGGUTOR, STARMIE, TAUROS, MEWTWO, JIGGLYPUFF, STARMIE, JIGGLYPUFF, TAUROS, JIGGLYPUFF, MEWTWO, 0
+	db 115, MEW, JOLTEON, EXEGGUTOR, STARMIE, TAUROS, MEWTWO, JIGGLYPUFF, STARMIE, JIGGLYPUFF, TAUROS, JIGGLYPUFF, MEWTWO, 0
 
-LoreleiData:                                                        
-	db 115, CLOYSTER, SANDSLASH, JYNX, LAPRAS, CLEFABLE, ARTICUNO, 0,
+LoreleiData:                                                        ; Not Sure Why SHF added it like this?
+	db 115, CLOYSTER, NIDOQUEEN, VAPOREON, JYNX, LAPRAS, ARTICUNO, 0, JYNX, $38, LAPRAS, 0
 
 ChannelerData:
 ; Unused
@@ -736,8 +736,8 @@ ChannelerData:
 	db 73, LAPRAS, 0
 	db 72, HAUNTER, KADABRA, MR_MIME, 0
 
-AgathaData:                                                       
-	db 115, GENGAR, JYNX, PERSIAN, ALAKAZAM, HYPNO, TENTACRUEL, 0,
+AgathaData:                                                        ; Not Sure Why SHF added it like this?
+	db 115, HYPNO, EXEGGUTOR, TENTACRUEL, JYNX, GENGAR, ALAKAZAM, 0, ARBOK, TAUROS, GENGAR, 0
 
-LanceData:                                                                  
-	db 115, CHANSEY, LAPRAS, DRAGONITE, KANGASKHAN, EXEGGUTOR, AERODACTYL, 0
+LanceData:                                                                  ; Not Sure Why SHF added it like this?
+	db 115, KANGASKHAN, LAPRAS, ELECTABUZZ, DRAGONITE, SNORLAX, AERODACTYL, 0, AERODACTYL, $3E, DRAGONITE, 0
