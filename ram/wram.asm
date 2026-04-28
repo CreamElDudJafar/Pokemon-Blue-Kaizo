@@ -2070,7 +2070,9 @@ wObtainedHiddenCoinsFlags:: flag_array MAX_HIDDEN_COINS
 ; $02 = surfing
 wWalkBikeSurfState:: db
 
-	ds 10
+	ds 9
+
+wDumbByteToToggleStatusScreen:: db ; new
 
 wTownVisitedFlag:: flag_array NUM_CITY_MAPS
 
@@ -2204,7 +2206,9 @@ ENDU
 
 wTrainerHeaderPtr:: dw
 
-	ds 6
+	ds 5
+
+wMultiUseBuffer:: db ; new, for various buffer purposes
 
 ; the trainer the player must face after getting a wrong answer in the Cinnabar
 ; gym quiz
