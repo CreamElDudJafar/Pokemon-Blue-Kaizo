@@ -43,13 +43,13 @@ KeyItemFlags:
 	dbit TRUE  ; DOME_FOSSIL
 	dbit TRUE  ; HELIX_FOSSIL
 	dbit TRUE  ; SECRET_KEY
-	dbit TRUE  ; ITEM_2C
+	dbit TRUE  ; REPELLENT
 	dbit TRUE  ; BIKE_VOUCHER
 	dbit FALSE ; X_ACCURACY
 	dbit FALSE ; LEAF_STONE
 	dbit TRUE  ; CARD_KEY
 	dbit FALSE ; NUGGET
-	dbit FALSE ; ITEM_32
+	dbit TRUE  ; HEALING_KIT
 	dbit FALSE ; POKE_DOLL
 	dbit FALSE ; FULL_HEAL
 	dbit FALSE ; REVIVE
@@ -83,4 +83,5 @@ KeyItemFlags:
 	dbit FALSE ; MAX_ETHER
 	dbit FALSE ; ELIXER
 	dbit FALSE ; MAX_ELIXER
+	dbit TRUE  ; CANDY_BAG
 	end_bit_array NUM_ITEMS

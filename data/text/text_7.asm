@@ -198,3 +198,22 @@ _UsedCutText::
 	text " hacked"
 	line "away with CUT!"
 	prompt
+
+_UsedHealingKitText:: ; new
+	text "<PLAYER> used"
+	line "the HEALING KIT."
+	prompt
+
+_AskHealingKitText:: ; new
+	text "Do you want to"
+	line "heal your party?"
+	done
+
+_RefusedHealingKitText:: ; new
+	text "Maybe later."
+	prompt
+
+_UsedRepellentText:: ; new
+	text "<PLAYER> used"
+	line "the REPELLENT."
+	done

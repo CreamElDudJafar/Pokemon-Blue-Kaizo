@@ -43,13 +43,13 @@ ItemPrices::
 	bcd3 0     ; DOME_FOSSIL
 	bcd3 0     ; HELIX_FOSSIL
 	bcd3 0     ; SECRET_KEY
-	bcd3 0     ; ITEM_2C
+	bcd3 0     ; REPELLENT
 	bcd3 0     ; BIKE_VOUCHER
 	bcd3 0950  ; X_ACCURACY
 	bcd3 2100  ; LEAF_STONE
 	bcd3 0     ; CARD_KEY
 	bcd3 10000 ; NUGGET
-	bcd3 9800  ; ITEM_32
+	bcd3 0     ; HEALING_KIT
 	bcd3 1000  ; POKE_DOLL
 	bcd3 600   ; FULL_HEAL
 	bcd3 1500  ; REVIVE
@@ -83,6 +83,7 @@ ItemPrices::
 	bcd3 0000  ; MAX_ETHER
 	bcd3 0000  ; ELIXER
 	bcd3 0000  ; MAX_ELIXER
+	bcd3 0     ; CANDY_BAG
 	assert_table_length NUM_ITEMS
 	bcd3 0     ; FLOOR_B2F
 	bcd3 0     ; FLOOR_B1F

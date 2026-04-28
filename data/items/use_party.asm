@@ -36,4 +36,5 @@ UsableItems_PartyMenu:
 	db MAX_ETHER
 	db ELIXER
 	db MAX_ELIXER
+	db CANDY_BAG
 	db -1 ; end
