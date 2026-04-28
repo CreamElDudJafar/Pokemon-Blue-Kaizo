@@ -51,11 +51,26 @@ OakSpeech:
 	call PrepareOakSpeech
 	predef InitPlayerData2
 	ld hl, wNumBoxItems
-	ld a, POTION
+	ld a, MASTER_BALL
+	ld [wCurItem], a
+	ld a, 99
+	ld [wItemQuantity], a
+	call AddItemToInventory
+	ld a, HEALING_KIT
 	ld [wCurItem], a
 	ld a, 1
 	ld [wItemQuantity], a
-	call AddItemToInventory
+	call AddItemToInventory  ; give HEALING_KIT
+	ld a, CANDY_BAG
+	ld [wCurItem], a
+	ld a, 1
+	ld [wItemQuantity], a
+	call AddItemToInventory  ; give CANDY_BAG
+	ld a, REPELLENT
+	ld [wCurItem], a
+	ld a, 1
+	ld [wItemQuantity], a
+	call AddItemToInventory  ; give REPELLENT
 	ld a, [wDefaultMap]
 	ld [wDestinationMap], a
 	call PrepareForSpecialWarp

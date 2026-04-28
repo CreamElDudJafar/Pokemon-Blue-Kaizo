@@ -60,13 +60,13 @@ ItemUsePtrTable:
 	dw UnusableItem      ; DOME_FOSSIL
 	dw UnusableItem      ; HELIX_FOSSIL
 	dw UnusableItem      ; SECRET_KEY
-	dw UnusableItem      ; ITEM_2C
+	dw ItemUseRepellent  ; REPELLENT
 	dw UnusableItem      ; BIKE_VOUCHER
 	dw UnusableItem      ; X_ACCURACY
 	dw ItemUseEvoStone   ; LEAF_STONE
 	dw ItemUseCardKey    ; CARD_KEY
 	dw UnusableItem      ; NUGGET
-	dw UnusableItem      ; ITEM_32
+	dw ItemUseHealingKit ; HEALING_KIT
 	dw ItemUsePokeDoll   ; POKE_DOLL
 	dw ItemUseVitamin    ; FULL_HEAL
 	dw ItemUseVitamin    ; REVIVE
@@ -100,6 +100,43 @@ ItemUsePtrTable:
 	dw ItemUsePPUp       ; MAX_ETHER
 	dw ItemUsePPUp       ; ELIXER
 	dw ItemUsePPUp       ; MAX_ELIXER
+	dw ItemUseVitamin    ; CANDY_BAG
+
+ItemUseHealingKit:
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+	ld hl, AskHealingKitText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr z, .yes
+; not eat now
+	ld hl, RefusedHealingKitText
+	call PrintText
+	ret
+.yes
+	ld hl, UsedHealingKitText
+	call PrintText
+	ld a, SFX_HEAL_AILMENT
+	call PlaySound
+	push hl
+	pop hl
+	predef_jump HealParty
+
+UsedHealingKitText: ; new
+	text_far _UsedHealingKitText
+	text_end
+
+AskHealingKitText: ; new
+	text_far _AskHealingKitText
+	text_end
+
+RefusedHealingKitText: ; new
+	text_far _RefusedHealingKitText
+	text_end
+
 
 ItemUseBall:
 
@@ -856,6 +893,8 @@ ItemUseMedicine:
 	jr z, ItemUseMedicine ; if so, force another choice
 .checkItemType
 	ld a, [wCurItem]
+	cp CANDY_BAG
+	jp z, .useVitamin
 	cp REVIVE
 	jr nc, .healHP ; if it's a Revive or Max Revive
 	cp FULL_HEAL
@@ -1270,6 +1309,8 @@ ItemUseMedicine:
 	ld a, [wCurItem]
 	cp RARE_CANDY
 	jp z, .useRareCandy
+	cp CANDY_BAG
+	jp z, .useRareCandy
 	push hl
 	sub HP_UP
 	add a
@@ -1415,6 +1456,9 @@ ItemUseMedicine:
 	ld [wCurItem], a
 	pop af
 	ld [wWhichPokemon], a
+	ld a, [wCurItem]
+	cp CANDY_BAG
+	ret z
 	jp RemoveUsedItem
 
 VitaminStatRoseText:
@@ -1626,6 +1670,26 @@ ItemUseSuperRepel:
 ItemUseMaxRepel:
 	ld b, 250
 	jp ItemUseRepelCommon
+
+ItemUseRepellent: ; new
+	ld b, 250
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+	ld a, b
+	ld [wRepelRemainingSteps], a
+	ld hl, UsedRepellentText
+	call PrintText
+	ld a, SFX_HEAL_AILMENT
+	call PlaySound
+	call WaitForTextScrollButtonPress ; wait for button press
+	push hl
+	pop hl
+	ret
+
+UsedRepellentText: ; new
+	text_far _UsedRepellentText
+	text_end
 
 ItemUseDireHit:
 	ld a, [wIsInBattle]

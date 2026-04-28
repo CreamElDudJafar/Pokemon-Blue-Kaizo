@@ -952,6 +952,12 @@ _ItemsCantBeUsedHereText::
 	line "used here."
 	prompt
 
+_CantUsePCHere:: ; new, for portablePC
+	text "You cannot use"
+	line "this here!"
+	prompt
+
+
 _AlreadyOutText::
 	text_ram wBattleMonNick
 	text " is"
