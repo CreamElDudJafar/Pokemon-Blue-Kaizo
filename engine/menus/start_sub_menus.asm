@@ -20,17 +20,13 @@ StartMenu_PortablePC:: ; new
 	jr z, .cantUseItHere
 	cp LANCES_ROOM
 	jr z, .cantUseItHere
-	cp VIRIDIAN_GYM
-	jr z, .cantUseItHere
-	cp ROUTE_25
-	jr z, .cantUseItHere
 ; if none of the above cp is met, let's open the pc and do the things
 ; next piece is to preserve the map text pointers
-    ld hl, wCurMapTextPtr
-    ld a, [hli]
-    ld [wUnusedMapVariable], a
-    ld a, [hl]
-    ld [wUnusedMapVariable+1], a
+    	ld hl, wCurMapTextPtr
+    	ld a, [hli]
+    	ld [wUnusedMapVariable], a
+    	ld a, [hl]
+    	ld [wUnusedMapVariable+1], a
 ; normal stuff
 	callfar ActivatePC ; main part
 	jr .done
