@@ -116,15 +116,6 @@ OverworldLoopLessDelay::
 	ld a, 0
 	ld [wEnteringCableClub], a
 	jr z, .changeMap
-; XXX can this code be reached?
-	predef TryLoadSaveFile
-	ld a, [wCurMap]
-	ld [wDestinationMap], a
-	call PrepareForSpecialWarp
-	ld a, [wCurMap]
-	call SwitchToMapRomBank
-	ld hl, wCurMapTileset
-	set BIT_NO_PREVIOUS_MAP, [hl]
 .changeMap
 	jp EnterMap
 .checkForOpponent
