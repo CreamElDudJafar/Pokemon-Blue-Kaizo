@@ -397,6 +397,7 @@ INCLUDE "engine/overworld/elevator.asm"
 INCLUDE "color/animations.asm"
 
 
-SECTION "Repel", ROMX
+SECTION "Engine Spillover", ROMX
 
 INCLUDE "engine/overworld/use_another_repel.asm"
+INCLUDE "engine/overworld/field_moves.asm"
