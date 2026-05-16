@@ -80,11 +80,10 @@ RedisplayStartMenu::
 	jr CloseStartMenu
 
  .exitOrPortablePC
-       CheckEvent + EVENT_GOT_POKEDEX
+       	CheckEvent EVENT_GOT_POKEDEX
 	jr z, CloseStartMenu
 	jp StartMenu_PortablePC
- ; back to vanilla
-
+; back to vanilla
 ; EXIT falls through to here
 CloseStartMenu::
 	call Joypad
