@@ -58,7 +58,6 @@ DrawStartMenu::
 	call PrintStartMenuItem ; new, for portablePC
 .dontPrintPortablePC ; new, for portablePC
 	ld de, StartMenuExitText
-	ld de, StartMenuExitText
 	call PlaceString
 	ld hl, wStatusFlags5
 	res BIT_NO_TEXT_DELAY, [hl]
