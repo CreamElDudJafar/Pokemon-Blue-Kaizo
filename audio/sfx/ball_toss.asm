@@ -2,6 +2,7 @@ SFX_Ball_Toss_Ch5:
 	duty_cycle 2
 	pitch_sweep 2, -7
 	square_note 15, 15, 2, 1920
+	pitch_sweep  0, 0
 	sound_ret
 
 SFX_Ball_Toss_Ch6:

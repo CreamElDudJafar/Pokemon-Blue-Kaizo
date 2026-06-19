@@ -376,6 +376,10 @@ INCLUDE "audio/pokedex_rating_sfx.asm"
 INCLUDE "audio/engine_3.asm"
 
 
+SECTION "Fade Audio", ROMX
+INCLUDE "audio/fade_audio.asm"
+
+
 SECTION "Music 1", ROMX
 
 INCLUDE "audio/music/pkmnhealed.asm"
@@ -408,7 +412,8 @@ INCLUDE "audio/music/pokecenter.asm"
 SECTION "Music 2", ROMX
 
 INCLUDE "audio/sfx/pokeflute_ch5_ch6.asm"
-INCLUDE "audio/sfx/unused_fanfare.asm"
+;INCLUDE "audio/sfx/unused_fanfare.asm"
+INCLUDE "audio/sfx/swap_2.asm"
 INCLUDE "audio/music/gymleaderbattle.asm"
 INCLUDE "audio/music/trainerbattle.asm"
 INCLUDE "audio/music/wildbattle.asm"

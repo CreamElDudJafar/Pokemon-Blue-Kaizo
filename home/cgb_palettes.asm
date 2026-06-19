@@ -69,7 +69,8 @@ UpdateCGBPal_OBP1::
 Func_3082:: ; added from pokeyellow - update audio so it doesn't "lag"
 	ldh a, [hLoadedROMBank]
 	push af
-	call FadeOutAudio
-	call DoAudioUpdate
+	farcall FadeOutAudio
+	callbs Music_DoLowHealthAlarm
+	callbs Audio1_UpdateMusic
 	pop af
 	jp BankswitchCommon
