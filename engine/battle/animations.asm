@@ -569,13 +569,13 @@ AnimationShakeScreenHorizontallySlow:
 	ret
 
 SetAnimationPalette:
+	ld b, $e4
 	ld a, [wOnSGB]
 	and a
-	ld a, $e4
+	;ld a, $e4	;redundant
 	jr z, .notSGB
-	ld a, $f0
-	ld [wAnimPalette], a
-	ld b, $e4
+	;ld a, $f0
+	;ld [wAnimPalette], a ; will handle in setattackanimpal
 	ld a, [wAnimationID]
 	cp TRADE_BALL_DROP_ANIM
 	jr c, .next
@@ -583,22 +583,24 @@ SetAnimationPalette:
 	jr nc, .next
 	ld b, $f0
 .next
-	ld a, b
-	ldh [rOBP0], a
-	ld a, $6c
-	ldh [rOBP1], a
-	call UpdateCGBPal_OBP0
-	call UpdateCGBPal_OBP1
-	ret
+	;ld a, b
+	;ldh [rOBP0], a
+	;ld a, $6c
+	;ldh [rOBP1], a
+	;call UpdateGBCPal_OBP0
+	;call UpdateGBCPal_OBP1
+	;ret
 .notSGB
-	ld a, $e4
-	ld [wAnimPalette], a
+	ld a, b
+	;ld a, $e4
+	;ld [wAnimPalette], a
 	vc_hook Reduce_move_anim_flashing_Dream_Eater
 	ldh [rOBP0], a
 	ld a, $6c
 	ldh [rOBP1], a
 	call UpdateCGBPal_OBP0
 	call UpdateCGBPal_OBP1
+	predef SetAttackAnimPal
 	ret
 
 PlaySubanimation:
@@ -710,11 +712,16 @@ DoBallTossSpecialEffects:
 	ld a, [wCurItem]
 	cp ULTRA_BALL + 1 ; is it a Master Ball or Ultra Ball?
 	jr nc, .skipFlashingEffect
+;don't complement colors on the last frame
+	ld a, [wSubAnimCounter]
+	cp 1
+	jr z, .skipFlashingEffect
 .flashingEffect ; do a flashing effect if it's Master Ball or Ultra Ball
 	ldh a, [rOBP0]
 	xor %00111100 ; complement colors 1 and 2
-	call UpdateCGBPal_OBP0
 	ldh [rOBP0], a
+;	call UpdateCGBPal_OBP0
+	predef SetAttackAnimPal
 .skipFlashingEffect
 	ld a, [wSubAnimCounter]
 	cp 11 ; is it the beginning of the subanimation?
@@ -731,12 +738,14 @@ DoBallTossSpecialEffects:
 	ret nz
 ; if the enemy pokemon is the Ghost Marowak, make it dodge during the last 3 frames
 	ld a, [wSubAnimCounter]
-	cp 3
-	jr z, .moveGhostMarowakLeft
-	cp 2
-	jr z, .moveGhostMarowakLeft
-	cp 1
-	ret nz
+;	cp 3
+;	jr z, .moveGhostMarowakLeft
+;	cp 2
+;	jr z, .moveGhostMarowakLeft
+;	cp 1
+;	ret nz
+	cp 4
+	ret nc
 .moveGhostMarowakLeft
 	hlcoord 17, 0
 	ld de, 20
@@ -1175,7 +1184,7 @@ _AnimationWaterDroplets:
 	ld [wdef4], a
 	ld a, [wBaseCoordY]
 	ld [hli], a ; Y
-	cp 40
+	cp 72
 	jr c, .asm_792d7
 	ld a, [wdef4]
 	inc a
@@ -1764,7 +1773,7 @@ AnimationShootManyBallsUpward:
 	ld a, $50 ; y coordinate for "energy" ball pillar
 	jr z, .player
 	ld hl, UpwardBallsAnimXCoordinatesEnemyTurn
-	ld a, $28 ; y coordinate for "energy" ball pillar
+	ld a, $27 ; y coordinate for "energy" ball pillar
 .player
 	ld [wSavedY], a
 .loop

@@ -58,4 +58,11 @@ ENDC
 	RGB 31,31,31, 03,11,06, 03,17,11, 03,03,03 ; PAL_BADGE
 	RGB 31,31,31, 23,08,00, 17,14,11, 03,03,03 ; PAL_CAVE
 	RGB 31,31,31, 31,19,00, 19,19,00, 03,03,03 ; PAL_GAMEFREAK
+	RGB 31,31,31, 15,15,15, 10,11,11, 03,03,03 ; PAL_BLACKMON ; black alt palette pokemon
+	RGB 31,31,31, 25,25,27, 20,20,23, 03,03,03 ; PAL_WHITEMON ; white alt palette pokemon
+	RGB 31,31,31, 20,26,31, 12,25,06, 03,03,03 ; PAL_BLUEGREENMON ; blue/green alt palette pokemon
+	RGB 31,31,31, 31,31,31, 03,03,03, 03,03,03 ; PAL_BLACK2 ; default move animation palette	
+	RGB 31,31,31, 17,31,11, 17,09,05, 03,03,03 ; PAL_SAFARIBALL ; safari ball palette when throwing one in battle
+	RGB 31,31,31, 31,17,11, 11,05,14, 03,03,03 ; PAL_MEWMON2
+	RGB 31,31,31, 22,13,30, 00,09,31, 03,03,03 ; PAL_MEWMON3
 	assert_table_length NUM_SGB_PALS

@@ -529,6 +529,16 @@ ItemUseBall:
 .skip6
 	ld a, [wCurPartySpecies]
 	push af
+
+	push de
+	ld d, CONVERT_OBP0
+	ld e, 3
+	ld a, PAL_MEWMON
+	add NUM_POKEMON_INDEXES+1
+	ld [wCurPartySpecies], a
+	callfar TransferMonPal
+	pop de
+
 	ld a, [wEnemyMonSpecies2]
 	ld [wCurPartySpecies], a
 	ld a, [wEnemyMonLevel]

@@ -363,6 +363,7 @@ INCLUDE "engine/overworld/use_another_repel.asm"
 INCLUDE "engine/overworld/field_moves.asm"
 INCLUDE "text/tmhm_names.asm"
 tmhmNamesEnd:
+INCLUDE "engine/gfx/set_attack_animation_palette.asm"
 
 
 SECTION "CGB Mode Code", ROMX

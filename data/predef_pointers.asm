@@ -112,3 +112,4 @@ PredefPointers::
 	add_predef OaksAideScript
 	add_predef BGLayerScrollingUpdate
 	add_predef TryFieldMove
+	add_predef SetAttackAnimPal
