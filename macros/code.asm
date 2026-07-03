@@ -26,3 +26,8 @@ MACRO dict
 	ENDC
 	jp z, \2
 ENDM
+
+MACRO n_sub_a ; arg = which constant value a will be subtracted from. result a = arg - a
+	cpl
+	add \1 + 1
+ENDM

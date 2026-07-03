@@ -12,9 +12,9 @@ DisplayTextIDInit::
 ; Note that the start menu text border is also drawn in the function directly
 ; below this, so this seems unnecessary.
 	CheckEvent EVENT_GOT_POKEDEX
-; start menu with pokedex
+; start menu with pokedex and port pc
 	hlcoord 10, 0
-	ld b, $0e
+	ld b, $10
 	ld c, $08
 	jr nz, .drawTextBoxBorder
 ; start menu without pokedex
