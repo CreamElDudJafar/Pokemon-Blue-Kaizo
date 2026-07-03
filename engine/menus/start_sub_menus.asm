@@ -349,6 +349,7 @@ StartMenu_Item::
 	call PrintText
 	jr .exitMenu
 .notInCableClubRoom
+	callfar DrawItemCountBox
 	ld bc, wNumBagItems
 	ld hl, wListPointer
 	ld a, c

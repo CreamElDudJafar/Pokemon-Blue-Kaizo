@@ -215,3 +215,7 @@ DisplayRepelWoreOffText::
 RepelWoreOffText::
 	text_far _RepelWoreOffText
 	text_end
+
+DisplayTextPromptButton::
+	ld hl, TextScriptPromptButton
+	jp TextCommandProcessor

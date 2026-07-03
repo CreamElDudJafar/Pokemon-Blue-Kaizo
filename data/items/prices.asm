@@ -84,6 +84,7 @@ ItemPrices::
 	bcd3 0000  ; ELIXER
 	bcd3 0000  ; MAX_ELIXER
 	bcd3 0     ; CANDY_BAG
+	bcd3 0     ; STATUS_KIT
 	assert_table_length NUM_ITEMS
 	bcd3 0     ; FLOOR_B2F
 	bcd3 0     ; FLOOR_B1F

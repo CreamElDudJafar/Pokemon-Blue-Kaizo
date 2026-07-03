@@ -1426,10 +1426,16 @@ wEndBattleLoseTextPointer:: dw
 	ds 2
 wEndBattleTextRomBank:: db
 
+UNION
+
+w2CharStringBuffer:: ds 3 ; don't use this buffer during attack animations
+
+NEXTU
 	ds 1
 
 ; the address _of the address_ of the current subanimation entry
 wSubAnimAddrPtr:: dw
+ENDU
 
 UNION
 ; the address of the current subentry of the current subanimation
@@ -1840,7 +1846,7 @@ NEXTU
 wNumBagItems:: db
 ; item, quantity
 wBagItems:: ds BAG_ITEM_CAPACITY * 2 + 1
-; 26 bytes left to use
+; 7 bytes left to use
 ENDU
 
 ; number of signs in the current map (up to MAX_BG_EVENTS)
@@ -2059,7 +2065,9 @@ wPlayerGender:: db
 	; $00 = boy
 	; $01 = girl
 
-	ds 55
+wStatusKitStatus:: db
+
+	ds 54
 
 wObtainedHiddenItemsFlags:: flag_array MAX_HIDDEN_ITEMS
 
