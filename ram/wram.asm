@@ -783,7 +783,10 @@ wTrainerInfoTextBoxWidth:: db
 wTrainerInfoTextBoxNextRowOffset:: db
 
 NEXTU
-wOptionsCursorLocation:: db
+wOptionsTextSpeedCursorX:: db
+wOptionsBattleAnimCursorX:: db
+wOptionsBattleStyleCursorX:: db
+wOptionsCancelCursorX:: db
 
 NEXTU
 ; tile ID of the badge number being drawn
