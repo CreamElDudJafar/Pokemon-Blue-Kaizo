@@ -311,8 +311,6 @@ INCLUDE "gfx/version.asm"
 
 SECTION "bank1C", ROMX
 
-INCLUDE "engine/movie/splash.asm"
-INCLUDE "engine/movie/hall_of_fame.asm"
 INCLUDE "engine/overworld/healing_machine.asm"
 INCLUDE "engine/overworld/player_animations.asm"
 INCLUDE "engine/battle/ghost_marowak_anim.asm"
@@ -322,6 +320,12 @@ INCLUDE "engine/gfx/mon_icons.asm"
 INCLUDE "engine/events/in_game_trades.asm"
 INCLUDE "engine/gfx/palettes.asm"
 INCLUDE "engine/menus/save.asm"
+
+
+SECTION "Splash Animation", ROMX
+
+INCLUDE "engine/movie/splash.asm"
+INCLUDE "engine/movie/hall_of_fame.asm"
 
 
 SECTION "Itemfinder 1", ROMX
@@ -365,6 +369,7 @@ INCLUDE "engine/gfx/set_attack_animation_palette.asm"
 INCLUDE "engine/menus/item_display_count.asm"
 INCLUDE "text/tmhm_names.asm"
 tmhmNamesEnd:
+INCLUDE "engine/menus/options_menu.asm"
 
 
 SECTION "CGB Mode Code", ROMX

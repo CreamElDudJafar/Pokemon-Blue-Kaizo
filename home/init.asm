@@ -84,6 +84,7 @@ Init::
 
 	ei
 
+	callfar CopyOptionsFromSRAM
 	predef LoadSGB
 
 	ld a, BANK(SFX_Shooting_Star)
