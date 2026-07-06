@@ -340,10 +340,9 @@ DoOptionsRestore:
 	ret
 
 BackupList:
-	db 3
+	db 2
 	dw wOptions2
 	dw wOptions
-	dw wStatusFlags6
 
 CopyOptionsFromSRAM::
 	ld a, [wOptionsInitialized]
