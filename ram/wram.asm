@@ -869,7 +869,9 @@ wRightGBMonSpecies:: db
 
 wMiscFlags:: db
 
-	ds 9
+wNewInGameFlags:: db
+
+	ds 8
 
 ; This has overlapping related uses.
 ; When the player tries to use an item or use certain field moves, 0 is stored
@@ -2220,7 +2222,13 @@ wOpponentAfterWrongAnswer:: db
 ; mostly copied from map-specific map script pointer and written back later
 wCurMapScript:: db
 
-	ds 7
+	ds 6
+
+; bits 0-1 = Palette setting 
+; 00 = Original
+; 01 = SGB
+; 11 = Yellow
+wOptions2:: db
 
 wPlayTimeHours:: db
 wPlayTimeMaxed:: db

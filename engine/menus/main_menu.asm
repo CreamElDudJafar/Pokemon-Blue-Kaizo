@@ -84,7 +84,7 @@ MainMenu:
 	jr z, .choseContinue
 	cp 1
 	jp z, StartNewGame
-	call DisplayOptionMenu
+	callfar DisplayOptionMenu
 	ld a, TRUE
 	ld [wOptionsInitialized], a
 	jp .mainMenuLoop
@@ -440,20 +440,25 @@ SaveScreenInfoText:
 	next "#DEX    "
 	next "TIME@"
 
-DisplayOptionMenu:
-	callfar DisplayOptionMenu_
-	ret
-
 CheckForPlayerNameInSRAM:
 ; Check if the player name data in SRAM has a string terminator character
-; (indicating that a name may have been saved there) and return whether it does
-; in carry.
+; and return whether it does in carry.
 	ld a, RAMG_SRAM_ENABLE
 	ld [rRAMG], a
 	ld a, BMODE_ADVANCED
 	ld [rBMODE], a
 	ASSERT BANK(sPlayerName) == BMODE_ADVANCED
 	ld [rRAMB], a
+	call CheckSaveFileExists
+	push af
+	xor a
+	ld [rRAMG], a
+	ld [rBMODE], a
+	pop af
+	ret
+
+; note: function assumes SRAM has been enabled first
+CheckSaveFileExists::
 	ld b, NAME_LENGTH
 	ld hl, sPlayerName
 .loop
@@ -462,15 +467,8 @@ CheckForPlayerNameInSRAM:
 	jr z, .found
 	dec b
 	jr nz, .loop
-; not found
-	xor a
-	ld [rRAMG], a
-	ld [rBMODE], a
-	and a
+	and a ; clear carry
 	ret
 .found
-	xor a
-	ld [rRAMG], a
-	ld [rBMODE], a
 	scf
 	ret

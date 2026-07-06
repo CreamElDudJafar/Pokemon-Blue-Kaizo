@@ -713,6 +713,10 @@
 	const_skip
 	const EVENT_BEAT_MEWTWO
 
+; Arbitray flags
+	const_next $8D0
+	const FLAG_SKIP_DELAY_IN_GBC_PALETTE_FUNC
+
 ; Indigo Plateau events
 	const_next $8E0
 DEF INDIGO_PLATEAU_EVENTS_START EQU const_value

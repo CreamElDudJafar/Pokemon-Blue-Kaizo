@@ -64,3 +64,23 @@ ENDC
 	RGB 31,31,31, 31,31,31, 03,03,03, 03,03,03 ; PAL_BLACK2 ; default move animation palette	
 	RGB 31,31,31, 17,31,11, 17,09,05, 03,03,03 ; PAL_SAFARIBALL ; safari ball palette when throwing one in battle
 	assert_table_length NUM_SGB_PALS
+
+; PureRGBnote: ADDED: the colors that display on gbc without any modifications to pokemon red/blue code.
+; The "duochromatic" colors that original displayed on GBC games playing red/blue/green.
+; only 2 palettes, one for background and OBJ1, another for OBJ0
+
+CGB_OGPalettes_BGOBJ1:
+IF DEF(_RED)
+	RGB 31,31,31, 31,16,16, 18,07,07, 00,00,00 ; BG, OBJ1
+ENDC
+IF DEF(_BLUE)
+	RGB 31,31,31, 12,20,31, 00,00,31, 00,00,00 ; BG, OBJ1
+ENDC
+
+CGB_OGPalettes_OBJ0:
+IF DEF(_RED)
+	RGB 31,31,31, 15,31,06, 00,16,00, 00,00,00 ; OBJ0
+ENDC
+IF DEF(_BLUE)
+	RGB 31,31,31, 31,16,16, 18,07,07, 00,00,00 ; OBJ0
+ENDC

@@ -1,15 +1,9 @@
 PrepareOakSpeech:
 	ld a, [wLetterPrintingDelayFlags]
 	push af
-	ld a, [wOptions]
-	push af
-	; Retrieve BIT_DEBUG_MODE set in DebugMenu for StartNewGameDebug.
-	; BUG: StartNewGame carries over BIT_ALWAYS_ON_BIKE from previous save files,
-	; which causes CheckForceBikeOrSurf to not return.
-	; To fix this in debug builds, reset BIT_ALWAYS_ON_BIKE here or in StartNewGame.
-	; In non-debug builds, the instructions can be removed.
-	ld a, [wStatusFlags6]
-	push af
+
+;;;;;;;;;; PureRGBnote: ADDED: Preserve all options settings when starting a new game
+	call BackupOptionsSettings
 	ld hl, wPlayerName
 	ld bc, wBoxDataEnd - wPlayerName
 	xor a
@@ -18,10 +12,9 @@ PrepareOakSpeech:
 	ld bc, wSpriteDataEnd - wSpriteDataStart
 	xor a
 	call FillMemory
-	pop af
-	ld [wStatusFlags6], a
-	pop af
-	ld [wOptions], a
+	call RestoreOptionsSettings
+;;;;;;;;;;
+
 	pop af
 	ld [wLetterPrintingDelayFlags], a
 	ld a, [wOptionsInitialized]
@@ -137,7 +130,7 @@ OakSpeech:
 	and a
 	jr z, .NotGreen2
 	ld de, GreenPicFront
-	lb bc, Bank(GreenPicFront), $00
+	lb bc, BANK(GreenPicFront), $00
 .NotGreen2:
 	call IntroDisplayPicCenteredOrUpperRight
 	call GBFadeInFromWhite
@@ -297,6 +290,90 @@ IntroDisplayPicCenteredOrUpperRight:
 	xor a
 	ldh [hStartTileID], a
 	predef_jump CopyUncompressedPicToTilemap
+
+
+BackupOptionsSettings:
+	ld de, wBuffer
+	ld hl, BackupList
+	jr DoOptionsBackup
+
+RestoreOptionsSettings:
+	ld de, wBuffer
+	ld hl, BackupList
+	call DoOptionsRestore
+	ret
+
+DoOptionsBackup:
+	ld b, [hl]
+	inc hl
+.loopBackup
+	push hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [hl]
+	ld [de], a
+	pop hl
+	inc hl
+	inc hl
+	inc de
+	dec b
+	jr nz, .loopBackup
+	ret
+
+DoOptionsRestore:
+	ld b, [hl]
+	inc hl
+.loopRestore
+	push hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [de]
+	ld [hl], a
+	pop hl
+	inc hl
+	inc hl
+	inc de
+	dec b
+	jr nz, .loopRestore
+	ret
+
+BackupList:
+	db 3
+	dw wOptions2
+	dw wOptions
+	dw wStatusFlags6
+
+CopyOptionsFromSRAM::
+	ld a, [wOptionsInitialized]
+	and a
+	ret nz ; don't overwrite title-menu changes with old SRAM again
+
+	ld a, RAMG_SRAM_ENABLE
+	ld [rRAMG], a
+	ld a, BMODE_ADVANCED
+	ld [rBMODE], a
+	ASSERT BANK(sPlayerName) == BMODE_ADVANCED
+	ld [rRAMB], a
+
+	call CheckSaveFileExists
+	jr nc, .doneLoad
+
+	ld a, [sOptions2]
+	ld [wOptions2], a
+
+	ld a, [sOptions]
+	ld [wOptions], a
+
+.doneLoad
+	xor a
+	ld [rBMODE], a
+	ld [rRAMG], a
+
+	ld a, TRUE
+	ld [wOptionsInitialized], a
+	ret
 
 ; displays boy/girl choice
 BoyGirlChoice::

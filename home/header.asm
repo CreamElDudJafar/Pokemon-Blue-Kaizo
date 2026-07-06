@@ -6,9 +6,9 @@ SECTION "rst0", ROM0[$0000]
 	ds $08 - @, 0 ; unused
 
 SECTION "rst8", ROM0[$0008]
-	rst $38
-
-	ds $10 - @, 0 ; unused
+	MartSignText::
+	text_far _MartSignText
+	text_end
 
 SECTION "rst10", ROM0[$0010]
 	rst $38
