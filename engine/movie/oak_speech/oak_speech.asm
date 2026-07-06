@@ -321,6 +321,8 @@ RestoreOptionsSettings:
 	ld de, wBuffer
 	ld hl, BackupList
 	call DoOptionsRestore
+	ld hl, wStatusFlags6
+	res BIT_ALWAYS_ON_BIKE, [hl]
 	ret
 
 DoOptionsBackup:
@@ -360,9 +362,10 @@ DoOptionsRestore:
 	ret
 
 BackupList:
-	db 2
+	db 3
 	dw wOptions2
 	dw wOptions
+	dw wStatusFlags6
 
 CopyOptionsFromSRAM::
 	ld a, [wOptionsInitialized]
