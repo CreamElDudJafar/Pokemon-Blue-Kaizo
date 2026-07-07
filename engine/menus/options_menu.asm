@@ -1,773 +1,511 @@
-DEF OPTION_PAGE_NEXT_X EQU 1
-DEF OPTION_PAGE_PREV_X EQU 7
-DEF OPTION_PAGE_Y EQU 16
-
-DEF OPTION2_COLOR_Y EQU 3
-DEF OPTION2_SOUND_Y EQU 9
-DEF OPTION2_PAGE_Y EQU 13
-DEF OPTION2_PREV_X EQU 1
-
-DEF OPTION_COLORS_LEFT_XPOS EQU 8
-DEF OPTION_COLORS_MIDDLE_XPOS EQU 11
-DEF OPTION_COLORS_RIGHT_XPOS EQU 16
-
-DEF OPTION_SOUND_MONO_X EQU 1
-DEF OPTION_SOUND_EAR1_X EQU 8
-DEF OPTION_SOUND_EAR2_X EQU 12
-DEF OPTION_SOUND_EAR3_X EQU 16
-
-
 DisplayOptionMenu::
-	hlcoord 0, 0
-	ld b, 3
-	ld c, 18
-	call TextBoxBorder
-	hlcoord 0, 5
-	ld b, 3
-	ld c, 18
-	call TextBoxBorder
-	hlcoord 0, 10
-	ld b, 3
-	ld c, 18
-	call TextBoxBorder
-	hlcoord 1, 1
-	ld de, TextSpeedOptionText
-	call PlaceString
-	hlcoord 1, 6
-	ld de, BattleAnimationOptionText
-	call PlaceString
-	hlcoord 1, 11
-	ld de, BattleStyleOptionText
-	call PlaceString
-	hlcoord 0, OPTION_PAGE_Y
-	ld de, OptionPageControlText
-	call PlaceString
+	call InitOptionsMenu
 
-	xor a
-	ld [wCurrentMenuItem], a
-	ld [wLastMenuItem], a
-	ASSERT BIT_FAST_TEXT_DELAY == 0
-	inc a
-	ld [wLetterPrintingDelayFlags], a
-
-	ld a, OPTION_PAGE_NEXT_X
-	ld [wOptionsCancelCursorX], a
-
-	ld a, 3
-	ld [wTopMenuItemY], a
-	call SetCursorPositionsFromOptions
-	ld a, [wOptionsTextSpeedCursorX]
-	ld [wTopMenuItemX], a
-	ld a, $01
-	ldh [hAutoBGTransferEnabled], a
-	call Delay3
-
-.loop
-	call PlaceMenuCursor
-	call SetOptionsFromCursorPositions
-
-.getJoypadStateLoop
+.optionMenuLoop
 	call JoypadLowSensitivity
 	ldh a, [hJoy5]
 	ld b, a
-	and ~PAD_SELECT
-	jr z, .getJoypadStateLoop
-	bit B_PAD_B, b
-	jr nz, .exitMenu
-	bit B_PAD_START, b
-	jr nz, .exitMenu
-	bit B_PAD_A, b
-	jr z, .checkDirectionKeys
+	and PAD_START | PAD_B
+	jr nz, .exitOptionMenu
 
-	ld a, [wTopMenuItemY]
-	cp OPTION_PAGE_Y
-	jr nz, .loop
-	ld a, [wOptionsCancelCursorX]
-	cp OPTION_PAGE_NEXT_X
-	jr z, .goToOptionsPage2
-	cp OPTION_PAGE_PREV_X
-	jr nz, .loop
+	call OptionsControl
+	jr c, .dpadDelay
 
-.goToOptionsPage2
-	ld a, SFX_PRESS_AB
-	call PlaySound
-	jp DisplayOptions2
+	call GetOptionPointer
+	jr c, .exitOptionMenu
 
-.exitMenu
-	ld a, SFX_PRESS_AB
-	call PlaySound
+.dpadDelay
+	call OptionsMenu_UpdateCursorPosition
+	call DelayFrame
+	call DelayFrame
+	call DelayFrame
+	jr .optionMenuLoop
+
+.exitOptionMenu
 	ret
 
-.eraseOldMenuCursor
-	ld [wTopMenuItemX], a
-	call EraseMenuCursor
-	jp .loop
 
-.checkDirectionKeys
-	ld a, [wTopMenuItemY]
-	bit B_PAD_DOWN, b
-	jr nz, .downPressed
-	bit B_PAD_UP, b
-	jr nz, .upPressed
-	cp 8
-	jr z, .cursorInBattleAnimation
-	cp 13
-	jr z, .cursorInBattleStyle
-	cp OPTION_PAGE_Y
-	jr z, .cursorInPageControls
-
-	bit B_PAD_LEFT, b
-	jp nz, .pressedLeftInTextSpeed
-	jp .pressedRightInTextSpeed
-
-.downPressed
-	cp OPTION_PAGE_Y
-	ld b, -13
-	ld hl, wOptionsTextSpeedCursorX
-	jr z, .updateMenuVariables
-	ld b, 5
-	cp 3
-	inc hl
-	jr z, .updateMenuVariables
-	cp 8
-	inc hl
-	jr z, .updateMenuVariables
-	ld b, 3
-	inc hl
-	jr .updateMenuVariables
-
-.upPressed
-	cp 8
-	ld b, -5
-	ld hl, wOptionsTextSpeedCursorX
-	jr z, .updateMenuVariables
-	cp 13
-	inc hl
-	jr z, .updateMenuVariables
-	cp OPTION_PAGE_Y
-	ld b, -3
-	inc hl
-	jr z, .updateMenuVariables
-	ld b, 13
-	inc hl
-
-.updateMenuVariables
-	add b
-	ld [wTopMenuItemY], a
-	ld a, [hl]
-	ld [wTopMenuItemX], a
-	call PlaceUnfilledArrowMenuCursor
-	jp .loop
-
-.cursorInBattleAnimation
-	ld a, [wOptionsBattleAnimCursorX]
-	xor 1 ^ 10
-	ld [wOptionsBattleAnimCursorX], a
-	jp .eraseOldMenuCursor
-
-.cursorInBattleStyle
-	ld a, [wOptionsBattleStyleCursorX]
-	xor 1 ^ 10
-	ld [wOptionsBattleStyleCursorX], a
-	jp .eraseOldMenuCursor
-
-.cursorInPageControls
-	ld a, [wOptionsCancelCursorX]
-	cp OPTION_PAGE_NEXT_X
-	jr z, .moveToPrev
-	ld a, OPTION_PAGE_NEXT_X
-	jr .storePageControlCursor
-
-.moveToPrev
-	ld a, OPTION_PAGE_PREV_X
-
-.storePageControlCursor
-	ld [wOptionsCancelCursorX], a
-	jp .eraseOldMenuCursor
-
-.pressedLeftInTextSpeed
-	ld a, [wOptionsTextSpeedCursorX]
-	cp 1
-	jr z, .updateTextSpeedXCoord
-	cp 7
-	jr nz, .fromSlowToMedium
-	sub 6
-	jr .updateTextSpeedXCoord
-
-.fromSlowToMedium
-	sub 7
-	jr .updateTextSpeedXCoord
-
-.pressedRightInTextSpeed
-	ld a, [wOptionsTextSpeedCursorX]
-	cp 14
-	jr z, .updateTextSpeedXCoord
-	cp 7
-	jr nz, .fromFastToMedium
-	add 7
-	jr .updateTextSpeedXCoord
-
-.fromFastToMedium
-	add 6
-
-.updateTextSpeedXCoord
-	ld [wOptionsTextSpeedCursorX], a
-	jp .eraseOldMenuCursor
-
-
-TextSpeedOptionText:
-	db   "TEXT SPEED"
-	next " FAST  MEDIUM SLOW@"
-
-BattleAnimationOptionText:
-	db   "BATTLE ANIMATION"
-	next " ON       OFF@"
-
-BattleStyleOptionText:
-	db   "BATTLE STYLE"
-	next " SHIFT    SET@"
-
-OptionPageControlText:
-	db "  NEXT  PREV@"
-
-
-SetOptionsFromCursorPositions:
-	ld hl, TextSpeedOptionData
-	ld a, [wOptionsTextSpeedCursorX]
-	ld c, a
-.loop
-	ld a, [hli]
-	cp c
-	jr z, .textSpeedMatchFound
-	inc hl
-	jr .loop
-
-.textSpeedMatchFound
-	ld a, [hl]
-	ld d, a
-
-	ld a, [wOptionsBattleAnimCursorX]
-	dec a
-	jr z, .battleAnimationOn
-	set BIT_BATTLE_ANIMATION, d
-	jr .checkBattleStyle
-
-.battleAnimationOn
-	res BIT_BATTLE_ANIMATION, d
-
-.checkBattleStyle
-	ld a, [wOptionsBattleStyleCursorX]
-	dec a
-	jr z, .battleStyleShift
-	set BIT_BATTLE_SHIFT, d
-	jr .storeOptions
-
-.battleStyleShift
-	res BIT_BATTLE_SHIFT, d
-
-.storeOptions
-	ld a, d
-	and $cf
-	ld d, a
-	ld a, [wOptions]
-	and $30
-	or d
-	ld [wOptions], a
-	ret
-
-SetCursorPositionsFromOptions:
-	ld hl, TextSpeedOptionData + 1
-	ld a, [wOptions]
-	ld c, a
-	and $0f
-	push bc
-	ld de, 2
-	call IsInArray
-	pop bc
-	dec hl
-	ld a, [hl]
-	ld [wOptionsTextSpeedCursorX], a
-	hlcoord 0, 3
-	call .placeUnfilledRightArrow
-
-	sla c
-	ld a, 1
-	jr nc, .storeBattleAnimationCursorX
-	ld a, 10
-
-.storeBattleAnimationCursorX
-	ld [wOptionsBattleAnimCursorX], a
-	hlcoord 0, 8
-	call .placeUnfilledRightArrow
-
-	sla c
-	ld a, 1
-	jr nc, .storeBattleStyleCursorX
-	ld a, 10
-
-.storeBattleStyleCursorX
-	ld [wOptionsBattleStyleCursorX], a
-	hlcoord 0, 13
-	call .placeUnfilledRightArrow
-
-	hlcoord 0, OPTION_PAGE_Y
-	ld a, OPTION_PAGE_NEXT_X
-	ld [wOptionsCancelCursorX], a
-
-.placeUnfilledRightArrow
+GetOptionPointer:
+	ld a, [wOptionsCursorLocation]
 	ld e, a
 	ld d, 0
+	ld hl, OptionMenuJumpTable
 	add hl, de
-	ld [hl], '▷'
-	ret
+	add hl, de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
 
 
-TextSpeedOptionData:
-	db 14, TEXT_DELAY_SLOW
-	db  7, TEXT_DELAY_MEDIUM
-	db  1, TEXT_DELAY_FAST
-	db  7, -1
+OptionMenuJumpTable:
+	dw OptionsMenu_TextSpeed
+	dw OptionsMenu_BattleAnimations
+	dw OptionsMenu_BattleStyle
+	dw OptionsMenu_SpeakerSettings
+	dw OptionsMenu_Color
+	dw OptionsMenu_Cancel
 
 
-DisplayOptions2:
-	call DrawOptions2Menu
-	xor a
-	ld [wCurrentMenuItem], a
-	ld [wLastMenuItem], a
-
-	ld a, OPTION2_COLOR_Y
-	ld [wTopMenuItemY], a
-	call GetOptions2ColorXFromOptions
-	ld a, b
-	ld [wTopMenuItemX], a
-
-	ld a, $01
-	ldh [hAutoBGTransferEnabled], a
-	call Delay3
-	call WaitForOptions2NoKeys
-
-.loop
-	call PlaceMenuCursor
-
-.getJoypadStateLoop
-	call JoypadLowSensitivity
+OptionsMenu_TextSpeed:
+	call GetTextSpeed
 	ldh a, [hJoy5]
+	bit B_PAD_RIGHT, a
+	jr nz, .pressedRight
+	bit B_PAD_LEFT, a
+	jr nz, .pressedLeft
+	jr .print
+
+.pressedRight
+	inc c
+	ld a, c
+	cp 3
+	jr c, .save
+	ld c, 0
+	jr .save
+
+.pressedLeft
+	ld a, c
+	and a
+	jr nz, .noWrapLeft
+	ld c, 3
+.noWrapLeft
+	dec c
+
+.save
+	call GetTextSpeedValueFromIndex
+	ld a, [wOptions]
+	and ~TEXT_DELAY_MASK
+	or e
+	ld [wOptions], a
+
+.print
+	ld b, 0
+	ld hl, TextSpeedStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 14, 2
+	call PlaceString
+	and a
+	ret
+
+
+TextSpeedStringsPointerTable:
+	dw SlowText
+	dw MediumText
+	dw FastText
+
+SlowText:
+	db "SLOW@"
+MediumText:
+	db "MID @"
+FastText:
+	db "FAST@"
+
+
+GetTextSpeed:
+	ld a, [wOptions]
+	and TEXT_DELAY_MASK
+	ld c, 0
+	cp TEXT_DELAY_SLOW
+	ret z
+	inc c
+	cp TEXT_DELAY_MEDIUM
+	ret z
+	inc c
+	cp TEXT_DELAY_FAST
+	ret z
+	ld c, 2
+	ret
+
+
+GetTextSpeedValueFromIndex:
+	ld hl, TextSpeedValueTable
+	ld b, 0
+	add hl, bc
+	ld e, [hl]
+	ret
+
+
+TextSpeedValueTable:
+	db TEXT_DELAY_SLOW
+	db TEXT_DELAY_MEDIUM
+	db TEXT_DELAY_FAST
+
+
+OptionsMenu_BattleAnimations:
+	ldh a, [hJoy5]
+	and PAD_RIGHT | PAD_LEFT
+	jr nz, .buttonPressed
+	jr .nothingPressed
+
+.buttonPressed
+	ld a, [wOptions]
+	xor 1 << BIT_BATTLE_ANIMATION
+	ld [wOptions], a
+
+.nothingPressed
+	ld a, [wOptions]
+	bit BIT_BATTLE_ANIMATION, a
+	ld c, 0
+	jr z, .print
+	inc c
+
+.print
+	ld b, 0
+	ld hl, AnimationOptionStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 14, 4
+	call PlaceString
+	and a
+	ret
+
+
+AnimationOptionStringsPointerTable:
+	dw AnimationOnText
+	dw AnimationOffText
+
+AnimationOnText:
+	db "ON @"
+AnimationOffText:
+	db "OFF@"
+
+
+OptionsMenu_BattleStyle:
+	ldh a, [hJoy5]
+	and PAD_LEFT | PAD_RIGHT
+	jr nz, .buttonPressed
+	jr .done
+
+.buttonPressed
+	ld a, [wOptions]
+	xor 1 << BIT_BATTLE_SHIFT
+	ld [wOptions], a
+
+.done
+	ld a, [wOptions]
+	bit BIT_BATTLE_SHIFT, a
+	ld c, 0
+	jr z, .print
+	inc c
+
+.print
+	ld b, 0
+	ld hl, BattleStyleOptionStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 14, 6
+	call PlaceString
+	and a
+	ret
+
+
+BattleStyleOptionStringsPointerTable:
+	dw BattleStyleShiftText
+	dw BattleStyleSetText
+
+BattleStyleShiftText:
+	db "SHIFT@"
+BattleStyleSetText:
+	db "SET  @"
+
+
+OptionsMenu_SpeakerSettings:
+	ld a, [wOptions]
+	and SOUND_MASK
+	swap a
+	ld c, a
+	ldh a, [hJoy5]
+	bit B_PAD_RIGHT, a
+	jr nz, .pressedRight
+	bit B_PAD_LEFT, a
+	jr nz, .pressedLeft
+	jr .nothingPressed
+
+.pressedRight
+	ld a, c
+	inc a
+	and $3
+	jr .save
+
+.pressedLeft
+	ld a, c
+	dec a
+	and $3
+
+.save
+	ld c, a
+	swap a
 	ld b, a
-	and ~PAD_SELECT
-	jr z, .getJoypadStateLoop
+	xor a
+	ldh [rNR51], a
+	ld a, [wOptions]
+	and ~SOUND_MASK
+	or b
+	ld [wOptions], a
 
-	bit B_PAD_B, b
-	jr nz, .exitMenu
-	bit B_PAD_START, b
-	jr nz, .exitMenu
-	bit B_PAD_A, b
-	jr z, .checkDirectionKeys
-
-	ld a, [wTopMenuItemY]
-	cp OPTION2_PAGE_Y
-	jp z, DisplayOptionMenu
-
-	cp OPTION2_COLOR_Y
-	jr nz, .loop
-
-	ld a, [wTopMenuItemX]
-	cp OPTION_COLORS_LEFT_XPOS
-	jr z, .loop
-	call ToggleAltSGBYellowColors
-	jp .loop
-
-.exitMenu
-	ld a, SFX_PRESS_AB
-	call PlaySound
-	ret
-
-.eraseOldMenuCursor
-	ld [wTopMenuItemX], a
-	call EraseMenuCursor
-	jp .loop
-
-.checkDirectionKeys
-	ld a, [wTopMenuItemY]
-
-	bit B_PAD_DOWN, b
-	jr nz, .downPressed
-	bit B_PAD_UP, b
-	jr nz, .upPressed
-
-	cp OPTION2_COLOR_Y
-	jr z, .cursorInColor
-	cp OPTION2_SOUND_Y
-	jr z, .cursorInSound
-	jp .loop
-
-.cursorInColor
-	bit B_PAD_LEFT, b
-	jr nz, .pressedLeftInColors
-	bit B_PAD_RIGHT, b
-	jr nz, .pressedRightInColors
-	jp .loop
-
-.cursorInSound
-	bit B_PAD_LEFT, b
-	jp nz, .pressedLeftInSound
-	bit B_PAD_RIGHT, b
-	jp nz, .pressedRightInSound
-	jp .loop
-
-.downPressed
-	cp OPTION2_COLOR_Y
-	jr z, .moveToSound
-	cp OPTION2_SOUND_Y
-	jr z, .moveToPrev
-	cp OPTION2_PAGE_Y
-	jr z, .moveToColor
-	jp .loop
-
-.upPressed
-	cp OPTION2_COLOR_Y
-	jr z, .moveToPrev
-	cp OPTION2_SOUND_Y
-	jr z, .moveToColor
-	cp OPTION2_PAGE_Y
-	jr z, .moveToSound
-	jp .loop
-
-.moveToColor
-	ld a, OPTION2_COLOR_Y
-	ld [wTopMenuItemY], a
-	call GetOptions2ColorXFromOptions
-	ld a, b
-	ld [wTopMenuItemX], a
-	call PlaceUnfilledArrowMenuCursor
-	jp .loop
-
-.moveToSound
-	ld a, OPTION2_SOUND_Y
-	ld [wTopMenuItemY], a
-	call GetOptions2SoundXFromOptions
-	ld a, b
-	ld [wTopMenuItemX], a
-	call PlaceUnfilledArrowMenuCursor
-	jp .loop
-
-.moveToPrev
-	ld a, OPTION2_PAGE_Y
-	ld [wTopMenuItemY], a
-	ld a, OPTION2_PREV_X
-	ld [wTopMenuItemX], a
-	call PlaceUnfilledArrowMenuCursor
-	jp .loop
-
-.pressedLeftInColors
-	ld b, PAD_LEFT
-	call GetOptions2ColorXPosition
-	ld a, b
-	ld [wTopMenuItemX], a
-	call SetOptions2ColorFromCursorX
-	call UpdateOptions2ColorPalette
-	ld a, [wTopMenuItemX]
-	jp .eraseOldMenuCursor
-
-.pressedRightInColors
-	ld b, PAD_RIGHT
-	call GetOptions2ColorXPosition
-	ld a, b
-	ld [wTopMenuItemX], a
-	call SetOptions2ColorFromCursorX
-	call UpdateOptions2ColorPalette
-	ld a, [wTopMenuItemX]
-	jp .eraseOldMenuCursor
-
-.pressedLeftInSound
-	call MoveOptions2SoundLeft
-	ld a, b
-	ld [wTopMenuItemX], a
-	call SetOptions2SoundFromCursorX
-	ld a, [wTopMenuItemX]
-	jp .eraseOldMenuCursor
-
-.pressedRightInSound
-	call MoveOptions2SoundRight
-	ld a, b
-	ld [wTopMenuItemX], a
-	call SetOptions2SoundFromCursorX
-	ld a, [wTopMenuItemX]
-	jp .eraseOldMenuCursor
-
-
-DrawOptions2Menu:
-	call ClearScreen
-
-; original Color box
-	hlcoord 0, 0
-	lb bc, 4, 18
-	call TextBoxBorder
-	hlcoord 1, 1
-	ld de, Options2ColorText
+.nothingPressed
+	ld b, 0
+	ld hl, SpeakerOptionStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 8, 8
 	call PlaceString
-
-; new Sound box
-	hlcoord 0, 6
-	lb bc, 4, 18
-	call TextBoxBorder
-	hlcoord 1, 7
-	ld de, Options2SoundText
-	call PlaceString
-
-; PREV below Sound box
-	hlcoord 1, OPTION2_PAGE_Y
-	ld de, Options2PrevText
-	call PlaceString
-
-	ld a, [wOptions2]
-	and %01000011
-	call PrintSGBYellowOptionNumbers
+	and a
 	ret
 
 
-Options2ColorText:
-	db   "OPTIONS 2"
-	next " COLOR: OG SGB  Y@"
+SpeakerOptionStringsPointerTable:
+	dw MonoSoundText
+	dw Earphone1SoundText
+	dw Earphone2SoundText
+	dw Earphone3SoundText
 
-Options2SoundText:
-	db   "SOUND:"
-	next " MONO   E1  E2  E3@"
-
-Options2PrevText:
-	db " PREV@"
-
-
-UpdateOptions2ColorPalette:
-	ld a, [wOptions2]
-	and %01000011
-	call PrintSGBYellowOptionNumbers
-	jp RunDefaultPaletteCommand
+MonoSoundText:
+	db "MONO     @"
+Earphone1SoundText:
+	db "EARPHONE1@"
+Earphone2SoundText:
+	db "EARPHONE2@"
+Earphone3SoundText:
+	db "EARPHONE3@"
 
 
-SetOptions2ColorFromCursorX:
-	ld a, [wTopMenuItemX]
-	cp OPTION_COLORS_RIGHT_XPOS
-	jr z, .yellow
-	cp OPTION_COLORS_MIDDLE_XPOS
-	jr z, .sgb
+OptionsMenu_Color:
+	call GetColorSetting
+	ldh a, [hJoy5]
+	bit B_PAD_RIGHT, a
+	jr nz, .pressedRight
+	bit B_PAD_LEFT, a
+	jr nz, .pressedLeft
+	jr .nothingPressed
 
-.og
-	ld b, PALETTES_DEFAULT
-	jr StoreOptions2PaletteValue
+.pressedRight
+	inc c
+	ld a, c
+	cp 5
+	jr c, .save
+	ld c, 0
+	jr .save
 
-.sgb
-	ld b, PALETTES_SGB
-	jr StoreOptions2PaletteValue
+.pressedLeft
+	ld a, c
+	and a
+	jr nz, .decrease
+	ld c, 5
+.decrease
+	dec c
 
-.yellow
-	ld b, PALETTES_YELLOW
-	jr StoreOptions2PaletteValue
-
-
-StoreOptions2PaletteValue:
+.save
+	push bc
+	call GetColorValueFromIndex
+	ld b, a
 	ld a, [wOptions2]
 	and %10111100
 	or b
 	ld [wOptions2], a
+	call RunDefaultPaletteCommand
+	pop bc
+
+.nothingPressed
+	ld b, 0
+	ld hl, ColorOptionStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 8, 10
+	call PlaceString
+	and a
 	ret
 
 
-SetTwoBitPropFromXPosition:
-	jp SetOptions2ColorFromCursorX
-
-
-GetOptions2ColorXFromOptions:
-	ld a, [wOptions2]
-	and %11
-	ld b, OPTION_COLORS_LEFT_XPOS
-	ret z
-	cp PALETTES_YELLOW
-	ld b, OPTION_COLORS_RIGHT_XPOS
-	ret z
-	ld b, OPTION_COLORS_MIDDLE_XPOS
-	ret
-
-
-GetOptions2ColorXPosition:
-	ld a, b
-	bit B_PAD_LEFT, b
-	ld a, [wTopMenuItemX]
-	jr nz, .left
-
-	ld b, OPTION_COLORS_LEFT_XPOS
-	cp OPTION_COLORS_RIGHT_XPOS
-	ret z
-	ld b, OPTION_COLORS_MIDDLE_XPOS
-	cp OPTION_COLORS_LEFT_XPOS
-	ret z
-	ld b, OPTION_COLORS_RIGHT_XPOS
-	ret
-
-.left
-	ld b, OPTION_COLORS_MIDDLE_XPOS
-	cp OPTION_COLORS_RIGHT_XPOS
-	ret z
-	ld b, OPTION_COLORS_LEFT_XPOS
-	cp OPTION_COLORS_MIDDLE_XPOS
-	ret z
-	ld b, OPTION_COLORS_RIGHT_XPOS
-	ret
-
-
-ToggleAltSGBYellowColors:
+GetColorSetting:
 	ld a, [wOptions2]
 	and %01000011
+	ld c, 0
+	cp PALETTES_DEFAULT
+	ret z
+	inc c
 	cp PALETTES_SGB
-	jr z, .setSGB2
+	ret z
+	inc c
 	cp PALETTES_SGB2
-	jr z, .setSGB1
+	ret z
+	inc c
 	cp PALETTES_YELLOW
-	jr z, .setYellow2
+	ret z
+	inc c
 	cp PALETTES_YELLOW2
-	jr z, .setYellow1
-	ret
-
-.setSGB2
-	ld b, PALETTES_SGB2
-	jr .store
-
-.setSGB1
-	ld b, PALETTES_SGB
-	jr .store
-
-.setYellow2
-	ld b, PALETTES_YELLOW2
-	jr .store
-
-.setYellow1
-	ld b, PALETTES_YELLOW
-
-.store
-	call StoreOptions2PaletteValue
-	ld a, SFX_PRESS_AB
-	call PlaySound
-	call UpdateOptions2ColorPalette
-	jp WaitForOptions2NoKeys
-
-
-GetOptions2SoundXFromOptions:
-	ld a, [wOptions]
-	and $30
-	swap a
-	and $03
-	ld b, OPTION_SOUND_MONO_X
 	ret z
-	cp $01
-	ld b, OPTION_SOUND_EAR1_X
-	ret z
-	cp $02
-	ld b, OPTION_SOUND_EAR2_X
-	ret z
-	ld b, OPTION_SOUND_EAR3_X
+	ld c, 0
 	ret
 
 
-MoveOptions2SoundRight:
-	ld a, [wTopMenuItemX]
-	cp OPTION_SOUND_MONO_X
-	jr z, .ear1
-	cp OPTION_SOUND_EAR1_X
-	jr z, .ear2
-	cp OPTION_SOUND_EAR2_X
-	jr z, .ear3
-	ld b, OPTION_SOUND_MONO_X
-	ret
-
-.ear1
-	ld b, OPTION_SOUND_EAR1_X
-	ret
-
-.ear2
-	ld b, OPTION_SOUND_EAR2_X
-	ret
-
-.ear3
-	ld b, OPTION_SOUND_EAR3_X
+GetColorValueFromIndex:
+	ld hl, ColorOptionValueTable
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
 	ret
 
 
-MoveOptions2SoundLeft:
-	ld a, [wTopMenuItemX]
-	cp OPTION_SOUND_MONO_X
-	jr z, .ear3
-	cp OPTION_SOUND_EAR1_X
-	jr z, .mono
-	cp OPTION_SOUND_EAR2_X
-	jr z, .ear1
-	ld b, OPTION_SOUND_EAR2_X
-	ret
-
-.mono
-	ld b, OPTION_SOUND_MONO_X
-	ret
-
-.ear1
-	ld b, OPTION_SOUND_EAR1_X
-	ret
-
-.ear3
-	ld b, OPTION_SOUND_EAR3_X
-	ret
+ColorOptionValueTable:
+	db PALETTES_DEFAULT
+	db PALETTES_SGB
+	db PALETTES_SGB2
+	db PALETTES_YELLOW
+	db PALETTES_YELLOW2
 
 
-SetOptions2SoundFromCursorX:
-	ld a, [wTopMenuItemX]
-	cp OPTION_SOUND_EAR1_X
-	jr z, .ear1
-	cp OPTION_SOUND_EAR2_X
-	jr z, .ear2
-	cp OPTION_SOUND_EAR3_X
-	jr z, .ear3
+ColorOptionStringsPointerTable:
+	dw ColorOGText
+	dw ColorSGB1Text
+	dw ColorSGB2Text
+	dw ColorY1Text
+	dw ColorY2Text
 
-.mono
-	ld b, $00
-	jr .store
-
-.ear1
-	ld b, $10
-	jr .store
-
-.ear2
-	ld b, $20
-	jr .store
-
-.ear3
-	ld b, $30
-
-.store
-	xor a
-	ldh [rNR51], a
-	ld a, [wOptions]
-	and $cf
-	or b
-	ld [wOptions], a
-	ret
+ColorOGText:
+	db "OG  @"
+ColorSGB1Text:
+	db "SGB1@"
+ColorSGB2Text:
+	db "SGB2@"
+ColorY1Text:
+	db "Y1  @"
+ColorY2Text:
+	db "Y2  @"
 
 
-WaitForOptions2NoKeys:
-	call JoypadLowSensitivity
+OptionsMenu_Cancel:
 	ldh a, [hJoy5]
-	and PAD_A | PAD_B | PAD_START | PAD_LEFT | PAD_RIGHT | PAD_UP | PAD_DOWN
-	jr nz, WaitForOptions2NoKeys
+	and PAD_A
+	jr nz, .pressedCancel
+	and a
+	ret
+
+.pressedCancel
+	scf
 	ret
 
 
-PrintSGBYellowOptionNumbers:
-	hlcoord 15, 3
-	cp PALETTES_SGB2
-	ld [hl], '2'
-	jr z, .next
-	ld [hl], '1'
-
-.next
-	hlcoord 18, 3
-	cp PALETTES_YELLOW2
-	ld [hl], '2'
-	ret z
-	ld [hl], '1'
+OptionsControl:
+	ld hl, wOptionsCursorLocation
+	ldh a, [hJoy5]
+	cp PAD_DOWN
+	jr z, .pressedDown
+	cp PAD_UP
+	jr z, .pressedUp
+	and a
 	ret
+
+.pressedDown
+	ld a, [hl]
+	cp 5
+	jr nz, .regularIncrement
+	ld [hl], 0
+	scf
+	ret
+
+.regularIncrement
+	inc [hl]
+	scf
+	ret
+
+.pressedUp
+	ld a, [hl]
+	and a
+	jr nz, .regularDecrement
+	ld [hl], 5
+	scf
+	ret
+
+.regularDecrement
+	dec [hl]
+	scf
+	ret
+
+
+OptionsMenu_UpdateCursorPosition:
+	hlcoord 1, 1
+	ld de, SCREEN_WIDTH
+	ld c, 16
+.loop
+	ld [hl], ' '
+	add hl, de
+	dec c
+	jr nz, .loop
+
+	ld a, [wOptionsCursorLocation]
+	cp 5
+	jr z, .cancel
+
+	hlcoord 1, 2
+	ld bc, SCREEN_WIDTH * 2
+	call AddNTimes
+	ld [hl], '▶'
+	ret
+
+.cancel
+	hlcoord 1, 16
+	ld [hl], '▶'
+	ret
+
+
+InitOptionsMenu:
+	hlcoord 0, 0
+	lb bc, SCREEN_HEIGHT - 2, SCREEN_WIDTH - 2
+	call TextBoxBorder
+
+	hlcoord 2, 2
+	ld de, AllOptionsText
+	call PlaceString
+
+	hlcoord 2, 16
+	ld de, OptionMenuCancelText
+	call PlaceString
+
+	xor a
+	ld [wOptionsCursorLocation], a
+
+	ld c, 5
+.loop
+	push bc
+	call GetOptionPointer
+	pop bc
+	ld hl, wOptionsCursorLocation
+	inc [hl]
+	dec c
+	jr nz, .loop
+
+	xor a
+	ld [wOptionsCursorLocation], a
+	inc a
+	ldh [hAutoBGTransferEnabled], a
+	call Delay3
+	ret
+
+
+AllOptionsText:
+	db "TEXT SPEED :"
+	next "ANIMATION  :"
+	next "BATTLESTYLE:"
+	next "SOUND:"
+	next "COLOR:@"
+
+OptionMenuCancelText:
+	db "CANCEL@"
