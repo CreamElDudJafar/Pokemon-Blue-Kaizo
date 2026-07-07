@@ -210,6 +210,7 @@ INCLUDE "engine/menus/pokedex.asm"
 INCLUDE "engine/movie/trade.asm"
 INCLUDE "engine/movie/intro.asm"
 INCLUDE "engine/movie/trade2.asm"
+INCLUDE "engine/menus/options_menu.asm"
 
 
 SECTION "Pokédex Rating", ROMX
@@ -369,7 +370,6 @@ INCLUDE "engine/gfx/set_attack_animation_palette.asm"
 INCLUDE "engine/menus/item_display_count.asm"
 INCLUDE "text/tmhm_names.asm"
 tmhmNamesEnd:
-INCLUDE "engine/menus/options_menu.asm"
 
 
 SECTION "CGB Mode Code", ROMX
