@@ -66,6 +66,4 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_BLUEGREENMON ; $27
 	const PAL_BLACK2    ; $28
 	const PAL_SAFARIBALL ; $29
-	const PAL_MEWMON2   ; $30
-	const PAL_MEWMON3   ; $31
 DEF NUM_SGB_PALS EQU const_value

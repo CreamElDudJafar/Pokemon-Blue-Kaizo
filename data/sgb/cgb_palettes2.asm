@@ -25,7 +25,7 @@ IF DEF(_BLUE)
 	RGB 31,31,31, 30,27,10, 21,00,04, 11,16,25 ; PAL_LOGO1 ;;;;
 ENDC
 	RGB 31,31,31, 30,27,10, 16,18,26, 06,11,21 ; PAL_LOGO2 ;;;;
-	RGB 31,31,31, 23,21,26, 11,20,28, 03,03,03 ; PAL_EXP ;;;;
+	RGB 31,31,31, 23,21,26, 11,20,28, 03,03,03 ; PAL_0F ;;;;
 	RGB 31,31,31, 29,22,18, 18,15,19, 03,03,03 ; PAL_MEWMON ;;;;
 	RGB 31,31,31, 23,26,30, 06,15,26, 03,03,03 ; PAL_BLUEMON ;;;;
 	RGB 31,31,31, 29,19,08, 28,00,00, 03,03,03 ; PAL_REDMON ;;;;
@@ -67,7 +67,5 @@ ENDC
 	RGB 31,31,31, 20,26,31, 12,25,06, 03,03,03 ; PAL_BLUEGREENMON ; blue/green alt palette pokemon
 	RGB 31,31,31, 31,31,31, 03,03,03, 03,03,03 ; PAL_BLACK2 ; default move animation palette ;;;;;
 	RGB 31,31,31, 24,28,20, 22,16,12, 03,03,03 ; PAL_SAFARIBALL ; safari ball palette when throwing one in battle ;;;;
-	RGB 31,31,31, 31,17,11, 11,05,14, 03,03,03 ; PAL_MEWMON2
-	RGB 31,31,31, 22,13,30, 00,09,31, 03,03,03 ; PAL_MEWMON3
 	assert_table_length NUM_SGB_PALS
 
