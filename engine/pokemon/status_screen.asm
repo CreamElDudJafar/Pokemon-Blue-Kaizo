@@ -164,6 +164,8 @@ StatusScreen:
 	call PrintNumber ; ID Number
 	ld d, STATUS_SCREEN_STATS_BOX
 	call PrintStatsBox
+	xor a
+	ld [wDumbByteToToggleStatusScreen], a
 	call Delay3
 	call GBPalNormal
 	hlcoord 1, 0
