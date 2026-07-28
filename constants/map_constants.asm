@@ -402,4 +402,10 @@ DEF NUM_MAPS EQU const_value
 ; This map ID takes the player back to the last outdoor map they were on, stored in wLastMap
 DEF LAST_MAP EQU $ff
 
+DEF NUM_FLY_LOCATIONS EQU NUM_CITY_MAPS + 2
+
+	const_def NUM_CITY_MAPS
+	const FLYLOC_ROUTE_4_CENTER
+	const FLYLOC_ROUTE_10_CENTER
+
 ASSERT NUM_MAPS <= LAST_MAP, "map IDs overlap LAST_MAP"
