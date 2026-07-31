@@ -107,12 +107,12 @@ _ChampionsRoomOakDisappointedWithRivalText::
 	text "OAK: <RIVAL>! I'm"
 	line "disappointed!"
 
-	para "I came when I"
-	line "heard you beat"
+	para "I was so happy"
+	line "when you beat"
 	cont "the ELITE FOUR!"
 
-	para "But, when I got"
-	line "here, you had"
+	para "Yet a few moments"
+	line "later, you "
 	cont "already lost!"
 
 	para "<RIVAL>! Do you"
