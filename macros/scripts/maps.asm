@@ -88,7 +88,15 @@ MACRO def_warps_to
 			"An object_event has text ID {_OBJECT_EVENT_{d:n}_TEXT_ID} expected for a bg_event (above {d:{_NUM_OBJECT_EVENTS}})"
 	ENDR
 	FOR n, {_NUM_WARP_EVENTS}
+	IF _NARG == 2 && n == {_NUM_WARP_EVENTS} - 1
+; Preserve a custom final warp-to X byte for exact ROM matching.
+		dw (wOverworldMap + 7 + (\1_WIDTH) \
+		+ ((\1_WIDTH) + 6) * ((_WARP_{d:n}_Y) >> 1) \
+		+ ((_WARP_{d:n}_X) >> 1))
+		db _WARP_{d:n}_Y, \2
+	ELSE
 		warp_to _WARP_{d:n}_X, _WARP_{d:n}_Y, \1_WIDTH
+	ENDC
 	ENDR
 ENDM
 

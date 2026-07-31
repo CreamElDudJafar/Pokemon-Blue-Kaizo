@@ -1,11 +1,11 @@
 _FightingDojoKarateMasterText::
 	text "I am BRUNO,the"
 	line "new LEADER of the"
-	cont "DOJO!"
+	cont "DOJO!   "
 
 	para "<PLAYER>!"
 
-	para "We will grind you"
+	para "We will grind you "
 	line "down with our"
 	cont "superior power!"
 
@@ -14,7 +14,7 @@ _FightingDojoKarateMasterText::
 
 _FightingDojoKarateMasterDefeatedText::
 	text "How"
-	line "could I lose?!"
+	line "could I lose?! "
 	prompt
 
 _FightingDojoKarateMasterIWillGiveYouAPokemonText::
