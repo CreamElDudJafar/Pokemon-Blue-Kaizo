@@ -3,25 +3,25 @@ _BrunoBeforeBattleText::
 	line "me?"
 
 	para "I was requested"
-	line "by the ElITE FOUR"
+	line "by the ELITE FOUR"
 	cont "to substitute a"
-	cont "a member who just"
+	cont "member who just"
 	cont "recently retired"
-	cont "from his duties."
+	cont "from his duties<DOT>"
 
-	para "Well <PLAYER>..."
+	para "Well <PLAYER><DOT><DOT><DOT>"
 
 	para "Care to show me"
 	line "how much YOU've"
 	cont "grown with your"
-	cont "#MON?"
+	cont "#MON?   "
 	done
 
 _BrunoEndBattleText::
 	text "Well"
 	line "done <PLAYER>!"
 
-	para "You won!"
+	para "You won! "
 	prompt
 
 _BrunoAfterBattleText::
