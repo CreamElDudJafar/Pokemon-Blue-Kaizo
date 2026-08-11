@@ -22,6 +22,8 @@ DisplayOptionMenu::
 	jr .optionMenuLoop
 
 .exitOptionMenu
+	ld a, OPTIONS_INITIALIZED_VALUE
+	ld [wOptionsInitialized], a
 	ret
 
 

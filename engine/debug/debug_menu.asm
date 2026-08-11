@@ -28,8 +28,9 @@ IF DEF(_DEBUG)
 	ld de, DebugMenuOptions
 	call PlaceString
 
-	ld a, TEXT_DELAY_MEDIUM
-	ld [wOptions], a
+	; Respect the options loaded from SRAM in debug mode too. This also sets
+	; BIT_FAST_TEXT_DELAY so PrintLetterDelay uses the selected wOptions speed.
+	call InitOptions
 
 	ld a, PAD_A | PAD_B | PAD_START
 	ld [wMenuWatchedKeys], a

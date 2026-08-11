@@ -1402,7 +1402,6 @@ wFlashScreenLongCounter::
 wNumShootingBalls::
 ; $01 if mon is moving from left gameboy to right gameboy; $00 if vice versa
 wTradedMonMovingRight::
-wOptionsInitialized::
 wNewSlotMachineBallTile::
 ; how much to add to the X/Y coord
 wCoordAdjustmentAmount::
@@ -2122,8 +2121,8 @@ wLastBlackoutMap:: db
 ; destination map (for certain types of special warps, not ordinary walking)
 wDestinationMap:: db
 
-; initialized to $ff, but nothing ever reads it
-wUnusedPlayerDataByte:: db
+; repurposed unused save-file byte for persistent options initialization
+wOptionsInitialized:: db
 
 ; used to store the tile in front of the boulder when trying to push a boulder
 ; also used to store the result of the collision check ($ff for a collision and $00 for no collision)
