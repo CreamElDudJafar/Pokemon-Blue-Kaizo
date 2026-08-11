@@ -1,9 +1,9 @@
 MainMenu:
 ; Check save file
+	; Always set up text-delay handling, but only apply default options if
+	; no valid options were loaded from SRAM.
 	call InitOptions
-	xor a
-	ld [wOptionsInitialized], a
-	inc a
+	ld a, 1
 	ld [wSaveFileStatus], a
 	call CheckForPlayerNameInSRAM
 	jr nc, .mainMenuLoop
@@ -85,8 +85,15 @@ MainMenu:
 	cp 1
 	jp z, StartNewGame
 	callfar DisplayOptionMenu
-	ld a, TRUE
-	ld [wOptionsInitialized], a
+	call CheckForPlayerNameInSRAM
+	jr nc, .partialOptionsSave
+	; If save data exists, save everything to keep the checksum valid.
+	callfar SaveGameData
+	jr .doneSavingOptions
+.partialOptionsSave
+	; Before a normal save exists, persist only the option settings.
+	callfar CopyOptionsToSRAM
+.doneSavingOptions
 	jp .mainMenuLoop
 .choseContinue
 	call DisplayContinueGameInfo
@@ -125,8 +132,15 @@ MainMenu:
 	jp SpecialEnterMap
 
 InitOptions:
+	; BIT_FAST_TEXT_DELAY makes PrintLetterDelay use the speed stored in wOptions.
 	ld a, 1 << BIT_FAST_TEXT_DELAY
 	ld [wLetterPrintingDelayFlags], a
+
+	; Keep options loaded from SRAM. Only initialize defaults when no valid
+	; persisted options are present.
+	ld a, [wOptionsInitialized]
+	cp OPTIONS_INITIALIZED_VALUE
+	ret z
 	ld a, TEXT_DELAY_MEDIUM
 	ld [wOptions], a
 	ret

@@ -1,6 +1,8 @@
 PrepareOakSpeech:
 	ld a, [wLetterPrintingDelayFlags]
 	push af
+	ld a, [wStatusFlags6]
+	push af
 
 ;;;;;;;;;; PureRGBnote: ADDED: Preserve all options settings when starting a new game
 	call BackupOptionsSettings
@@ -15,6 +17,8 @@ PrepareOakSpeech:
 	call RestoreOptionsSettings
 ;;;;;;;;;;
 
+	pop af
+	ld [wStatusFlags6], a
 	pop af
 	ld [wLetterPrintingDelayFlags], a
 	ld a, [wOptionsInitialized]
@@ -345,7 +349,27 @@ BackupList:
 	db 3
 	dw wOptions2
 	dw wOptions
-	dw wStatusFlags6
+	dw wOptionsInitialized
+
+CopyOptionsToSRAM::
+	ld a, RAMG_SRAM_ENABLE
+	ld [rRAMG], a
+	ld a, BMODE_ADVANCED
+	ld [rBMODE], a
+	ASSERT BANK(sPlayerName) == BMODE_ADVANCED
+	ld [rRAMB], a
+
+	ld a, [wOptions2]
+	ld [sOptions2], a
+	ld a, [wOptions]
+	ld [sOptions], a
+	ld a, [wOptionsInitialized]
+	ld [sOptionsInitialized], a
+
+	xor a
+	ld [rBMODE], a
+	ld [rRAMG], a
+	ret
 
 CopyOptionsFromSRAM::
 	ld a, [wOptionsInitialized]
@@ -360,21 +384,27 @@ CopyOptionsFromSRAM::
 	ld [rRAMB], a
 
 	call CheckSaveFileExists
-	jr nc, .doneLoad
+	jr c, .loadOptions
 
+	; No normal save yet: load options only when our SRAM marker is valid.
+	ld a, [sOptionsInitialized]
+	cp OPTIONS_INITIALIZED_VALUE
+	jr nz, .doneLoad
+
+.loadOptions
 	ld a, [sOptions2]
 	ld [wOptions2], a
 
 	ld a, [sOptions]
 	ld [wOptions], a
 
+	ld a, OPTIONS_INITIALIZED_VALUE
+	ld [wOptionsInitialized], a
+
 .doneLoad
 	xor a
 	ld [rBMODE], a
 	ld [rRAMG], a
-
-	ld a, TRUE
-	ld [wOptionsInitialized], a
 	ret
 
 ; displays boy/girl choice
