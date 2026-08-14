@@ -22,8 +22,8 @@ PrepareOakSpeech:
 	pop af
 	ld [wLetterPrintingDelayFlags], a
 	ld a, [wOptionsInitialized]
-	and a
-	call z, InitOptions
+	cp OPTIONS_INITIALIZED_VALUE
+	call nz, InitOptions
 	; These debug names are used for StartNewGameDebug.
 	; TestBattle uses the debug names from DebugMenu.
 	; A variant of this process is performed in PrepareTitleScreen.
@@ -373,8 +373,8 @@ CopyOptionsToSRAM::
 
 CopyOptionsFromSRAM::
 	ld a, [wOptionsInitialized]
-	and a
-	ret nz ; don't overwrite title-menu changes with old SRAM again
+	cp OPTIONS_INITIALIZED_VALUE
+	ret z ; don't overwrite title-menu changes with old SRAM again
 
 	ld a, RAMG_SRAM_ENABLE
 	ld [rRAMG], a
