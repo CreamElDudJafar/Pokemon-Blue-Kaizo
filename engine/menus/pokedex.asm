@@ -79,16 +79,16 @@ HandlePokedexSideMenu:
 	jr z, .exitSideMenu
 	call PokedexToIndex
 	ld hl, wTopMenuItemY
-	ld a, 10
+	ld a, 7
 	ld [hli], a ; top menu item Y
 	ld a, 15
 	ld [hli], a ; top menu item X
 	xor a
 	ld [hli], a ; current menu item ID
 	inc hl
-	ld a, 3
+	ld a, 5
 	ld [hli], a ; max menu item ID
-	;ld a, PAD_A | PAD_B
+	ld a, PAD_A | PAD_B
 	ld [hli], a ; menu watched keys (A button and B button)
 	xor a
 	ld [hli], a ; old menu item ID
@@ -101,6 +101,10 @@ HandlePokedexSideMenu:
 	ld a, [wCurrentMenuItem]
 	and a
 	jr z, .choseData
+	dec a
+	jr z, .choseStat
+	dec a
+	jr z, .choseMove
 	dec a
 	jr z, .choseCry
 	dec a
@@ -128,14 +132,30 @@ HandlePokedexSideMenu:
 
 .buttonBPressed
 	push bc
-	hlcoord 15, 10
+	hlcoord 15, 7
 	ld de, 20
-	lb bc, ' ', 7
+	lb bc, ' ', 11
 	call DrawTileLine ; cover up the menu cursor in the side menu
 	pop bc
 	jr .exitSideMenu
 
 .choseData
+	xor a
+	ld [wPokedexModeSelect], a
+	call ShowPokedexDataInternal
+	ld b, 0
+	jr .exitSideMenu
+
+.choseStat
+	ld a, 2
+	ld [wPokedexModeSelect], a
+	call ShowPokedexDataInternal
+	ld b, 0
+	jr .exitSideMenu
+
+.choseMove
+	ld a, 1
+	ld [wPokedexModeSelect], a
 	call ShowPokedexDataInternal
 	ld b, 0
 	jr .exitSideMenu
@@ -158,7 +178,7 @@ HandlePokedexListMenu:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
 ; draw the horizontal line separating the seen and owned amounts from the menu
-	hlcoord 15, 8
+	hlcoord 15, 6
 	ld a, '─'
 	ld [hli], a
 	ld [hli], a
@@ -175,26 +195,26 @@ HandlePokedexListMenu:
 	ld b, wPokedexSeenEnd - wPokedexSeen
 	call CountSetBits
 	ld de, wNumSetBits
-	hlcoord 16, 3
+	hlcoord 16, 2
 	lb bc, 1, 3
 	call PrintNumber ; print number of seen pokemon
 	ld hl, wPokedexOwned
 	ld b, wPokedexOwnedEnd - wPokedexOwned
 	call CountSetBits
 	ld de, wNumSetBits
-	hlcoord 16, 6
+	hlcoord 16, 5
 	lb bc, 1, 3
 	call PrintNumber ; print number of owned pokemon
-	hlcoord 16, 2
+	hlcoord 16, 1
 	ld de, PokedexSeenText
 	call PlaceString
-	hlcoord 16, 5
+	hlcoord 16, 4
 	ld de, PokedexOwnText
 	call PlaceString
 	hlcoord 1, 1
 	ld de, PokedexContentsText
 	call PlaceString
-	hlcoord 16, 10
+	hlcoord 16, 7
 	ld de, PokedexMenuItemsText
 	call PlaceString
 ; find the highest pokedex number among the pokemon the player has seen
@@ -370,6 +390,8 @@ PokedexContentsText:
 
 PokedexMenuItemsText:
 	db   "DATA"
+	next "STAT"
+	next "MOVE"
 	next "CRY"
 	next "AREA"
 	next "QUIT@"
@@ -390,6 +412,8 @@ IsPokemonBitSet:
 
 ; function to display pokedex data from outside the pokedex
 ShowPokedexData:
+	xor a
+	ld [wPokedexModeSelect], a
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
 	call UpdateSprites
@@ -512,7 +536,7 @@ ShowPokedexDataInternal:
 
 	ld a, c
 	and a
-	jp z, .waitForButtonPress ; if the pokemon has not been owned, don't print the height, weight, or description
+	jp z, .waitForButtonPress ; if the pokemon has not been owned, don't print the height, weight, description, or moves
 	inc de ; de = address of feet (height)
 	ld a, [de] ; reads feet, but a is overwritten without being used
 	hlcoord 12, 6
@@ -564,6 +588,11 @@ ShowPokedexDataInternal:
 	pop af
 	ldh [hDexWeight], a ; restore original value of [hDexWeight]
 	pop hl
+	ld a, [wPokedexModeSelect]
+	cp 1
+	jr z, .showMoves
+	cp 2
+	jr z, .showStats
 	inc hl ; hl = address of pokedex description text
 	bccoord 1, 11
 	ld a, %10
@@ -571,11 +600,26 @@ ShowPokedexDataInternal:
 	call TextCommandProcessor ; print pokedex description text
 	xor a
 	ldh [hClearLetterPrintingDelayFlags], a
+	jr .waitForButtonPress
+
+.showStats
+	ld a, [wPokedexNum]
+	ld [wCurSpecies], a
+	call GetMonHeader
+	call Pokedex_PrintStatsText
+	jr .exitDataPage
+
+.showMoves
+	call Pokedex_PrintMovesText
+	jr .exitDataPage
+
 .waitForButtonPress
 	call JoypadLowSensitivity
 	ldh a, [hJoy5]
 	and PAD_A | PAD_B
 	jr z, .waitForButtonPress
+
+.exitDataPage
 	pop af
 	ldh [hTileAnimations], a
 	call GBPalWhiteOut
@@ -588,6 +632,502 @@ ShowPokedexDataInternal:
 	ld a, $77 ; max volume
 	ldh [rAUDVOL], a
 	ret
+
+
+; STAT page 1: types and base stats. A advances to evolution data;
+; B returns to the Pokédex side menu.
+Pokedex_PrintStatsText:
+	hlcoord 1, 10
+	lb bc, 7, 18
+	call ClearScreenArea
+
+	hlcoord 1, 11
+	ld de, DexType1Text
+	call PlaceString
+	hlcoord 2, 12
+	predef PrintMonType
+	ld a, [wMonHType1]
+	ld b, a
+	ld a, [wMonHType2]
+	cp b
+	jr z, .stats
+	hlcoord 1, 13
+	ld de, DexType2Text
+	call PlaceString
+
+.stats
+	hlcoord 9, 10
+	ld de, BaseStatsText
+	call PlaceString
+	hlcoord 12, 11
+	ld de, HPText
+	call PlaceString
+	ld de, wMonHBaseHP
+	hlcoord 15, 11
+	lb bc, 1, 3
+	call PrintNumber
+	hlcoord 11, 12
+	ld de, AtkText
+	call PlaceString
+	ld de, wMonHBaseAttack
+	hlcoord 15, 12
+	lb bc, 1, 3
+	call PrintNumber
+	hlcoord 11, 13
+	ld de, DefText
+	call PlaceString
+	ld de, wMonHBaseDefense
+	hlcoord 15, 13
+	lb bc, 1, 3
+	call PrintNumber
+	hlcoord 11, 14
+	ld de, SpdText
+	call PlaceString
+	ld de, wMonHBaseSpeed
+	hlcoord 15, 14
+	lb bc, 1, 3
+	call PrintNumber
+	hlcoord 11, 15
+	ld de, SpcText
+	call PlaceString
+	ld de, wMonHBaseSpecial
+	hlcoord 15, 15
+	lb bc, 1, 3
+	call PrintNumber
+
+	ld b, 0
+	ld hl, 0
+	ld a, [wMonHBaseHP]
+	ld c, a
+	add hl, bc
+	ld a, [wMonHBaseAttack]
+	ld c, a
+	add hl, bc
+	ld a, [wMonHBaseDefense]
+	ld c, a
+	add hl, bc
+	ld a, [wMonHBaseSpeed]
+	ld c, a
+	add hl, bc
+	ld a, [wMonHBaseSpecial]
+	ld c, a
+	add hl, bc
+	ld a, h
+	ld [wBuffer], a
+	ld a, l
+	ld [wBuffer + 1], a
+	hlcoord 9, 16
+	ld de, TotalText
+	call PlaceString
+	ld de, wBuffer
+	hlcoord 15, 16
+	lb bc, 2, 3
+	call PrintNumber
+
+	; Another STAT page follows, so use the normal flashing continuation arrow.
+	call Pokedex_WaitForPageInput
+	ret c
+
+	hlcoord 1, 10
+	lb bc, 7, 18
+	call ClearScreenArea
+	hlcoord 5, 10
+	ld de, EvolutionsText
+	call PlaceString
+	ld a, [wPokedexNum]
+	ld [wWhichPokemon], a
+	ld [wCurPartySpecies], a
+	farcall PrepareEvolutionData
+	ld de, wPokedexDataBuffer
+	ld a, 1
+	ldh [hItemCounter], a
+
+.loopEvolutionData
+	ld a, [wMoveListCounter]
+	ld c, a
+	and a
+	jp z, .waitEvolutionPage
+	ld a, [de]
+	cp EVOLVE_LEVEL
+	jr z, .printLevelText
+	cp EVOLVE_TRADE
+	jr z, .printTradeText
+	cp EVOLVE_ITEM
+	jr z, .printItemText
+	jp .nextEvolution
+.printLevelText
+	push de
+	push bc
+	ld de, EvolveLevelText
+	hlcoord 1, 11
+	ldh a, [hItemCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	call PlaceString
+	pop bc
+	pop de
+	jr .itemIdByte
+.printTradeText
+	push de
+	push bc
+	ld de, EvolveTradeText
+	hlcoord 1, 11
+	ldh a, [hItemCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	call PlaceString
+	pop bc
+	pop de
+	jr .itemIdByte
+.printItemText
+	push de
+	push bc
+	ld de, EvolveItemText
+	hlcoord 1, 11
+	ldh a, [hItemCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	call PlaceString
+	pop bc
+	pop de
+.itemIdByte
+	inc de
+	ld a, [de]
+	cp $ff
+	jr z, .levelByte
+	push de
+	push bc
+	ld [wNamedObjectIndex], a
+	call GetItemName
+	hlcoord 2, 11
+	ldh a, [hItemCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	call PlaceString
+	pop bc
+	pop de
+.levelByte
+	inc de
+	ld a, [de]
+	cp 1
+	jr z, .targetByte
+	push de
+	push bc
+	hlcoord 16, 11
+	ldh a, [hItemCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	lb bc, LEFT_ALIGN | 1, 3
+	call PrintNumber
+	pop bc
+	pop de
+	push de
+	push bc
+	ld de, EvolveLVLText
+	hlcoord 15, 11
+	ldh a, [hItemCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	call PlaceString
+	pop bc
+	pop de
+.targetByte
+	inc de
+.nextEvolution
+	dec c
+	ld a, c
+	ld [wMoveListCounter], a
+	ld hl, hItemCounter
+	inc [hl]
+	inc de
+	jp .loopEvolutionData
+.waitEvolutionPage
+	call JoypadLowSensitivity
+	ldh a, [hJoy5]
+	and PAD_A | PAD_B
+	jr z, .waitEvolutionPage
+	ret
+
+EvolutionsText:
+	db "EVOLUTIONS@"
+EvolveLevelText:
+	db ".LEVEL-UP@"
+EvolveTradeText:
+	db ".TRADE@"
+EvolveItemText:
+	db ".@"
+EvolveLVLText:
+	db "<LVL>@"
+
+; Build and display the current monster's level-up moves followed by its
+; compatible TM/HM moves. Five entries are shown per page.
+Pokedex_PrintMovesText:
+	ld a, [wPokedexNum]
+	ld [wWhichPokemon], a
+	ld [wCurPartySpecies], a
+	callfar PrepareLevelUpMoveList
+	ld de, wMoveBuffer
+
+.levelPage
+	hlcoord 1, 10
+	lb bc, 7, 18
+	call ClearScreenArea
+	hlcoord 1, 10
+	ld de, LevelUpMovesText
+	call PlaceString
+	ld de, wMoveBuffer
+	ld a, [wMoveListOffset]
+	ld l, a
+	ld h, 0
+	add hl, hl
+	add hl, de
+	ld d, h
+	ld e, l
+	xor a
+	ld [wMovePrintCounter], a
+	ld b, 5
+.levelLines
+	ld a, [wMoveListOffset]
+	ld c, a
+	ld a, [wMoveListCounter]
+	cp c
+	jr z, .levelPageDone
+	jr c, .levelPageDone
+	push bc
+	push de
+	call PrintLevelUpMoveLine
+	pop de
+	pop bc
+	inc de
+	inc de
+	ld hl, wMoveListOffset
+	inc [hl]
+	dec b
+	jr nz, .levelLines
+.levelPageDone
+	call Pokedex_WaitMovePageInput
+	jr c, .done
+	ld a, [wMoveListOffset]
+	ld c, a
+	ld a, [wMoveListCounter]
+	cp c
+	jr nz, .levelPage
+
+	; Switch to TM/HM compatibility pages.
+	callfar GetTMMoves
+	xor a
+	ld [wMoveListOffset], a
+.tmPage
+	hlcoord 1, 10
+	lb bc, 7, 18
+	call ClearScreenArea
+	hlcoord 1, 10
+	ld de, TMHMMovesText
+	call PlaceString
+	ld de, wMoveBuffer
+	ld a, [wMoveListOffset]
+	ld l, a
+	ld h, 0
+	add hl, hl
+	add hl, de
+	ld d, h
+	ld e, l
+	xor a
+	ld [wMovePrintCounter], a
+	ld b, 5
+.tmLines
+	ld a, [de]
+	and a
+	jr z, .tmPageDone
+	push bc
+	push de
+	call PrintTMHMMoveLine
+	pop de
+	pop bc
+	inc de
+	inc de
+	ld hl, wMoveListOffset
+	inc [hl]
+	dec b
+	jr nz, .tmLines
+.tmPageDone
+	ld a, [wMoveListOffset]
+	ld c, a
+	ld a, [wMoveListCounter]
+	cp c
+	jr z, .finalTMPage
+
+	; More TM/HM entries follow, so show the continuation arrow.
+	call Pokedex_WaitMovePageInput
+	jr c, .done
+	jr .tmPage
+
+.finalTMPage
+	; No page follows this one; wait normally without a down arrow.
+	call Pokedex_WaitFinalPageInput
+.done
+	xor a
+	ld [wMoveListOffset], a
+	ret
+
+; Flash the normal Pokédex continuation arrow at the lower-right.
+; Carry = B (leave the current custom page). A advances.
+Pokedex_WaitForPageInput:
+	hlcoord 18, 16
+	ld a, h
+	ld [wMenuCursorLocation], a
+	ld a, l
+	ld [wMenuCursorLocation + 1], a
+
+	; A always advances in PokedexPromptMultiButton; B interrupts.
+	ld a, PAD_B
+	ld [wMenuWatchedKeys], a
+	callfar PokedexPromptMultiButton
+
+	ldh a, [hJoy5]
+	bit B_PAD_B, a
+	jr nz, .cancel
+	and a
+	ret
+.cancel
+	scf
+	ret
+
+; MOVE uses the same flashing prompt whenever another page follows.
+Pokedex_WaitMovePageInput:
+	jp Pokedex_WaitForPageInput
+
+; Final custom pages wait for A/B without showing a continuation arrow.
+Pokedex_WaitFinalPageInput:
+.wait
+	call JoypadLowSensitivity
+	ldh a, [hJoy5]
+	and PAD_A | PAD_B
+	jr z, .wait
+	ret
+
+PrintLevelUpMoveLine:
+	push de
+	ld a, [de]
+	cp 1
+	jr z, .startingMove
+
+	; Level marker and level number.
+	hlcoord 1, 12
+	ld a, [wMovePrintCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	ld [hl], '<LVL>'
+	hlcoord 2, 12
+	ld a, [wMovePrintCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	lb bc, LEFT_ALIGN | 1, 3
+	push de
+	call PrintNumber
+	pop de
+	jr .moveName
+
+.startingMove
+	hlcoord 1, 12
+	ld a, [wMovePrintCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	push de
+	ld de, StartingMoveText
+	call PlaceString
+	pop de
+
+.moveName
+	inc de
+	ld a, [de]
+	ld [wNamedObjectIndex], a
+	call GetMoveName
+	hlcoord 5, 12
+	ld a, [wMovePrintCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	call PlaceString
+	pop de
+	ld hl, wMovePrintCounter
+	inc [hl]
+	ret
+
+PrintTMHMMoveLine:
+	push de
+	ld a, [de]
+	ld c, a ; TM/HM number
+	cp NUM_TMS + 1
+	jr nc, .hm
+	ld de, TMSymbolText
+	jr .symbol
+.hm
+	ld de, HMSymbolText
+.symbol
+	hlcoord 1, 12
+	ld a, [wMovePrintCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	call PlaceString
+	pop de
+
+	push de
+	ld a, [de]
+	cp NUM_TMS + 1
+	jr c, .tmNumber
+	sub NUM_TMS
+.tmNumber
+	ld [wBuffer], a
+	ld de, wBuffer
+	hlcoord 3, 12
+	ld a, [wMovePrintCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	lb bc, LEADING_ZEROES | 1, 2
+	call PrintNumber
+	pop de
+
+	inc de
+	ld a, [de]
+	ld [wNamedObjectIndex], a
+	call GetMoveName
+	hlcoord 6, 12
+	ld a, [wMovePrintCounter]
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	call PlaceString
+	ld hl, wMovePrintCounter
+	inc [hl]
+	ret
+
+DexType1Text:
+	db "TYPE1/@"
+DexType2Text:
+	db "TYPE2/@"
+BaseStatsText:
+	db "BASE STATS@"
+HPText:
+	db "HP@"
+AtkText:
+	db "ATK@"
+DefText:
+	db "DEF@"
+SpdText:
+	db "SPD@"
+SpcText:
+	db "SPC@"
+TotalText:
+	db "TOTAL@"
+LevelUpMovesText:
+	db "LEVEL-UP MOVES:@"
+TMHMMovesText:
+	db "TM/HM MOVES:@"
+TMSymbolText:
+	db "TM@"
+HMSymbolText:
+	db "HM@"
+StartingMoveText:
+	db "---@"
 
 HeightWeightText:
 	db   "HT  ?′??″"

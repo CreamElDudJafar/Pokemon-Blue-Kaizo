@@ -402,5 +402,4 @@ SECTION "Engine Spillover", ROMX
 INCLUDE "engine/overworld/use_another_repel.asm"
 INCLUDE "engine/overworld/field_moves.asm"
 INCLUDE "engine/menus/item_display_count.asm"
-INCLUDE "text/tmhm_names.asm"
-tmhmNamesEnd:
+INCLUDE "engine/menus/text_multi_button_prompt.asm"
