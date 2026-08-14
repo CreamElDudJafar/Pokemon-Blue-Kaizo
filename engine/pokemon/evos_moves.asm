@@ -513,4 +513,124 @@ WriteMonMoves_ShiftMoveData:
 Evolution_FlagAction:
 	predef_jump FlagActionPredef
 
+; Build evolution-method data for Pokédex STAT display.
+; Each entry is [method, item/$ff, level/1, target species].
+PrepareEvolutionData::
+	ld de, wPokedexDataBuffer
+	ld c, 0
+	push bc
+	ld a, [wWhichPokemon]
+	dec a
+	ld c, a
+	ld b, 0
+	ld hl, EvosMovesPointerTable
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop bc
+.loop
+	ld a, [hli]
+	and a
+	jr z, .done
+	cp EVOLVE_ITEM
+	jr z, .item
+	ld [de], a
+	inc de
+	ld a, $ff
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	inc c
+	jr .loop
+.item
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	inc c
+	jr .loop
+.done
+	ld a, c
+	ld [wMoveListCounter], a
+	ret
+
+; Build a complete level-up learnset for Pokédex MOVE display.
+; Each entry in wMoveBuffer is [level, move]. Level 1 also includes the
+; monster's four starting moves from its base-stats header.
+PrepareLevelUpMoveList::
+	ld a, [wWhichPokemon]
+	ld [wCurSpecies], a
+	ld [wCurPartySpecies], a
+	ld de, wMoveBuffer
+	ld c, 0
+
+	call GetMonHeader
+	ld hl, wMonHMoves
+	ld b, NUM_MOVES
+.startingMoves
+	ld a, [hli]
+	and a
+	jr z, .learnset
+	push bc
+	ld b, a
+	ld a, 1
+	ld [de], a
+	inc de
+	ld a, b
+	ld [de], a
+	inc de
+	pop bc
+	inc c
+	dec b
+	jr nz, .startingMoves
+
+.learnset
+	push bc
+	ld a, [wWhichPokemon]
+	dec a
+	ld c, a
+	ld b, 0
+	ld hl, EvosMovesPointerTable
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop bc
+.skipEvos
+	ld a, [hli]
+	and a
+	jr nz, .skipEvos
+.moves
+	ld a, [hli]
+	and a
+	jr z, .done
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	inc c
+	jr .moves
+.done
+	ld a, c
+	ld [wMoveListCounter], a
+	xor a
+	ld [wMoveListOffset], a
+	ret
+
 INCLUDE "data/pokemon/evos_moves.asm"

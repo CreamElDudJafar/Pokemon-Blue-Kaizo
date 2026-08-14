@@ -390,13 +390,21 @@ wSlotMachineSevenAndBarModeChance:: db
 	ds 2
 ; ROM back to return to when the player is done with the slot machine
 wSlotMachineSavedROMBank:: db
-	ds 166
+; Temporary Pokédex MOVE/STAT buffer. This replaces padding in the same WRAM union,
+; so no persistent WRAM addresses move.
+wPokedexDataBuffer::
+wMoveBuffer:: ds 164
+	ds 2
 wLuckySlotHiddenEventIndex:: db
 
 NEXTU
 ; values between 0-6. Shake screen horizontally, shake screen vertically, blink Pokemon...
 wAnimationType:: db
-	ds 29
+wMoveListCounter:: db
+wMoveListOffset:: db
+wMovePrintCounter:: db
+wPokedexModeSelect:: db
+	ds 26
 wAnimPalette:: db
 
 NEXTU
