@@ -499,6 +499,7 @@ InitOptionsMenu:
 	inc a
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
+	call GBPalNormal
 	ret
 
 
