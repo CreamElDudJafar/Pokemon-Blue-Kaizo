@@ -389,6 +389,7 @@ DisplayContinueGameInfo:
 	call PrintPlayTime
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
+	call GBPalNormal
 	ld c, 30
 	jp DelayFrames
 
