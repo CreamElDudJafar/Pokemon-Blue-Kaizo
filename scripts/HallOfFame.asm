@@ -56,7 +56,7 @@ HallOfFameResetEventsAndSaveScript:
 	dec b
 	jr nz, .delayLoop
 	call WaitForTextScrollButtonPress
-	jp Init
+	jp SoftReset
 
 HallOfFameDefaultScript:
 	ld a, PAD_BUTTONS | PAD_CTRL_PAD
