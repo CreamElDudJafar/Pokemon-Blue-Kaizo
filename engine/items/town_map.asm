@@ -26,7 +26,10 @@ DisplayTownMap:
 	ld de, TownMapCursor
 	lb bc, BANK(TownMapCursor), (TownMapCursorEnd - TownMapCursor) / TILE_1BPP_SIZE
 	call CopyVideoDataDouble
-	xor a
+	pop af
+	push af
+	call GetWildDataTownMapID
+	call GetTownMapOrderFromMapID
 	ld [wWhichTownMapLocation], a
 	pop af
 	jr .enterLoop
@@ -75,6 +78,8 @@ DisplayTownMap:
 	jr z, .inputLoop
 	ld a, SFX_TINK
 	call PlaySound
+	bit B_PAD_A, b
+	jr nz, .pressedA
 	bit B_PAD_UP, b
 	jr nz, .pressedUp
 	bit B_PAD_DOWN, b
@@ -88,6 +93,36 @@ DisplayTownMap:
 	pop af
 	ld [hl], a
 	ret
+.pressedA
+	ld a, [wWhichTownMapLocation]
+	push af
+; Check for encounter data before opening the viewer. If the location has no
+; Grass, Surf, or Rod encounters, pressing A leaves the Town Map alone.
+	call GetCurrentTownMap
+	ld d, a
+	push de
+	callfar TownMapLocationHasWildData
+	pop de
+	jr c, .hasWildData
+	pop af
+	ld [wWhichTownMapLocation], a
+	jp .townMapLoop
+
+.hasWildData
+	callfar ShowMapWildEncounters
+	pop af
+	ld [wWhichTownMapLocation], a
+; Reload the Town Map through its normal engine path after a viewer was shown.
+	call LoadTownMap
+	ld a, [wCurMap]
+	ld b, $0
+	call DrawPlayerOrBirdSprite
+	ld hl, vSprites tile BIRD_BASE_TILE
+	ld de, TownMapCursor
+	lb bc, BANK(TownMapCursor), (TownMapCursorEnd - TownMapCursor) / TILE_1BPP_SIZE
+	call CopyVideoDataDouble
+	jp .townMapLoop
+
 .pressedUp
 	ld a, [wWhichTownMapLocation]
 	inc a
@@ -106,6 +141,119 @@ DisplayTownMap:
 .noUnderflow
 	ld [wWhichTownMapLocation], a
 	jp .townMapLoop
+
+GetWildDataTownMapID:
+	cp FIRST_INDOOR_MAP
+	ret c
+	ld hl, InternalMapEntries
+	ld de, 4
+	ld b, 0
+.loop
+	cp [hl]
+	jr c, .foundGroup
+	add hl, de
+	inc b
+	jr .loop
+.foundGroup
+	ld hl, WildDataTownMapIDs
+	ld c, b
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	ret
+
+GetTownMapOrderFromMapID:
+; in:  a = canonical Town Map map ID
+; out: a = matching TownMapOrder index, or 0 only if the canonical ID is absent
+	ld c, a
+	ld hl, TownMapOrder
+	ld b, 0
+.loop
+	ld a, [hli]
+	cp c
+	jr z, .found
+	inc b
+	ld a, b
+	cp TownMapOrderEnd - TownMapOrder
+	jr c, .loop
+	xor a
+	ret
+.found
+	ld a, b
+	ret
+
+WildDataTownMapIDs:
+	table_width 1
+	db PALLET_TOWN
+	db VIRIDIAN_CITY
+	db ROUTE_2
+	db VIRIDIAN_FOREST
+	db PEWTER_CITY
+	db MT_MOON_1F
+	db CERULEAN_CITY
+	db ROUTE_4
+	db CERULEAN_CITY
+	db ROUTE_5
+	db ROUTE_6
+	db ROUTE_7
+	db ROUTE_8
+	db ROCK_TUNNEL_POKECENTER
+	db POWER_PLANT
+	db ROUTE_11
+	db ROUTE_12
+	db BILLS_HOUSE
+	db VERMILION_CITY
+	db SS_ANNE_1F
+	db VICTORY_ROAD_1F
+	db INDIGO_PLATEAU
+	db ROUTE_5
+	db INDIGO_PLATEAU
+	db ROUTE_7
+	db CELADON_CITY
+	db LAVENDER_TOWN
+	db POKEMON_TOWER_3F
+	db LAVENDER_TOWN
+	db FUCHSIA_CITY
+	db SAFARI_ZONE_EAST
+	db FUCHSIA_CITY
+	db SEAFOAM_ISLANDS_1F
+	db VERMILION_CITY
+	db FUCHSIA_CITY
+	db POKEMON_MANSION_1F
+	db CINNABAR_ISLAND
+	db INDIGO_PLATEAU
+	db SAFFRON_CITY
+	db ROUTE_15
+	db ROUTE_16
+	db ROUTE_12
+	db ROUTE_18
+	db SEAFOAM_ISLANDS_1F
+	db ROUTE_22
+	db VICTORY_ROAD_1F
+	db ROUTE_12
+	db VERMILION_CITY
+	db DIGLETTS_CAVE
+	db VICTORY_ROAD_1F
+	db CELADON_CITY
+	db SAFFRON_CITY
+	db POKEMON_MANSION_1F
+	db SAFARI_ZONE_EAST
+	db CERULEAN_CAVE_1F
+	db LAVENDER_TOWN
+	db CERULEAN_CITY
+	db ROCK_TUNNEL_POKECENTER
+	db SAFFRON_CITY
+	db INDIGO_PLATEAU
+	assert_table_length NUM_INDOOR_MAP_GROUPS
+
+GetCurrentTownMap:
+	ld hl, TownMapOrder
+	ld a, [wWhichTownMapLocation]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	ret
 
 INCLUDE "data/maps/town_map_order.asm"
 

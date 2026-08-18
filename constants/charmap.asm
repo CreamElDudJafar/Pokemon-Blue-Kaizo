@@ -172,7 +172,7 @@
 
 	charmap "ァ",         $e9 ; katakana small a, unused
 	charmap "ゥ",         $ea ; katakana small u, unused
-	charmap "ェ",         $eb ; katakana small e, unused
+	charmap "%",         $eb ; percent sign
 
 	charmap "▷",         $ec
 	charmap "▶",         $ed

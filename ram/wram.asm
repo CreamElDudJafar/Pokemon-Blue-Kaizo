@@ -690,8 +690,16 @@ wFlyLocationsList:: ds NUM_FLY_LOCATIONS + 2
 
 NEXTU
 wWhichTownMapLocation:: db
-wFlyAnimCounter:: db
-wFlyAnimBirdSpriteImageIndex:: db
+wFlyAnimCounter::
+wCurTownMapMaxWildDataFloorIndex:: db
+wFlyAnimBirdSpriteImageIndex::
+wCurTownMapWildDataFloorIndex:: db
+wCurTownMapWildDataMap:: db
+wCurTownMapWildDataType:: db
+wCurTownMapInternalWildDataMap:: db
+wTownMapWildDataPrintValue:: db
+wTownMapSuperRodCount:: db
+wTownMapSuperRodMons:: ds 8
 
 NEXTU
 	ds 1
