@@ -689,8 +689,16 @@ wFlyLocationsList:: ds NUM_FLY_LOCATIONS + 2
 
 NEXTU
 wWhichTownMapLocation:: db
+wCurTownMapMaxWildDataFloorIndex::
 wFlyAnimCounter:: db
+wCurTownMapWildDataFloorIndex::
 wFlyAnimBirdSpriteImageIndex:: db
+wCurTownMapWildDataMap:: db
+; 0 = grass / ground
+; 1 = water
+; 2 = super rod
+wCurTownMapWildDataType:: db
+wCurTownMapInternalWildDataMap:: db
 
 NEXTU
 	ds 1
@@ -1080,7 +1088,12 @@ UNION
 wPartyMenuBlkPacket:: ds $30
 
 NEXTU
-	ds 29
+	ds 19
+wTownMapWildDataPrintValue:: db
+wTownMapSuperRodCount::
+wSuperRodCount:: db
+wTownMapSuperRodMons::
+wSuperRodMons:: ds 8
 ; storage buffer for various strings
 wStringBuffer:: ds NAME_BUFFER_LENGTH
 

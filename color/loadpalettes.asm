@@ -203,3 +203,34 @@ LoadTownPalette:
 	pop af
 	ldh [rWBK], a ; Restore wram bank
 	ret
+
+
+LoadTownMapWildPokeballPalette::
+; Copy PC_POKEBALL_PAL into BG palette slot 2, then make tile $72 use slot 2.
+; This affects only the caught-ball tile on the wild-data screen.
+	ldh a, [rWBK]
+	push af
+
+	ld a, 2
+	ldh [rWBK], a
+
+	ld hl, MapPalettes + PC_POKEBALL_PAL * 8
+	ld de, W2_BgPaletteData + 2 * 8
+	ld b, 8
+.copyPalette
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, .copyPalette
+
+	ld hl, W2_TilesetPaletteMap + $72
+	ld [hl], 2
+
+	; Request the new BG palette colors on the next full-color VBlank.
+	ld a, 1
+	ld [W2_ForceBGPUpdate], a
+
+	pop af
+	ldh [rWBK], a
+	ret
