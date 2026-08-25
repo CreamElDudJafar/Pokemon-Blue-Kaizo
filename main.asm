@@ -207,7 +207,6 @@ INCLUDE "engine/battle/effects.asm"
 SECTION "bank10", ROMX
 
 INCLUDE "engine/menus/pokedex.asm"
-INCLUDE "engine/menus/map_wild_data.asm"
 INCLUDE "engine/movie/trade.asm"
 INCLUDE "engine/movie/intro.asm"
 INCLUDE "engine/movie/trade2.asm"
@@ -370,6 +369,7 @@ INCLUDE "engine/overworld/field_moves.asm"
 INCLUDE "engine/gfx/set_attack_animation_palette.asm"
 INCLUDE "engine/menus/item_display_count.asm"
 INCLUDE "engine/menus/text_multi_button_prompt.asm"
+INCLUDE "engine/menus/map_wild_data.asm"
 
 
 SECTION "CGB Mode Code", ROMX

@@ -610,7 +610,7 @@ TownMapWildMonFlagCheck:
 	push bc
 	push hl
 	ld [wPokedexNum], a
-	call IndexToPokedex
+	farcall IndexToPokedex
 	ld a, [wPokedexNum]
 	pop hl
 	dec a
