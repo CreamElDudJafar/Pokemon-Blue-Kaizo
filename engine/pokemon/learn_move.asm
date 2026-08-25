@@ -224,3 +224,39 @@ ForgotAndText:
 HMCantDeleteText:
 	text_far _HMCantDeleteText
 	text_end
+
+; Convert move accuracy from the internal 0-255 scale to a percentage for the battle move-info box.
+ConvertPercentagesBattle::
+	ld a, [wPlayerMoveAccuracy]
+	call ConvertPercentages
+	ld [wBuffer], a
+	ret
+
+; Convert a value out of 256 into a percentage out of 100, rounded to nearest.
+ConvertPercentages:
+	ld l, a
+	ld h, 0
+	push af
+	add hl, hl
+	add a, l
+	ld l, a
+	adc h
+	sub l
+	ld h, a
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	pop af
+	add a, l
+	ld l, a
+	adc h
+	sbc l
+	ld h, a
+	add hl, hl
+	add hl, hl
+	ld l, $80
+	sla l
+	sbc a
+	and 1
+	add a, h
+	ret
