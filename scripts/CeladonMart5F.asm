@@ -20,3 +20,9 @@ CeladonMart5FSailorText:
 CeladonMart5FCurrentFloorSignText:
 	text_far _CeladonMart5FCurrentFloorSignText
 	text_end
+
+CeladonMart5FClerk1Text::
+	script_mart TM_PSYWAVE, TM_DOUBLE_EDGE, TM_TRI_ATTACK, TM_SWIFT, TM_TOXIC, TM_TELEPORT, TM_SEISMIC_TOSS
+
+CeladonMart5FClerk2Text::
+	script_mart DIRE_HIT, GUARD_SPEC, MAX_REPEL, ESCAPE_ROPE, REPEL

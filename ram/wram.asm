@@ -1564,6 +1564,7 @@ wMoveNum:: db
 ; concatenated move name list where intermediate '@' are replaced with '<NEXT>'
 wMovesString:: ds NUM_MOVES * MOVE_NAME_LENGTH
 
+wSelfConfusionAnimation::
 wUnusedCurMapTilesetCopy:: db
 
 ; wWalkBikeSurfState is sometimes copied here, but it doesn't seem to be used for anything

@@ -46,7 +46,6 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 .noCarry
 	dec b
 	jr nz, .copyRowLoop
-	call EnableLCD
 	ld a, $90
 	ldh [hWY], a
 	ldh [rWY], a
@@ -75,6 +74,7 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ldh [rOBP1], a
 	call UpdateCGBPal_OBP0
 	call UpdateCGBPal_OBP1
+	call EnableLCD
 .slideSilhouettesLoop ; slide silhouettes of the player's pic and the enemy's pic onto the screen
 	ld h, b
 	ld l, $40
@@ -2351,6 +2351,7 @@ PartyMenuOrRockOrRun:
 	call LoadHudTilePatterns
 	call LoadScreenTilesFromBuffer2
 	call RunDefaultPaletteCommand
+	call PrintEmptyString
 	call GBPalNormal
 	jp DisplayBattleMenu
 .partyMonDeselected
@@ -3732,12 +3733,16 @@ HandleSelfConfusionDamage:
 	ld [hl], a
 	xor a
 	ld [wAnimationType], a
+	dec a
+	ld [wSelfConfusionAnimation], a
+	inc a
 	inc a
 	ldh [hWhoseTurn], a
 	call PlayMoveAnimation
 	call DrawPlayerHUDAndHPBar
 	xor a
 	ldh [hWhoseTurn], a
+	ld [wSelfConfusionAnimation], a
 	jp ApplyDamageToPlayerPokemon
 
 INCLUDE "engine/battle/used_move_text.asm"
@@ -5834,10 +5839,14 @@ CheckEnemyStatusConditions:
 	xor a
 	ld [wAnimationType], a
 	ldh [hWhoseTurn], a
+	dec a
+	ld [wSelfConfusionAnimation], a
 	ld a, POUND
 	call PlayMoveAnimation
 	ld a, $1
 	ldh [hWhoseTurn], a
+	xor a
+	ld [wSelfConfusionAnimation], a
 	call ApplyDamageToEnemyPokemon
 	jr .monHurtItselfOrFullyParalysed
 .checkIfTriedToUseDisabledMove
@@ -6704,6 +6713,8 @@ DetermineWildOpponent:
 InitBattleCommon:
 	ld a, [wMapPalOffset]
 	push af
+	xor a
+	ld [wSelfConfusionAnimation], a
 	ld hl, wLetterPrintingDelayFlags
 	ld a, [hl]
 	push af

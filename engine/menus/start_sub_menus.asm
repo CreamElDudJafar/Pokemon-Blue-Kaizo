@@ -460,6 +460,9 @@ StartMenu_TrainerInfo::
 	ldh [hTileAnimations], a
 	call DrawTrainerInfo
 	predef DrawBadges
+	ld a, [wOnSGB]
+	and a
+	call z, Delay3
 	ld b, SET_PAL_TRAINER_CARD
 	call RunPaletteCommand
 	call GBPalNormal
@@ -467,6 +470,9 @@ StartMenu_TrainerInfo::
 	call GBPalWhiteOut
 	call LoadFontTilePatterns
 	call LoadScreenTilesFromBuffer2
+	ld a, [wOnSGB]
+	and a
+	call z, Delay3
 	call RunDefaultPaletteCommand
 	call ReloadMapData
 ;	call LoadGBPal
