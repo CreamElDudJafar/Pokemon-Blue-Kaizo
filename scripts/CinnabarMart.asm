@@ -14,3 +14,6 @@ CinnabarMartSilphWorkerFText:
 CinnabarMartScientistText:
 	text_far _CinnabarMartScientistText
 	text_end
+
+CinnabarMartClerkText::
+	script_mart ETHER, ULTRA_BALL, HYPER_POTION, SAFARI_BALL, TM_FIRE_BLAST, BURN_HEAL, REVIVE

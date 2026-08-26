@@ -20,3 +20,9 @@ CeladonMart2FGirlText:
 CeladonMart2FCurrentFloorSignText:
 	text_far _CeladonMart2FCurrentFloorSignText
 	text_end
+
+CeladonMart2FClerk1Text::
+	script_mart GREAT_BALL, AWAKENING, SUPER_REPEL, REVIVE, PARLYZ_HEAL, BURN_HEAL, ANTIDOTE, ICE_HEAL, ETHER
+
+CeladonMart2FClerk2Text::
+	script_mart TM_DIG, TM_MEGA_DRAIN, TM_RAZOR_WIND, TM_BUBBLEBEAM, TM_EGG_BOMB, TM_MEGA_PUNCH, TM_MEGA_KICK, TM_TAKE_DOWN, TM_SUBMISSION

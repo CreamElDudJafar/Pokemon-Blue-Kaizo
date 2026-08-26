@@ -35,3 +35,6 @@ IndigoPlateauLobbyCooltrainerFText:
 
 IndigoPlateauLobbyLinkReceptionistText:
 	script_cable_club_receptionist
+
+IndigoPlateauLobbyClerkText::
+	script_mart MASTER_BALL, PARLYZ_HEAL, HYPER_POTION, REVIVE, ICE_HEAL, RARE_CANDY, ETHER, ANTIDOTE, BURN_HEAL
