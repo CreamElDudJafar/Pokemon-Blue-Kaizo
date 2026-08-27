@@ -6383,15 +6383,6 @@ LoadPlayerBackPic:
 	hlcoord 1, 5
 	predef_jump CopyUncompressedPicToTilemap
 
-; Fix bottom battle window disappearing for 1 frame on DMG
-	xor a
-	ld [hSCX], a
-	call Delay3
-
-	xor a
-	ld [hWY], a
-	ld [rWY], a
-
 ; does nothing since no stats are ever selected (barring glitches)
 DoubleOrHalveSelectedStats:
 	callfar DoubleSelectedStats
