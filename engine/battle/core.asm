@@ -102,6 +102,9 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	hlcoord 1, 5
 	predef CopyUncompressedPicToTilemap
 	xor a
+	ldh [hSCX], a
+	call Delay3
+	xor a
 	ldh [hWY], a
 	ldh [rWY], a
 	inc a
