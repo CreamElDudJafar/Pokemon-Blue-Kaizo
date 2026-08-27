@@ -732,6 +732,14 @@ DMGPalToCGBPal::
 	ldh a, [rOBP1]
 	ld [wLastOBP1], a
 .convert
+	push af
+	ld a, [wOptions2]
+	and %11
+	cp PALETTES_DMG
+	jr nz, .notDMGPalette
+	ld de, CGB_DMGPalette
+.notDMGPalette
+	pop af
     FOR color_index, PAL_COLORS
 		ld b, a	;"B" now holds the palette data
 		and %11	;"A" now has just the value for the shade of palette color 0
