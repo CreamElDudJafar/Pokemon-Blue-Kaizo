@@ -2094,6 +2094,8 @@ wPlayerGender:: db
 
 wStatusKitStatus:: db
 
+wPortPC:: dw
+
 ENDU
 
 

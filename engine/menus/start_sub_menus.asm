@@ -6,11 +6,11 @@ StartMenu_Pokedex::
 	call UpdateSprites
 	jp RedisplayStartMenu
 
-StartMenu_PortablePC:: ; new
+StartMenu_PortablePC::
 	; if none of the above cp is met, let's open the pc and do the things
 	; next piece is to preserve the map text pointers
-    ld hl, wCurMapTextPtr
-    call SetMapTextPointer
+    	ld hl, wCurMapTextPtr
+    	call SetMapTextPointer
 	ld a, [wCurMap] ; we don't want to cheese the Elite4, do we?
 	cp LORELEIS_ROOM
 	jr z, .cantUseItHere
@@ -24,20 +24,20 @@ StartMenu_PortablePC:: ; new
 ; next piece is to preserve the map text pointers
     	ld hl, wCurMapTextPtr
     	ld a, [hli]
-    	ld [wUnusedMapVariable], a
+    	ld [wPortPC], a
     	ld a, [hl]
-    	ld [wUnusedMapVariable+1], a
+    	ld [wPortPC+1], a
 ; normal stuff
 	callfar ActivatePC ; main part
 	jr .done
-.cantUseItHere ; no cheese!
+.cantUseItHere
 	ld hl, CantUsePCHere
 	call PrintText
 .done
 ; next piece is to preserve the map text pointers
-    push hl
-    call RestoreMapTextPointer
-    pop hl
+    	push hl
+    	call RestoreMapTextPointer
+    	pop hl
 ; normal stuff
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
 	call LoadTextBoxTilePatterns
