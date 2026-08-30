@@ -36,7 +36,7 @@ PlateauPalSet:
 	db OUTDOOR_YELLOW
 	db OUTDOOR_BROWN
 	db OUTDOOR_ROOF
-	db CRYS_TEXTBOX
+	db PC_POKEBALL_PAL
 
 RedsHouse1PalSet:
 RedsHouse2PalSet:
@@ -56,7 +56,7 @@ FacilityPalSet:
 	db INDOOR_YELLOW
 	db INDOOR_BROWN
 	db INDOOR_LIGHT_BLUE
-	db CRYS_TEXTBOX
+	db PC_POKEBALL_PAL
 
 MartPalSet:
 InteriorPalSet:
@@ -80,7 +80,7 @@ ForestPalSet:
 	db OUTDOOR_YELLOW
 	db OUTDOOR_BROWN
 	db FOREST_TREES
-	db CRYS_TEXTBOX
+	db PC_POKEBALL_PAL
 
 PokecenterPalSet:
 	db INDOOR_GRAY
@@ -111,7 +111,7 @@ CemeteryPalSet:
 	db INDOOR_YELLOW
 	db INDOOR_BROWN
 	db INDOOR_PURPLE
-	db CRYS_TEXTBOX
+	db PC_POKEBALL_PAL
 
 CavernPalSet:
 	db CAVE_GRAY
@@ -121,4 +121,4 @@ CavernPalSet:
 	db CAVE_YELLOW
 	db CAVE_BROWN
 	db CAVE_LIGHT_BLUE
-	db CRYS_TEXTBOX
+	db PC_POKEBALL_PAL

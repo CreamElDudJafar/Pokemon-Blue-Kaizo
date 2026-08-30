@@ -2088,7 +2088,9 @@ wPlayerGender:: db
 
 wStatusKitStatus:: db
 
-	ds 54
+wPortPC:: dw
+
+	ds 52
 
 wObtainedHiddenItemsFlags:: flag_array MAX_HIDDEN_ITEMS
 

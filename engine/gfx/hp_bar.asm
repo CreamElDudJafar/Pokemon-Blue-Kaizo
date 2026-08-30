@@ -143,7 +143,11 @@ UpdateHPBar_AnimateHPBar:
 	push af
 	push de
 	ld d, $6
+	xor a
+	ldh [hAutoBGTransferEnabled], a
 	call DrawHPBarWithColor ; HAX: call changed to update color as well
+	ld a, 1
+	ldh [hAutoBGTransferEnabled], a
 	ld c, 2
 	call DelayFrames
 	pop de

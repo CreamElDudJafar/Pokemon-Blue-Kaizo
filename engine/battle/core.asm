@@ -2362,6 +2362,7 @@ PartyMenuOrRockOrRun:
 	call LoadHudTilePatterns
 	call LoadScreenTilesFromBuffer2
 	call RunDefaultPaletteCommand
+	call PrintEmptyString
 	call GBPalNormal
 	jp DisplayBattleMenu
 .partyMonDeselected
