@@ -85,4 +85,5 @@ KeyItemFlags:
 	dbit FALSE ; MAX_ELIXER
 	dbit TRUE  ; CANDY_BAG
 	dbit TRUE  ; STATUS_KIT
+	dbit TRUE  ; TRAINING_KIT
 	end_bit_array NUM_ITEMS

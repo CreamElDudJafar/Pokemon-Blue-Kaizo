@@ -85,6 +85,7 @@ ItemNames::
 	li "MAX ELIXER"
 	li "CANDY BAG"
 	li "STATUS KIT"
+	li "TRAINING KIT"
 	assert_list_length NUM_ITEMS
 	li "B2F"
 	li "B1F"
