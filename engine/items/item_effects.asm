@@ -102,6 +102,7 @@ ItemUsePtrTable:
 	dw ItemUsePPUp       ; MAX_ELIXER
 	dw ItemUseVitamin    ; CANDY_BAG
 	dw ItemUseStatusKit  ; STATUS_KIT
+	dw ItemUseTrainingKit ; TRAINING_KIT
 
 ItemUseHealingKit:
 	ld a, [wIsInBattle]
@@ -141,6 +142,75 @@ UsedHealingKitText:
 AskHealingKitText:
 	text_far _AskHealingKitText
 	text_end
+
+ItemUseTrainingKit:
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+	ld a, [wPartyCount]
+	and a
+	jr z, .canceled
+	ld a, [wWhichPokemon]
+	push af
+	ld a, [wCurItem]
+	push af
+	ld a, USE_ITEM_PARTY_MENU
+	ld [wPartyMenuTypeOrMessageID], a
+	ld a, $ff
+	ld [wUpdateSpritesEnabled], a
+	call DisplayPartyMenu
+	jr c, .canceledItemUse
+	ld hl, wPartyMons
+	ld bc, PARTYMON_STRUCT_LENGTH
+	ld a, [wWhichPokemon]
+	call AddNTimes
+; Load this species' growth rate for CalcExperience
+	ld a, [hl]
+	ld [wCurSpecies], a
+	ld [wPokedexNum], a
+	push hl
+	call GetMonHeader
+	pop hl
+	ld bc, MON_LEVEL
+	add hl, bc
+	ld a, [hl]
+	cp MAX_LEVEL
+	jr z, .level100
+; Calculate the exact EXP threshold for the next level.
+	inc a
+	ld d, a
+	push hl
+	callfar CalcExperience
+	pop hl
+	ld bc, (MON_EXP + 2) - MON_LEVEL
+	add hl, bc
+	ldh a, [hExperience + 2]
+	sub 1
+	ld [hld], a
+	ldh a, [hExperience + 1]
+	sbc 0
+	ld [hld], a
+	ldh a, [hExperience]
+	sbc 0
+	ld [hl], a
+	ld a, SFX_HEAL_AILMENT
+	call PlaySound
+	ld hl, TrainingKitWorkedText
+	call PrintText
+	ld a, 1
+	ld [wActionResultOrTookBattleTurn], a
+	jp FinishReusablePartyItem
+.level100
+	ld hl, VitaminNoEffectText
+	call PrintText
+.canceledItemUse
+	xor a
+	ld [wActionResultOrTookBattleTurn], a
+	jp FinishReusablePartyItem
+.canceled
+	xor a
+	ld [wActionResultOrTookBattleTurn], a
+	ret
 
 ItemUseStatusKit:
 	ld a, [wIsInBattle]
@@ -209,6 +279,14 @@ ItemUseStatusKit:
 	ld [wActionResultOrTookBattleTurn], a
 
 .done
+	jp FinishReusablePartyItem
+
+.canceled
+	xor a
+	ld [wActionResultOrTookBattleTurn], a
+	ret
+
+FinishReusablePartyItem:
 	pop af
 	ld [wCurItem], a
 	pop af
@@ -219,11 +297,6 @@ ItemUseStatusKit:
 
 	call GBPalWhiteOut
 	call z, RunDefaultPaletteCommand
-
-	ld a, [wIsInBattle]
-	and a
-	ret nz
-
 	ld a, $01
 	ld [wUpdateSpritesEnabled], a
 
@@ -232,33 +305,84 @@ ItemUseStatusKit:
 	call RestoreScreenTilesAndReloadTilePatterns
 	jp ReloadMapData
 
-.canceled
-	xor a
-	ld [wActionResultOrTookBattleTurn], a
-	ret
-
 StatusKitChooseStatus:
-	ld hl, StatusKitParalyzePromptText
-	call PrintText
-	call YesNoChoice
+	call SaveScreenTilesToBuffer1
+	ld a, [wTopMenuItemY]
+	push af
+	ld a, [wTopMenuItemX]
+	push af
 	ld a, [wCurrentMenuItem]
+	push af
+	ld a, [wMaxMenuItem]
+	push af
+	ld a, [wMenuWatchedKeys]
+	push af
+	ld a, [wLastMenuItem]
+	push af
+	hlcoord 11, 2
+	ld b, 11
+	ld c, 7
+	call TextBoxBorder
+	hlcoord 13, 3
+	ld de, StatusKitMenuText
+	call PlaceString
+	ld a, 3
+	ld [wTopMenuItemY], a
+	ld a, 12
+	ld [wTopMenuItemX], a
+	xor a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
+; Entries 0-5: PAR, BRN, PSN, SLP, FRZ, CANCEL.
+	ld a, 5
+	ld [wMaxMenuItem], a
+	ld a, PAD_A | PAD_B
+	ld [wMenuWatchedKeys], a
+	call HandleMenuInput
+; B cancels regardless of cursor position.
+	bit B_PAD_B, a
+	jr nz, .cancel
+	ld a, [wCurrentMenuItem]
+	cp 5
+	jr z, .cancel
+	ld b, a
+	pop af
+	ld [wLastMenuItem], a
+	pop af
+	ld [wMenuWatchedKeys], a
+	pop af
+	ld [wMaxMenuItem], a
+	pop af
+	ld [wCurrentMenuItem], a
+	pop af
+	ld [wTopMenuItemX], a
+	pop af
+	ld [wTopMenuItemY], a
+; Return the selected status value in a.
+	ld a, b
 	and a
 	jr z, .paralyze
-
-	ld hl, StatusKitBurnPromptText
-	call PrintText
-	call YesNoChoice
-	ld a, [wCurrentMenuItem]
-	and a
+	cp 1
 	jr z, .burn
-
-	ld hl, StatusKitPoisonPromptText
-	call PrintText
-	call YesNoChoice
-	ld a, [wCurrentMenuItem]
-	and a
+	cp 2
 	jr z, .poison
-
+	cp 3
+	jr z, .sleep
+	jr .freeze
+.cancel
+	call LoadScreenTilesFromBuffer1
+	pop af
+	ld [wLastMenuItem], a
+	pop af
+	ld [wMenuWatchedKeys], a
+	pop af
+	ld [wMaxMenuItem], a
+	pop af
+	ld [wCurrentMenuItem], a
+	pop af
+	ld [wTopMenuItemX], a
+	pop af
+	ld [wTopMenuItemY], a
 	scf
 	ret
 
@@ -277,17 +401,25 @@ StatusKitChooseStatus:
 	and a
 	ret
 
-StatusKitParalyzePromptText:
-	text_far _StatusKitParalyzePromptText
-	text_end
+.sleep
+	; Gen 1 sleep uses bits 0-2 as a sleep counter.
+	ld a, 3
+	and a
+	ret
 
-StatusKitBurnPromptText:
-	text_far _StatusKitBurnPromptText
-	text_end
+.freeze
+	ld a, 1 << FRZ
+	and a
+	ret
 
-StatusKitPoisonPromptText:
-	text_far _StatusKitPoisonPromptText
-	text_end
+StatusKitMenuText:
+	db "PAR"
+	next "BRN"
+	next "PSN"
+	next "SLP"
+	next "FRZ"
+	next "CANCEL@"
+
 
 StatusKitWasAffectedText:
 	text_ram wNameBuffer
@@ -300,21 +432,6 @@ AlreadyStatusText:
 	text " already"
 	line "has a status!"
 	prompt
-
-_StatusKitParalyzePromptText::
-	text "PARALYZE a"
-	line "#MON?"
-	done
-
-_StatusKitBurnPromptText::
-	text "BURN a"
-	line "#MON?"
-	done
-
-_StatusKitPoisonPromptText::
-	text "POISON a"
-	line "#MON?"
-	done
 
 ItemUseBall:
 
@@ -1662,6 +1779,12 @@ ItemUseMedicine:
 	cp CANDY_BAG
 	ret z
 	jp RemoveUsedItem
+
+TrainingKitWorkedText:
+	text "EXP set to one"
+	line "point before the"
+	cont "next level!"
+	prompt
 
 VitaminStatRoseText:
 	text_far _VitaminStatRoseText
