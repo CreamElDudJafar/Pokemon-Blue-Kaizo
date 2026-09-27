@@ -1244,6 +1244,7 @@ MimicEffect:
 	ld a, [wEnemyBattleStatus1]
 	bit INVULNERABLE, a
 	jr nz, .mimicMissed
+	call SaveScreenTilesToBuffer1
 	ld a, [wCurrentMenuItem]
 	push af
 	ld a, $1
