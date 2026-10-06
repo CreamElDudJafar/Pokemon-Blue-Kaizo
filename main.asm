@@ -62,7 +62,7 @@ INCLUDE "engine/overworld/push_boulder.asm"
 INCLUDE "engine/pokemon/add_mon.asm"
 INCLUDE "engine/flag_action.asm"
 INCLUDE "engine/events/heal_party.asm"
-INCLUDE "engine/math/bcd.asm"
+;INCLUDE "engine/math/bcd.asm" ; moved for space
 INCLUDE "engine/movie/oak_speech/init_player_data.asm"
 INCLUDE "engine/items/get_bag_item_quantity.asm"
 INCLUDE "engine/overworld/pathfinding.asm"
@@ -370,6 +370,7 @@ INCLUDE "engine/gfx/set_attack_animation_palette.asm"
 INCLUDE "engine/menus/item_display_count.asm"
 INCLUDE "engine/menus/text_multi_button_prompt.asm"
 INCLUDE "engine/menus/map_wild_data.asm"
+INCLUDE "engine/math/bcd.asm"
 
 
 SECTION "CGB Mode Code", ROMX
