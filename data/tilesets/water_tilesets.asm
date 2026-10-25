@@ -9,4 +9,5 @@ WaterTilesets:
 	db CAVERN
 	db FACILITY
 	db PLATEAU
+	db SAFARI
 	db -1 ; end

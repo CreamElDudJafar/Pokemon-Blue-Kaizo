@@ -12,6 +12,7 @@ DoorTileIDPointers:
 	dbw LAB,         .LabDoorTileIDs
 	dbw FACILITY,    .FacilityDoorTileIDs
 	dbw PLATEAU,     .PlateauDoorTileIDs
+	dbw SAFARI,      .ForestDoorTileIDs
 	db -1 ; end
 
 MACRO door_tiles
