@@ -827,7 +827,7 @@ LavenderMart_Blocks:
 CeruleanMart_Blocks:
 VermilionMart_Blocks: INCBIN "maps/VermilionMart.blk"
 
-CopycatsHouse2F_Blocks:
+CopycatsHouse2F_Blocks: INCBIN "maps/CopycatsHouse2F.blk"
 RedsHouse2F_Blocks: INCBIN "maps/RedsHouse2F.blk"
 
 Museum1F_Blocks: INCBIN "maps/Museum1F.blk"
