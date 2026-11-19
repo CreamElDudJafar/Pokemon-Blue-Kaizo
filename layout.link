@@ -222,6 +222,8 @@ ROMX $39
 	org $4000
 	"Party Mon Sprites Gfx 2"
 	"Party Mon Sprites Routines"
+ROMX $3A
+	"Reds House Tileset"
 WRAM0
 	"Audio RAM"
 	org $c100
